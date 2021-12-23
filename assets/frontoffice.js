@@ -1,0 +1,1 @@
+import ('./styles/frontoffice/styles.css');
