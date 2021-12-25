@@ -53,19 +53,19 @@ class Trick
     private $group;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="trick", orphanRemoval=true)
-     */
-    private $message;
-
-    /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="trick", orphanRemoval=true)
      */
     private $media;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="trick", orphanRemoval=true)
+     */
+    private $messages;
+
     public function __construct()
     {
-        $this->message = new ArrayCollection();
         $this->media = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,36 +146,6 @@ class Trick
     }
 
     /**
-     * @return Collection|Message[]
-     */
-    public function getMessage(): Collection
-    {
-        return $this->message;
-    }
-
-    public function addMessage(Message $message): self
-    {
-        if (!$this->message->contains($message)) {
-            $this->message[] = $message;
-            $message->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): self
-    {
-        if ($this->message->removeElement($message)) {
-            // set the owning side to null (unless already changed)
-            if ($message->getTrick() === $this) {
-                $message->setTrick(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Media[]
      */
     public function getMedia(): Collection
@@ -199,6 +169,36 @@ class Trick
             // set the owning side to null (unless already changed)
             if ($medium->getTrick() === $this) {
                 $medium->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getTrick() === $this) {
+                $message->setTrick(null);
             }
         }
 

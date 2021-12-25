@@ -35,7 +35,7 @@ class Message
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="message")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
@@ -94,3 +94,4 @@ class Message
     }
 
 }
+
