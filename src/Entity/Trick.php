@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TrickRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,17 +32,17 @@ class Trick
     private $description;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Group::class)
+     * @ORM\ManyToOne(targetEntity=Group::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $group;
@@ -52,7 +53,7 @@ class Trick
     private $messages;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -66,6 +67,8 @@ class Trick
     {
         $this->messages = new ArrayCollection();
         $this->medias = new ArrayCollection();
+        $this->createdAt = new \ Datetime();
+        $this->updatedAt = new \ Datetime();
     }
 
     public function getId(): ?int
@@ -97,28 +100,14 @@ class Trick
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     public function getGroup(): ?Group
