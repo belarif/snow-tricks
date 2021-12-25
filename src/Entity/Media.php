@@ -29,7 +29,7 @@ class Media
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="media")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="medias")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
@@ -76,3 +76,4 @@ class Media
     }
 
 }
+
