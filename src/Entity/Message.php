@@ -29,16 +29,16 @@ class Message
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -69,18 +69,6 @@ class Message
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getTrick(): ?Trick
     {
         return $this->trick;
@@ -89,6 +77,18 @@ class Message
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
