@@ -56,12 +56,7 @@ class User
     private $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Role::class)
-     */
-    private $roles;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user")
      */
     private $tricks;
 
@@ -70,11 +65,16 @@ class User
      */
     private $messages;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Role::class)
+     */
+    private $roles;
+
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
         $this->tricks = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,30 +167,6 @@ class User
     }
 
     /**
-     * @return Collection|Role[]
-     */
-    public function getRoles(): Collection
-    {
-        return $this->roles;
-    }
-
-    public function addRole(Role $role): self
-    {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-        }
-
-        return $this;
-    }
-
-    public function removeRole(Role $role): self
-    {
-        $this->roles->removeElement($role);
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Trick[]
      */
     public function getTricks(): Collection
@@ -246,6 +222,30 @@ class User
                 $message->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getRoles(): Collection
+    {
+        return $this->roles;
+    }
+
+    public function addRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): self
+    {
+        $this->roles->removeElement($role);
 
         return $this;
     }
