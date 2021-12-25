@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=MediaRepository::class)
+ * @ORM\Table(name="st_media")
  */
 class Media
 {
