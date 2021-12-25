@@ -68,8 +68,10 @@ class User
 
     /**
      * @ORM\ManyToMany(targetEntity=Role::class)
-     * @JoinTable(name="st_user_role", joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")})
+     * @JoinTable(name="st_user_role",
+     *     joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")}
+     *     )
      */
     private $roles;
 
