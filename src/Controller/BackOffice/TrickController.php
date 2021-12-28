@@ -2,6 +2,7 @@
 
 namespace App\Controller\BackOffice;
 
+use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -11,6 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("tricks_list", name="tricks_list")
+     * @Route("/tricks_list", name="tricks_list")
      */
+    public function tricksList(TrickRepository $trickRepository)
+    {
+        $tricks = $trickRepository->getTricks();
+
+        return $this->render('/backoffice/tricksList.html.twig', array('tricks' => $tricks));
+    }
 }
