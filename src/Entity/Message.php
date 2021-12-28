@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
+use Datetime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Message
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -20,12 +23,16 @@ class Message
     protected $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="text")
      */
     private $content;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @var Datetime
+     *
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
@@ -43,7 +50,7 @@ class Message
 
     public function __construct()
     {
-        $this->createdAt = new \ Datetime();
+        $this->createdAt = new Datetime();
     }
 
     public function getId(): ?int
@@ -91,7 +98,7 @@ class Message
 
         return $this;
     }
-
 }
+
 
 
