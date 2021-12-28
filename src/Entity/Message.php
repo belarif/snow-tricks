@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\MessageRepository;
 use Datetime;
-use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,7 +69,7 @@ class Message
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
