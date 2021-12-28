@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Group;
+use App\Entity\Role;
 use App\Entity\Trick;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -16,6 +17,38 @@ class AppFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
+        /*** Creation of role ***/
+        $role = new Role();
+        $role->setRole('administrateur');
+        $manager->persist($role);
+        $manager->flush();
+        /*** End creation of role ***/
+
+        /*** Creation of user ***/
+        $role_id = 1;
+        $roleRepository = $manager->getRepository(Role::class);
+        $role = $roleRepository->find($role_id);
+        if ($role) {
+            $user = new User();
+            $user->setUsername('ocine');
+            $user->setLastName('BELARIF');
+            $user->setFirstName('Hocine');
+            $user->setEmail('b.ocine@live.fr');
+            $user->setPassword('admin1');
+            $user->addRole($role);
+
+            $manager->persist($user);
+            $manager->flush();
+        }
+        /*** End creation of user ***/
+
+        /*** Creation of group ***/
+        $group = new Group();
+        $group->setName('Les flips');
+        $manager->persist($group);
+        $manager->flush();
+        /*** End creation of group ***/
+
         /** Creation of tricks **/
         $user_id = 1;
         $userRepository = $manager->getRepository(User::class);
