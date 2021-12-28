@@ -19,7 +19,11 @@ class TrickRepository extends ServiceEntityRepository
         parent::__construct($registry, Trick::class);
     }
 
-    public function getTricks()
+
+    /**
+     * @return Trick[]
+     */
+    public function getTricks(): array
     {
         return $this->createQueryBuilder('t')
             ->addOrderBy('t.updatedAt', 'desc')
