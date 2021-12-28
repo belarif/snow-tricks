@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use DateTimeInterface;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,6 +16,8 @@ use Doctrine\ORM\Mapping\JoinTable;
 class User
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -23,36 +25,48 @@ class User
     protected $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=80)
      */
     private $username;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=80, nullable=true)
      */
     private $lastName;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=80, nullable=true)
      */
     private $firstName;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=150)
      */
     private $email;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $password;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $photo;
 
     /**
+     * @var DateTime
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -78,7 +92,7 @@ class User
         $this->tricks = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->roles = new ArrayCollection();
-        $this->createdAt = new \ Datetime();
+        $this->createdAt = new Datetime();
     }
 
     public function getId(): ?int
@@ -158,7 +172,10 @@ class User
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTimeInterface
+    /**
+     * @return DateTime|null
+     */
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
@@ -171,6 +188,10 @@ class User
         return $this->tricks;
     }
 
+    /**
+     * @param Trick $trick
+     * @return $this
+     */
     public function addTrick(Trick $trick): self
     {
         if (!$this->tricks->contains($trick)) {
@@ -181,6 +202,10 @@ class User
         return $this;
     }
 
+    /**
+     * @param Trick $trick
+     * @return $this
+     */
     public function removeTrick(Trick $trick): self
     {
         if ($this->tricks->removeElement($trick)) {
@@ -211,6 +236,10 @@ class User
         return $this;
     }
 
+    /**
+     * @param Message $message
+     * @return $this
+     */
     public function removeMessage(Message $message): self
     {
         if ($this->messages->removeElement($message)) {
@@ -231,6 +260,10 @@ class User
         return $this->roles;
     }
 
+    /**
+     * @param Role $role
+     * @return $this
+     */
     public function addRole(Role $role): self
     {
         if (!$this->roles->contains($role)) {
@@ -246,6 +279,6 @@ class User
 
         return $this;
     }
-
 }
+
 
