@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Role
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -19,6 +21,8 @@ class Role
     protected $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=80)
      */
     private $role;
