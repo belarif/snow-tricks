@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +41,11 @@ class Message
      */
     private $user;
 
+    public function __construct()
+    {
+        $this->createdAt = new \ Datetime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -57,16 +63,9 @@ class Message
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     public function getTrick(): ?Trick
