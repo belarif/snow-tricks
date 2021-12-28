@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TrickRepository;
-use DateTimeInterface;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Trick
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -22,21 +24,29 @@ class Trick
     protected $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=150)
      */
     private $name;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="text")
      */
     private $description;
 
     /**
+     * @var DateTime
+     *
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
 
     /**
+     * @var DateTime
+     *
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -67,8 +77,8 @@ class Trick
     {
         $this->messages = new ArrayCollection();
         $this->medias = new ArrayCollection();
-        $this->createdAt = new \ Datetime();
-        $this->updatedAt = new \ Datetime();
+        $this->createdAt = new Datetime();
+        $this->updatedAt = new Datetime();
     }
 
     public function getId(): ?int
@@ -100,12 +110,12 @@ class Trick
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function getUpdatedAt(): ?DateTime
     {
         return $this->updatedAt;
     }
 
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
