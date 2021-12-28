@@ -1,0 +1,14 @@
+{% extends 'frontoffice/template.html.twig' %}
+
+{% block stylesheet %}
+
+{% endblock stylesheet %}
+
+{% block content %}
+
+    {% for trick in listTricks %}
+        <p>
+            {{ trick.name }}
+        </p>
+    {% endfor %}
+{% endblock content %}
