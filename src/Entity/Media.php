@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Media
 {
     /**
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -19,11 +21,15 @@ class Media
     protected $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $src;
 
     /**
+     * @var int
+     *
      * @ORM\Column(type="integer")
      */
     private $type;
@@ -34,6 +40,9 @@ class Media
      */
     private $trick;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
