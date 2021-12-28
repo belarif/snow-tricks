@@ -6,11 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/snow-tricks" name="admin_")
+ * @Route("/dashboard", name="admin_")
  */
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("/dashboard", name="dashboard", methods={"GET"})
+     * @Route("/", name="dashboard", methods={"GET"})
      */
+    public function index()
+    {
+        return $this->render('backoffice/dashboard.html.twig');
+    }
 }
