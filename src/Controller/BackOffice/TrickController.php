@@ -4,6 +4,7 @@ namespace App\Controller\BackOffice;
 
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -14,7 +15,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/list", name="tricks_list")
      */
-    public function tricksList(TrickRepository $trickRepository)
+    public function tricksList(TrickRepository $trickRepository): Response
     {
         $tricks = $trickRepository->getTricks();
 
