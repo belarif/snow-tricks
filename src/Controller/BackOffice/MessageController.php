@@ -10,5 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MessageController extends AbstractController
 {
-
+    /**
+     * @Route("/list", name="messages" method={"GET"})
+     */
 }
