@@ -28,17 +28,16 @@ class Media
     private $src;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(type="integer")
-     */
-    private $type;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="medias")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Type::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
 
     /**
      * @return int|null
@@ -60,18 +59,6 @@ class Media
         return $this;
     }
 
-    public function getType(): ?int
-    {
-        return $this->type;
-    }
-
-    public function setType(int $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function getTrick(): ?Trick
     {
         return $this->trick;
@@ -80,6 +67,18 @@ class Media
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
