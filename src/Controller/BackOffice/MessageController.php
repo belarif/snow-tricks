@@ -2,6 +2,7 @@
 
 namespace App\Controller\BackOffice;
 
+use App\Repository\MessageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -11,6 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class MessageController extends AbstractController
 {
     /**
-     * @Route("/list", name="messages" method={"GET"})
+     * @Route("/list", name="messages_list")
      */
+    public function messagesList(MessageRepository $messageRepository)
+    {
+        $messages = $messageRepository->getMessages();
+        return $this->render('backoffice/messagesList.html.twig', array('messages' => $messages));
+    }
 }
