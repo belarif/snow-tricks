@@ -18,7 +18,6 @@ class TrickController extends AbstractController
     public function tricksList(TrickRepository $trickRepository): Response
     {
         $tricks = $trickRepository->getTricks();
-
         return $this->render('/backoffice/tricksList.html.twig', array('tricks' => $tricks));
     }
 }
