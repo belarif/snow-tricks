@@ -4,6 +4,7 @@ namespace App\Controller\BackOffice;
 
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,12 +24,13 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/details", name="trick_details")
+     * @Route("/details/{id}", name="trick_details")
      */
-    public function show(TrickRepository $trickRepository): Response
+    public function show(TrickRepository $trickRepository, Request $request): Response
     {
-        $trick = $trickRepository->findAll();
-        return $this->render('/backoffice/trickDetails.html.twig', array('trick' => $trick));
+        $trick_id = $request->get('id');
+        $trickDetails = $trickRepository->getTrick($trick_id);
+        return $this->render('/backoffice/trickDetails.html.twig', array('trickDetails' => $trickDetails));
     }
 }
 
