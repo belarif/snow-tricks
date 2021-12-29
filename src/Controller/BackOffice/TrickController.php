@@ -21,4 +21,9 @@ class TrickController extends AbstractController
 
         return $this->render('/backoffice/tricksList.html.twig', array('tricks' => $tricks));
     }
+
+    /**
+     * @Route("/details", name="trick_details")
+     */
+
 }
