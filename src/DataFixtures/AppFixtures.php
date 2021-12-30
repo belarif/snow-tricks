@@ -31,13 +31,13 @@ class AppFixtures extends Fixture
         $trickRepository = $manager->getRepository(Trick::class);
         $trick = $trickRepository->find($trick_id);
 
-        $type_id = 2;
+        $type_id = 1;
         $typeRepository = $manager->getRepository(Type::class);
         $type = $typeRepository->find($type_id);
 
         if ($trick) {
             $media = new Media();
-            $media->setSrc('https://www.youtube.com/embed/hih9jIzOoRg');
+            $media->setSrc('mute-grab-3.jpg');
             $media->setTrick($trick);
             $media->setType($type);
             $manager->persist($media);
