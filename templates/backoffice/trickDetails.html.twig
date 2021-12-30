@@ -27,78 +27,69 @@
                     <p><b>Description</b> : {{ trick.description }}</p>
                     <p><b>Date de création</b> : {{ trick.createdAt | date("d/m/Y \\à h:m:s") }}</p>
                     <p><b>Dernière modification</b> : {{ trick.updatedAt | date("d/m/Y \\à h:m:s") }}</p>
+
                     <p><b>Photos : </b></p>
-                    <p><b>Vidéos : </b></p>
+                    <!-- images carousel -->
+                    <div class="w-100 text-center">
+                        <div id="carouselImages" class="carousel carousel-dark slide"
+                             data-bs-touch="false" data-bs-interval="false">
+                            <div class="carousel-inner">
+                                {% for media in trick.medias %}
+                                    {% if media.type.id == 1 %}
 
+                                        <div class="carousel-item {% if loop.first %} active {% endif %}">
+                                            <img src="{{ asset('/build/images/'~media.src) }}" alt="" width="300"
+                                                 height="200">
+                                        </div>
 
-                    <div class="row">
-                        <div class="images w-100 text-center">
-                            <div id="carouselExampleControlsNoTouching" class="carousel carousel-dark slide"
-                                 data-bs-touch="false" data-bs-interval="false">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <iframe width="300" height="200" src="https://www.youtube.com/embed/V9xuy-rVj9w"
-                                                title="YouTube video player"
-                                                frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen></iframe>
-                                        <iframe width="300" height="200" src="https://www.youtube.com/embed/qsd8uaex-Is"
-                                                title="YouTube video player"
-                                                frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen>
-                                        </iframe>
-                                        <iframe width="300" height="200" src="https://www.youtube.com/embed/My007vQdlto"
-                                                title="YouTube video player"
-                                                frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen>
-                                        </iframe>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <iframe width="300" height="200" src="https://www.youtube.com/embed/V9xuy-rVj9w"
-                                                title="YouTube video player"
-                                                frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen>
-                                        </iframe>
-                                        <iframe width="300" height="200" src="https://www.youtube.com/embed/V9xuy-rVj9w"
-                                                title="YouTube video player"
-                                                frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen>
-                                        </iframe>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <iframe width="300" height="200" src="https://www.youtube.com/embed/V9xuy-rVj9w"
-                                                title="YouTube video player"
-                                                frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen>
-                                        </iframe>
-                                        <iframe width="300" height="200" src="https://www.youtube.com/embed/V9xuy-rVj9w"
-                                                title="YouTube video player"
-                                                frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen>
-                                        </iframe>
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
+                                    {% endif %}
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages"
+                                            data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselImages" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
+                    <!-- End images carousel -->
 
-
+                    <p><b>Vidéos : </b></p>
+                    <!-- videos carousel -->
+                    <div class="w-100 text-center">
+                        <div id="carouselVideos" class="carousel carousel-dark slide"
+                             data-bs-touch="false" data-bs-interval="false">
+                            <div class="carousel-inner">
+                                {% for media in trick.medias %}
+                                    {% if media.type.id == 2 %}
+                                        <div class="carousel-item {% if loop.first %} active {% endif %}">
+                                            <iframe width="300" height="200" src="{{ media.src }}"
+                                                    title="YouTube video player"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowfullscreen>
+                                            </iframe>
+                                        </div>
+                                    {% endif %}
+                                    <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselVideos" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselVideos" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End videos carousel -->
 
                     <div class="d-flex justify-content-end">
                         <div class="justify-content-between">
@@ -106,7 +97,6 @@
                                 liste</a>
                         </div>
                     </div>
-
                 {% endfor %}
             </div>
         </div>
