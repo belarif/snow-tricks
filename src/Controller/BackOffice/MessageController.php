@@ -19,4 +19,9 @@ class MessageController extends AbstractController
         $messages = $messageRepository->getMessages();
         return $this->render('backoffice/messagesList.html.twig', array('messages' => $messages));
     }
+
+    /**
+     * @Route("/details/{id}", name="message_details")
+     */
+
 }
