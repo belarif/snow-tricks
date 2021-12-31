@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'backoffice/layout.html.twig' %}
 
 {% block title %} Détails du message {% endblock title %}
 
@@ -16,10 +16,13 @@
                     Détails du message
                 </div>
                 <div class="card-body">
-                    <p><b>Message</b> : {{ message.content }}</p>
-                    <p><b>Auteur</b> : {{ message.user.lastName | upper }} {{ message.user.firstName | capitalize }}</p>
-                    <p><b>Date du message</b> {{ message.createdAt | date("d/m/Y \\à h:m:s") }}</p>
-                    <p><b>Trick</b> : {{ message.trick.name }}</p>
+                    {% for message in messageDetails %}
+                        <p><b>Message</b> : {{ message.content }}</p>
+                        <p><b>Auteur</b> : {{ message.user.lastName | upper }} {{ message.user.firstName | capitalize }}
+                        </p>
+                        <p><b>Date du message</b> : {{ message.createdAt | date("d/m/Y \\à h:m:s") }}</p>
+                        <p><b>Trick</b> : {{ message.trick.name }}</p>
+                    {% endfor %}
                     <div class="d-flex justify-content-end">
                         <div class="justify-content-between">
                             <a href="{{ path('admin_messages_list') }}">
