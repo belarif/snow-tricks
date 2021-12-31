@@ -32,5 +32,9 @@ class TrickController extends AbstractController
         $trickDetails = $trickRepository->getTrick($slug);
         return $this->render('/backoffice/trickDetails.html.twig', array('trickDetails' => $trickDetails));
     }
+
+    /**
+     * @Route("/delecte/{id}", name="trick_delete")
+     */
 }
 
