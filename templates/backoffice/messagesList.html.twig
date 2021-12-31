@@ -19,7 +19,7 @@
                     <thead>
                     <tr>
                         <th>Message</th>
-                        <th>Nom de la figure</th>
+                        <th>Figure</th>
                         <th>Auteur</th>
                         <th>Date</th>
                         <th>Action</th>
@@ -30,10 +30,10 @@
                         <tr>
                             <td>{{ message.content }}</td>
                             <td>{{ message.trick.name }}</td>
-                            <td>{{ message.user.lastName | upper }} {{ message.user.firtName | capitalize }}</td>
+                            <td>{{ message.user.lastName | upper }} {{ message.user.firstName | capitalize }}</td>
                             <td>{{ message.createdAt | date("d/m/Y \\à h:m:s") }}</td>
                             <td>
-                                <a href="#">Afficher</a>
+                                <a href="{{ path('admin_details_message') }}">Afficher</a>
                                 <a href="#">supprimer</a>
                             </td>
                         </tr>
