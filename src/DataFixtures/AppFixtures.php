@@ -61,15 +61,14 @@ class AppFixtures extends Fixture
                 $trick = new Trick();
                 $trick->setName('Back flips');
                 $trick->setUser($user);
-                $trick->setDescription('Les back flips, rotations en arrière. Il est possible de faire plusieurs flips à la suite, et d\'ajouter un grab à la rotation.');
+                $trick->setDescription('Les back flips, rotations en arrière.
+                Il est possible de faire plusieurs flips à la suite, et d\'ajouter un grab à la rotation.');
                 $trick->setGroup($group);
-                $slugName = preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower('Back flips')));
-                $trick->setSlug($slugName);
                 $manager->persist($trick);
                 $manager->flush();
             }
         }
-        /** End creation of tricks **/
+        /** Creation of tricks **/
     }
 }
 
