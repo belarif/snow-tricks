@@ -3,7 +3,7 @@
 {% block title %} Liste des messages  {% endblock title %}
 
 {% block javascript %}
-{{ encore_entry_script_tags('backoffice') }}
+    {{ encore_entry_script_tags('backoffice') }}
 {% endblock javascript %}
 
 {% block content %}
@@ -38,7 +38,7 @@
                             <td>{{ message.createdAt | date("d/m/Y \\à h:m:s") }}</td>
                             <td>
                                 <a href="{{ path('admin_message_details', {'id' : message.id}) }}">Afficher</a>
-                                <a href="#">supprimer</a>
+                                <a href="javascript:void(0)" onclick="deleteMessage({{ message.id }})">supprimer</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -48,3 +48,4 @@
         </div>
     </div>
 {% endblock content %}
+
