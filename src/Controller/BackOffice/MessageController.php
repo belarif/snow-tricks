@@ -31,5 +31,10 @@ class MessageController extends AbstractController
         $messageDetails = $messageRepository->getMessage($message_id);
         return $this->render('/backoffice/messageDetails.html.twig', array('messageDetails' => $messageDetails));
     }
+
+    /**
+     * @Route("/delete/{id}", name="message_delete")
+     */
+
 }
 
