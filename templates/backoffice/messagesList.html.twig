@@ -2,6 +2,10 @@
 
 {% block title %} Liste des messages  {% endblock title %}
 
+{% block javascript %}
+{{ encore_entry_script_tags('backoffice') }}
+{% endblock javascript %}
+
 {% block content %}
     <div class="container-fluid px-4">
         <h4 class="mt-4">Gestion des messages</h4>
