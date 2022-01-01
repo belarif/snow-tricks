@@ -2,6 +2,10 @@
 
 {% block title %} Liste des figures {% endblock title %}
 
+{% block javascript %}
+{{ encore_entry_script_tags('backoffice') }}
+{% endblock javascript %}
+
 {% block content %}
     <div class="container-fluid px-4">
         <h4 class="mt-4">Gestion des figures </h4>
@@ -33,8 +37,8 @@
                             <td>{{ trick.user.lastName | upper }} {{ trick.user.firstName }}</td>
                             <td>{{ trick.updatedAt | date("d/m/Y \\à h:m:s") }}</td>
                             <td>
-                                <a href="#"> Afficher</a>
-                                <a href="#"> supprimer</a>
+                                <a href="{{ path('admin_trick_details', { 'id' : trick.id }) }}"> Afficher</a>
+                                <a href="javascript:void(0)" onclick="deleteTrick({{ trick.id }})"> supprimer</a>
                             </td>
                         </tr>
                     {% endfor %}
