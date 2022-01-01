@@ -43,17 +43,7 @@ class TrickRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-    /**
-     * @return int|mixed|string
-     */
-    public function getNameTrick()
-    {
-        return $this->createQueryBuilder('t')
-            ->addSelect('t.name')
-            ->getQuery()
-            ->getResult();
-    }
 }
+
 
 
