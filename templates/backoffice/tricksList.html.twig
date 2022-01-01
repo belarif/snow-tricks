@@ -33,7 +33,7 @@
                             <td>{{ trick.user.lastName | upper }} {{ trick.user.firstName }}</td>
                             <td>{{ trick.updatedAt | date("d/m/Y \\à h:m:s") }}</td>
                             <td>
-                                <a href="#"> Afficher</a>
+                                <a href="{{ path('admin_trick_details', { 'id' : trick.id }) }}"> Afficher</a>
                                 <a href="#"> supprimer</a>
                             </td>
                         </tr>
