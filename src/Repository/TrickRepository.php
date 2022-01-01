@@ -35,11 +35,11 @@ class TrickRepository extends ServiceEntityRepository
      * @param $trick_id
      * @return int|mixed|string
      */
-    public function getTrick($trick_id)
+    public function getTrick($slug)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.id = :trick_id')
-            ->setParameter('trick_id', $trick_id)
+            ->andWhere('t.slug = :slug')
+            ->setParameter('slug', $slug)
             ->getQuery()
             ->getResult();
     }
