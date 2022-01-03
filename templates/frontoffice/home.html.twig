@@ -31,7 +31,12 @@
                     <div class="col mb-4">
                         <div class="card">
                             {% for media in trick.medias %}
-                                <img src="{{ asset('build/images/'~media.src) }}" class="card-img-top" alt="">
+                                {% if media.type.id == 1 %}
+                                    {% if loop.last %}
+                                        <img src="{{ asset('build/images/'~media.src) }}" class="card-img-top" alt=""
+                                             width="50" height="100">
+                                    {% endif %}
+                                {% endif %}
                             {% endfor %}
                             <div class="card-body">
                                 <a class="text-decoration-none" href="{{ path('home_page') }}"
