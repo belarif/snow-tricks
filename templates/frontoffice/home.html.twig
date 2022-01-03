@@ -30,7 +30,9 @@
                 {% for trick in listTricks %}
                     <div class="col mb-4">
                         <div class="card">
-                            <img src="" class="card-img-top" alt="...">
+                            {% for media in trick.medias %}
+                                <img src="{{ asset('build/images/'~media.src) }}" class="card-img-top" alt="">
+                            {% endfor %}
                             <div class="card-body">
                                 <a class="text-decoration-none" href="{{ path('home_page') }}"
                                    class="card-title">{{ trick.name }}</a>
