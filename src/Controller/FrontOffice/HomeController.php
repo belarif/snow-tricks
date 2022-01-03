@@ -2,14 +2,14 @@
 
 namespace App\Controller\FrontOffice;
 
+use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\TrickRepository;
 
-class TrickController extends AbstractController
+class HomeController extends AbstractController
 {
     /**
-     * @Route("/snow-tricks/accueil", name="homepage", methods={"GET"})
+     * @Route("/accueil", name="home_page")
      */
     public function index(TrickRepository $trickRepository)
     {
