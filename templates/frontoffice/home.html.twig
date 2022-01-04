@@ -35,10 +35,16 @@
                                 {% endif %}
                             {% endfor %}
                             <div class="card-body">
-                                <a class="text-decoration-none" href="{{ path('home_page') }}"
-                                   class="card-title">{{ trick.name }}</a>
-                                <a href="#"><i class="bi bi-pencil-fill"></i></a>
-                                <a href="#"><i class="bi bi-trash-fill"></i></a>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <a class="text-decoration-none" href="{{ path('home_page') }}"
+                                           class="card-title">{{ trick.name }}</a>
+                                    </div>
+                                    <div>
+                                        <a href="#"><i class="bi bi-pencil-fill"></i></a>
+                                        <a href="#"><i class="bi bi-trash-fill"></i></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
