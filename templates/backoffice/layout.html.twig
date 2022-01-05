@@ -15,24 +15,24 @@
             {{ encore_entry_link_tags('backoffice') }}
         {% endblock stylesheet %}
         {% block javascript %}
-            {{ encore_entry_script_tags('backoffice') }}
-        {% endblock javascript %}
+        {{ encore_entry_script_tags('backoffice') }}
+    {% endblock javascript %}
     </head>
 
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="#" target="_blank">Aller vers le site</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-                        class="fas fa-bars"></i></button>
-            <div class="">
-                <a href="#" class="btn btn-dark btn-lg" tabindex="-1" role="button" aria-disabled="true">
-                    Déconnexion
-                </a>
-            </div>
-            <!-- Navbar-->
-        </nav>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="{{ path('home_page') }}" target="_blank">Aller vers le site</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                    class="fas fa-bars"></i></button>
+        <div class="">
+            <a href="#" class="btn btn-dark btn-lg" tabindex="-1" role="button" aria-disabled="true">
+                Déconnexion
+            </a>
+        </div>
+        <!-- Navbar-->
+    </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
