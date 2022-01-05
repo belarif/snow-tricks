@@ -7,6 +7,7 @@ use App\Entity\Media;
 use App\Entity\Trick;
 use App\Entity\Type;
 use App\Entity\User;
+use App\Entity\Message;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -51,7 +52,22 @@ class AppFixtures extends Fixture
         $user_id = 1;
         $userRepository = $manager->getRepository(User::class);
         $user = $userRepository->find($user_id);
+        /*** create message ***/
+        $user_id = 2;
+        $userRepository = $manager->getRepository(User::class);
+        $user = $userRepository->find($user_id);
 
+        $trick_id = 1;
+        $trickRepository = $manager->getRepository(Trick::class);
+        $trick = $trickRepository->find($trick_id);
+
+        $message = new Message();
+        $message->setTrick($trick);
+        $message->setUser($user);
+        $message->setContent('Ceci est le message test laisser par alex pour le trick mute de groupe grab');
+        $manager->persist($message);
+        $manager->flush();
+        /*** End create message ***/
         $group_id = 4;
         $groupRepository = $manager->getRepository(Group::class);
         $group = $groupRepository->find($group_id);
@@ -72,6 +88,4 @@ class AppFixtures extends Fixture
         /** End creation of tricks **/
     }
 }
-
-
 

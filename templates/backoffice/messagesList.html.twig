@@ -1,0 +1,46 @@
+{% extends 'backoffice/layout.html.twig' %}
+
+{% block title %} Liste des messages  {% endblock title %}
+
+{% block content %}
+    <div class="container-fluid px-4">
+        <h4 class="mt-4">Gestion des messages</h4>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item active">liste des messages</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Liste des messages
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                    <tr>
+                        <th>Message</th>
+                        <th>Figure</th>
+                        <th>Auteur</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for message in messages %}
+                        <tr>
+                            <td>{{ message.content }}</td>
+                            <td>{{ message.trick.name }}</td>
+                            <td>{{ message.user.lastName | upper }} {{ message.user.firstName | capitalize }}</td>
+                            <td>{{ message.createdAt | date("d/m/Y \\à h:m:s") }}</td>
+                            <td>
+                                <a href="{{ path('admin_message_details') }}">Afficher</a>
+                                <a href="#">supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
