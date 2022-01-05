@@ -5,3 +5,16 @@ html {
 .scrollDown {
     padding-top: 12%;
 }
+
+.load-more {
+    background-color: #2575C2;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+}
+
+.fa {
+    margin-left: -12px;
+    margin-right: 8px;
+}
