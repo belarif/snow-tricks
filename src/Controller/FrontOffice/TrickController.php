@@ -2,7 +2,10 @@
 
 namespace App\Controller\FrontOffice;
 
+use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -13,9 +16,10 @@ class TrickController extends AbstractController
     /**
      * @Route("/details/{slug}", name="details")
      */
-    public function show()
+    public function show(TrickRepository $trickRepository, Request $request): Response
     {
-
-        return $this->render('/frontoffice/trick_details.html.twig');
+        $slug = $request->get('slug');
+        $trickDetails = $trickRepository->getTrick($slug);
+        return $this->render('/frontoffice/trick_details.html.twig', array('trickDetails' => $trickDetails));
     }
 }
