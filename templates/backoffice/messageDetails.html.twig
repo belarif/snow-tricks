@@ -1,0 +1,37 @@
+{% extends 'backoffice/layout.html.twig' %}
+
+{% block title %} Détails du message {% endblock title %}
+
+{% block content %}
+    <main>
+        <div class="container-fluid px-4">
+            <h4 class="mt-4"> Gestion des messages </h4>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+                <li class="breadcrumb-item active"> détails du message</li>
+            </ol>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="me-1"></i>
+                    Détails du message
+                </div>
+                <div class="card-body">
+                    {% for message in messageDetails %}
+                        <p><b>Message</b> : {{ message.content }}</p>
+                        <p><b>Auteur</b> : {{ message.user.lastName | upper }} {{ message.user.firstName | capitalize }}
+                        </p>
+                        <p><b>Trick</b> : {{ message.trick.name }}</p>
+                        <p><b>Date du message</b> : {{ message.createdAt | date("d/m/Y \\à h:m:s") }}</p>
+                    {% endfor %}
+                    <div class="d-flex justify-content-end">
+                        <div class="justify-content-between">
+                            <a href="{{ path('admin_messages_list') }}">
+                                <button class="btn btn-primary">Retour liste</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
