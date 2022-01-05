@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
  * @ORM\Table(name="st_trick")
@@ -72,6 +73,11 @@ class Trick
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="trick", orphanRemoval=true)
      */
     private $medias;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -200,6 +206,19 @@ class Trick
                 $media->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $name): self
+    {
+
+        $this->slug = $name;
 
         return $this;
     }
