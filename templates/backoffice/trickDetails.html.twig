@@ -1,0 +1,104 @@
+{% extends 'backoffice/layout.html.twig' %}
+
+{% block title %} Détails {% for trick in trickDetails %} {{ trick.name }} {% endfor %} {% endblock title %}
+
+{% block stylesheet %}
+    {{ parent() }}
+{% endblock stylesheet %}
+
+{% block content %}
+    <div class="container-fluid px-4">
+        <h4 class="mt-4"> Gestion des figures </h4>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item active">
+                détails {% for trick in trickDetails %} {{ trick.name }} {% endfor %}</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="me-1"></i>
+                Détails {% for trick in trickDetails %} {{ trick.name }} {% endfor %}
+            </div>
+            <div class="card-body">
+                {% for trick in trickDetails %}
+                    <p><b>Nom</b> : {{ trick.name }}</p>
+                    <p><b>Auteur</b> : {{ trick.user.lastName }} {{ trick.user.firstName }}</p>
+                    <p><b>Groupe</b> : {{ trick.group.name }}</p>
+                    <p><b>Description</b> : {{ trick.description }}</p>
+                    <p><b>Date de création</b> : {{ trick.createdAt | date("d/m/Y \\à h:m:s") }}</p>
+                    <p><b>Dernière modification</b> : {{ trick.updatedAt | date("d/m/Y \\à h:m:s") }}</p>
+
+                    <p><b>Photos : </b></p>
+                    <!-- images carousel -->
+                    <div class="w-100 text-center">
+                        <div id="carouselImages" class="carousel carousel-dark slide"
+                             data-bs-touch="false" data-bs-interval="false">
+                            <div class="carousel-inner">
+                                {% for media in trick.medias %}
+                                    {% if media.type.id == 1 %}
+
+                                        <div class="carousel-item {% if loop.first %} active {% endif %}">
+                                            <img src="{{ asset('/build/images/'~media.src) }}" alt="" width="300"
+                                                 height="200">
+                                        </div>
+
+                                    {% endif %}
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages"
+                                            data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselImages" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End images carousel -->
+
+                    <p><b>Vidéos : </b></p>
+                    <!-- videos carousel -->
+                    <div class="w-100 text-center">
+                        <div id="carouselVideos" class="carousel carousel-dark slide"
+                             data-bs-touch="false" data-bs-interval="false">
+                            <div class="carousel-inner">
+                                {% for media in trick.medias %}
+                                    {% if media.type.id == 2 %}
+                                        <div class="carousel-item {% if loop.first %} active {% endif %}">
+                                            <iframe width="300" height="200" src="{{ media.src }}"
+                                                    title="YouTube video player"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowfullscreen>
+                                            </iframe>
+                                        </div>
+                                    {% endif %}
+                                    <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselVideos" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselVideos" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End videos carousel -->
+
+                    <div class="d-flex justify-content-end">
+                        <div class="justify-content-between">
+                            <a class="btn btn-primary" href="{{ path('admin_tricks_list') }}" role="button">Retour
+                                liste</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
