@@ -7,5 +7,16 @@
 {% endblock stylesheet %}
 
 {% block content %}
-
+    <section class="min-vw-100 min-vh-100">
+        {% for trick in trickDetails %}
+            {% for media in trick.medias %}
+                {% if media.type.id == 1 %}
+                    {% if loop.first %}
+                        <img src="{{ asset('build/images/'~media.src) }}" class="min-vw-100 min-vh-100 img-fluid"
+                             alt="">
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </section>
 {% endblock content %}
