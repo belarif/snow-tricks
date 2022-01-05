@@ -29,6 +29,15 @@ class MessageRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getMessage($message_id)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.id = :message_id')
+            ->setParameter('message_id', $message_id)
+            ->getQuery()
+            ->getResult();
+    }
 }
 
 
