@@ -1,0 +1,46 @@
+{% extends 'backoffice/layout.html.twig' %}
+
+{% block title %} Liste des figures {% endblock title %}
+
+{% block content %}
+    <div class="container-fluid px-4">
+        <h4 class="mt-4">Gestion des figures </h4>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item active">liste des figures</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Liste des figures
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Groupe</th>
+                        <th>Auteur</th>
+                        <th>Date de modification</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for trick in tricks %}
+                        <tr>
+                            <td>{{ trick.name }}</td>
+                            <td>{{ trick.group.name }}</td>
+                            <td>{{ trick.user.lastName | upper }} {{ trick.user.firstName }}</td>
+                            <td>{{ trick.updatedAt | date("d/m/Y \\à h:m:s") }}</td>
+                            <td>
+                                <a href="#"> Afficher</a>
+                                <a href="#"> supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
