@@ -25,11 +25,20 @@ class TrickRepository extends ServiceEntityRepository
     public function getTricks()
     {
         return $this->createQueryBuilder('t')
-            ->orderBy('t.createdAt','DESC')
+            ->orderBy('t.createdAt', 'DESC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
+    }
+
+    /**
+     * @return int|mixed|string
+     */
+    public function getTrick($slug)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getResult();
     }
 }
-
-
