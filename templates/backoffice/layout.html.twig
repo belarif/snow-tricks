@@ -59,10 +59,11 @@
                             <div class="collapse" id="collapseMessages" aria-labelledby="headingTwo"
                                  data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Liste des messages</a>
+                                    <a class="nav-link" href="{{ path('admin_messages_list') }}">Liste des messages</a>
                                 </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers"
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                               data-bs-target="#collapseUsers"
                                aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Gestion des utilisateurs
