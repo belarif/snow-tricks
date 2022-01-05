@@ -1,0 +1,70 @@
+{% extends 'frontoffice/template.html.twig' %}
+
+{% block stylesheet %}
+    {{ encore_entry_link_tags('frontoffice') }}
+{% endblock stylesheet %}
+
+{% block content %}
+    <section class="masthead bg-primary text-white min-vw-100 min-vh-100" id="header">
+        <div class="container d-flex align-items-center flex-column">
+            <h1 class="masthead-subheading font-weight-light mt-5">Bienvenue dans votre plateforme SNOW TRICKS</h1>
+        </div>
+        <div class="scrollDown d-flex justify-content-end mx-4">
+            <a class="btn" href="#tricks">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                     class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1
+                0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <section class="page-section" id="tricks">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-5">
+                {% for trick in listTricks %}
+                    <div class="col mb-4">
+                        <div class="card">
+                            {% for media in trick.medias %}
+                                {% if media.type.id == 1 %}
+                                    {% if loop.last %}
+                                        <img src="{{ asset('build/images/'~media.src) }}" class="card-img-top" alt=""
+                                             width="50" height="140">
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <a class="text-decoration-none" href="{{ path('home_page') }}"
+                                           class="card-title">{{ trick.name }}</a>
+                                    </div>
+                                    <div>
+                                        <a href="#"><i class="bi bi-pencil-fill"></i></a>
+                                        <a href="#"><i class="bi bi-trash-fill"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+            <button class="load-more">
+                <i class="fa fa-spinner fa-spin"></i>Charger plus
+            </button>
+        </div>
+        <div class="d-flex justify-content-end mx-4">
+            <a class="btn" href="#tricks">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                     class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16
+                        0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708
+                        0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+{% endblock content %}
