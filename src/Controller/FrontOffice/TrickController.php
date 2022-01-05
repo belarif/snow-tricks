@@ -10,5 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TrickController extends AbstractController
 {
-
+    /**
+     * @Route("/details/{slug}", name="details")
+     */
 }
