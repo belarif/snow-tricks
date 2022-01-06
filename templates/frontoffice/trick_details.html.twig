@@ -38,9 +38,21 @@
                                         {% for media in trick.medias %}
                                             {% if media.type.id == 1 %}
                                                 {% if loop.last %}
-                                                    <img src="{{ asset('build/images/'~media.src) }}"
-                                                         class="w-100 img-fluid" height="550"
-                                                         alt="">
+                                                    <div class="img-wrapper">
+                                                        <img src="{{ asset('build/images/'~media.src) }}"
+                                                             class="w-100 img-fluid img-responsive" height="550" alt="">
+                                                        <div class="img-overlay">
+                                                            <div class="btn-group m-3 me-3" role="group"
+                                                                 aria-label="Basic outlined example">
+                                                                <button type="button" class="btn btn-light"><a href="#"><i
+                                                                                class="bi bi-pencil-fill"></i></a>
+                                                                </button>
+                                                                <button type="button" class="btn btn-light"><a href="#"><i
+                                                                                class="bi bi-trash-fill"></i></a>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 {% endif %}
                                             {% endif %}
                                         {% endfor %}
@@ -53,7 +65,6 @@
                                                 <div id="carouselExampleControls" class="carousel"
                                                      data-bs-ride="carousel">
                                                     <div class="carousel-inner">
-
                                                         {% for media in trick.medias %}
                                                             <div class="{% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
                                                                 <div class="card">
@@ -72,7 +83,6 @@
                                                                 </div>
                                                             </div>
                                                         {% endfor %}
-
                                                     </div>
                                                     <button class="carousel-control-prev" type="button"
                                                             data-bs-target="#carouselExampleControls"
@@ -89,7 +99,6 @@
                                                         <span class="visually-hidden">Next</span>
                                                     </button>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -155,7 +164,6 @@
                                             </button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
