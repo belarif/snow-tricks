@@ -1,63 +1,107 @@
 {% extends 'frontoffice/template.html.twig' %}
 
-{% block title %} Détails d'un trick {% endblock title %}
+{% block title %} Détails d'un trick {% for trick in trickDetails %} {{ trick.name }} {% endfor %} {% endblock title %}
 
 {% block stylesheet %}
     {{ encore_entry_link_tags('frontoffice') }}
 {% endblock stylesheet %}
+{% block javascript %}
+{{ encore_entry_script_tags('frontoffice') }}
+{% endblock javascript %}
 
 {% block content %}
     <section class="min-vw-100 min-vh-100">
         {% for trick in trickDetails %}
             {% for media in trick.medias %}
                 {% if media.type.id == 1 %}
-                    {% if loop.first %}
+                    {% if loop.last %}
                         <img src="{{ asset('build/images/'~media.src) }}" class="min-vw-100 min-vh-100 img-fluid"
                              alt="">
                     {% endif %}
                 {% endif %}
             {% endfor %}
-        {% endfor %}
-    </section>
-    <section class="m-5 text-center">
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="load-more text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Détails
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-4">.col-md-4</div>
-                                <div class="col-md-4 ms-auto">.col-md-4 .ms-auto</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3 ms-auto">.col-md-3 .ms-auto</div>
-                                <div class="col-md-2 ms-auto">.col-md-2 .ms-auto</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 ms-auto">.col-md-6 .ms-auto</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-9">
-                                    Level 1: .col-sm-9
-                                    <div class="row">
-                                        <div class="col-8 col-sm-6">
-                                            Level 2: .col-8 .col-sm-6
-                                        </div>
-                                        <div class="col-4 col-sm-6">
-                                            Level 2: .col-4 .col-sm-6
+            </section>
+            <section class="m-5 text-center">
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="load-more text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Détails
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {% for media in trick.medias %}
+                                            {% if media.type.id == 1 %}
+                                                {% if loop.last %}
+                                                    <img src="{{ asset('build/images/'~media.src) }}"
+                                                         class="w-100 img-fluid" height="550"
+                                                         alt="">
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="pt-5 pb-5">
+                                            <div class="container">
+                                                <div id="carouselExampleControls" class="carousel"
+                                                     data-bs-ride="carousel">
+                                                    <div class="carousel-inner">
+
+                                                        {% for media in trick.medias %}
+                                                            <div class="{% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
+                                                                <div class="card">
+                                                                    <div class="img-wrapper">
+                                                                        {% if media.type.id == 1 %}
+                                                                            <img src="{{ asset('build/images/'~media.src) }}"
+                                                                                 alt="">
+                                                                        {% else %}
+                                                                            <iframe src="{{ media.src }}"
+                                                                                    title="YouTube video player" allow="accelerometer;
+                                                                        autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                                    allowfullscreen>
+                                                                            </iframe>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+
+                                                    </div>
+                                                    <button class="carousel-control-prev" type="button"
+                                                            data-bs-target="#carouselExampleControls"
+                                                            data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Previous</span>
+                                                    </button>
+                                                    <button class="carousel-control-next" type="button"
+                                                            data-bs-target="#carouselExampleControls"
+                                                            data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Next</span>
+                                                    </button>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-3 col-6 offset-3">.col-3</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
     </section>
 {% endblock content %}
