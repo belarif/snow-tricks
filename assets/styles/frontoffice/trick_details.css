@@ -47,3 +47,10 @@
         height: 17em;
     }
 }
+
+.message {
+    border: 0.125rem solid;
+    border-color: #F8F9FA;
+    border-radius: 0.25rem;
+    background-color: #F8F9FA;
+}
