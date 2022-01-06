@@ -100,9 +100,11 @@
                                     </div>
                                     <div class="col-12">
                                         <p><b>Groupe : </b>{{ trick.group.name }}.
-                                            <b>Date de cr&eacute;ation : </b>{{ trick.createdAt | date("m/d/Y") }}.
+                                            <b class="ms-2">Date de cr&eacute;ation
+                                                : </b>{{ trick.createdAt | date("m/d/Y h:m:s") }}.
                                             {% if trick.createdAt != trick.updatedAt %}
-                                            <b>Date de modification : </b>{{ trick.updatedAt | date("m/d/Y") }}.</p>
+                                            <b class="ms-2">Date de modification
+                                                : </b>{{ trick.updatedAt | date("m/d/Y h:m:s") }}.</p>
                                         {% endif %}
                                     </div>
                                     <div class="col-12">
