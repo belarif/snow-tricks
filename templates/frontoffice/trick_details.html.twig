@@ -1,6 +1,6 @@
 {% extends 'frontoffice/template.html.twig' %}
 
-{% block title %} Détails d'un trick {% for trick in trickDetails %} {{ trick.name }} {% endfor %} {% endblock title %}
+{% block title %} Détails {% for trick in trickDetails %} {{ trick.name }} {% endfor %} {% endblock title %}
 
 {% block stylesheet %}
     {{ encore_entry_link_tags('frontoffice') }}
@@ -22,7 +22,7 @@
                             <!-- Trigger the modal with a button -->
                             <button type="button" class="custom-btn text-white" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
-                                Détails
+                                Détails {{ trick.name }}
                             </button>
                         </div>
                     </div>
