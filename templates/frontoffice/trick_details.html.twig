@@ -15,17 +15,22 @@
             {% for media in trick.medias %}
                 {% if media.type.id == 1 %}
                     {% if loop.last %}
-                        <img src="{{ asset('build/images/'~media.src) }}" class="min-vw-100 min-vh-100 img-fluid"
-                             alt="">
+                        <div class="btn-trick-details">
+                            <img src="{{ asset('build/images/'~media.src) }}" class="min-vw-100 min-vh-100 img-fluid"
+                                 alt="">
+                            <div class="btn-overlay">
+                                <!-- Trigger the modal with a button -->
+                                <button type="button" class="custom-btn text-white" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
+                                    Détails
+                                </button>
+                            </div>
+                        </div>
                     {% endif %}
                 {% endif %}
             {% endfor %}
             </section>
-            <section class="m-5 text-center">
-            <!-- Trigger the modal with a button -->
-            <button type="button" class="custom-btn text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Détails
-            </button>
+            <section class="text-center">
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
