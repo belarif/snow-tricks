@@ -22,4 +22,8 @@ class TrickController extends AbstractController
         $trickDetails = $trickRepository->getTrick($slug);
         return $this->render('/frontoffice/trick_details.html.twig', array('trickDetails' => $trickDetails));
     }
+
+    /**
+     * @Route("/edit/{slug}", name="edit")
+     */
 }
