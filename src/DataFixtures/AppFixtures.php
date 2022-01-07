@@ -27,7 +27,7 @@ class AppFixtures extends Fixture
         /*** End creation of types ***/
 
         /** Creation of media **/
-        $trick_id = '6';
+        $trick_id = '1';
         $trickRepository = $manager->getRepository(Trick::class);
         $trick = $trickRepository->find($trick_id);
 
@@ -37,7 +37,7 @@ class AppFixtures extends Fixture
 
         if ($trick) {
             $media = new Media();
-            $media->setSrc('nose-slide.jpg');
+            $media->setSrc('mute-grab-4.jpg');
             $media->setTrick($trick);
             $media->setType($type);
             $manager->persist($media);
