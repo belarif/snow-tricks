@@ -25,9 +25,15 @@ class TrickType extends AbstractType
                 }, 'choice_value' => function ($Group) {
                     return $Group ? $Group->getId() : '';
                 }])
-            ->add('medias', FileType::class, [
+            ->add('images', FileType::class, [
                 'data_class' => null,
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
+            ])
+            ->add('videos', FileType::class, [
+                'data_class' => null,
+                'multiple' => true,
+                'required' => false
             ]);
     }
 
