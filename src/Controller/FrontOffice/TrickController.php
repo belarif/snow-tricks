@@ -18,6 +18,13 @@ class TrickController extends AbstractController
     /**
      * @Route("/add", name="add")
      */
+    public function add(): Response
+    {
+        $trick = new Trick();
+        $form = $this->createForm(TrickType::class, $trick);
+
+        return $this->renderForm('/frontoffice/add_trick.html.twig', array('form' => $form, 'trick' => $trick));
+    }
 
     /**
      * @Route("/details/{slug}", name="details")
