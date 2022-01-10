@@ -16,7 +16,14 @@ class TrickType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('group', EntityType::class, ['class' => Group::class, 'choice_label' => 'name']);
+            ->add('group', EntityType::class, [
+                'class' => Group::class,
+                'placeholder' => 'choisir un groupe',
+                'choice_label' => function (Group $Group) {
+                    return $Group->getName();
+                }, 'choice_value' => function ($Group) {
+                    return $Group ? $Group->getId() : '';
+                }]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
