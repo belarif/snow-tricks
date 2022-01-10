@@ -16,6 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
+     * @Route("/add", name="add")
+     */
+
+    /**
      * @Route("/details/{slug}", name="details")
      */
     public function show(TrickRepository $trickRepository, Request $request): Response
