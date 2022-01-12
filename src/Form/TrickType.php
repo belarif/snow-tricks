@@ -26,13 +26,8 @@ class TrickType extends AbstractType
                     return $Group ? $Group->getId() : '';
                 }])
             ->add('images', FileType::class, [
-                'data_class' => null,
                 'multiple' => true,
-                'required' => false
-            ])
-            ->add('videos', FileType::class, [
-                'data_class' => null,
-                'multiple' => true,
+                'mapped' => false,
                 'required' => false
             ]);
     }
