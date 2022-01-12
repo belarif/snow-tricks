@@ -28,18 +28,18 @@
         <section class="text-center">
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        {{ form_start(form) }}
             <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="container-fluid">
-                            {{ form_start(form) }}
                             <div class="row">
                                 <div class="col-12">
                                     {% for image in trick.images %}
                                         {% if loop.last %}
                                             <div class="img-wrapper">
                                                 <img src="{{ asset('build/images/'~image.src) }}"
-                                                     class="w-100 img-fluid img-responsive" height="550" alt="">
+                                                     class="w-100 img-fluid" alt="">
                                                 <div class="img-overlay">
                                                     <div class="btn-group m-3 me-3" role="group"
                                                          aria-label="Basic outlined example">
@@ -85,7 +85,6 @@
                                                                                     class="bi bi-trash-fill"></i></a>
                                                                     </button>
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                     {% endfor %}
@@ -192,11 +191,11 @@
                                     </div>
                                 </div>
                             </div>
-                            {{ form_end(form) }}
                         </div>
                     </div>
                 </div>
             </div>
+        {{ form_end(form) }}
     </div>
     {% endfor %}
     </section>
