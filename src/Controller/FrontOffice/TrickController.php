@@ -18,7 +18,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/add", name="add")
      */
-    public function add(): Response
+    public function new(): Response
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
