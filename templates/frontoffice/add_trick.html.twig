@@ -5,9 +5,6 @@
 {% block stylesheet %}
     {{ encore_entry_link_tags('frontoffice') }}
 {% endblock stylesheet %}
-{% block javascript %}
-{{ encore_entry_script_tags('frontoffice') }}
-{% endblock javascript %}
 
 {% block content %}
     <div class="container">
@@ -22,12 +19,8 @@
                 {{ form_widget(form.group) }}
                 {{ form_label(form.description, 'Description :') }}
                 {{ form_widget(form.description) }}
-
                 {{ form_label(form.images, 'Image(s) :') }}
                 {{ form_widget(form.images) }}
-
-                {{ form_label(form.videos, 'Video(s) :') }}
-                {{ form_widget(form.videos) }}
 
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-primary mt-3" type="submit">Envoyer</button>
@@ -37,3 +30,7 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block javascript %}
+{{ encore_entry_script_tags('frontoffice') }}
+{% endblock javascript %}

@@ -5,9 +5,6 @@
 {% block stylesheet %}
     {{ encore_entry_link_tags('frontoffice') }}
 {% endblock stylesheet %}
-{% block javascript %}
-{{ encore_entry_script_tags('frontoffice') }}
-{% endblock javascript %}
 
 {% block content %}
     <section class="min-vw-100 min-vh-100">
@@ -207,3 +204,6 @@
     </section>
 {% endblock content %}
 
+{% block javascript %}
+{{ encore_entry_script_tags('frontoffice') }}
+{% endblock javascript %}
