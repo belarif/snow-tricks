@@ -64,12 +64,6 @@ class Trick
     private $messages;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="trick", orphanRemoval=true)
      */
     private $medias;
@@ -78,6 +72,12 @@ class Trick
      * @ORM\Column(type="string", length=150)
      */
     private $slug;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
@@ -168,18 +168,6 @@ class Trick
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Media[]
      */
@@ -219,6 +207,18 @@ class Trick
     {
 
         $this->slug = $name;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
