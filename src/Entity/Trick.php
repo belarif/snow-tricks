@@ -64,11 +64,6 @@ class Trick
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="trick", orphanRemoval=true)
-     */
-    private $medias;
-
-    /**
      * @ORM\Column(type="string", length=150)
      */
     private $slug;
@@ -82,7 +77,6 @@ class Trick
     public function __construct()
     {
         $this->messages = new ArrayCollection();
-        $this->medias = new ArrayCollection();
         $this->createdAt = new Datetime();
         $this->updatedAt = new Datetime();
     }
@@ -162,36 +156,6 @@ class Trick
             // set the owning side to null (unless already changed)
             if ($message->getTrick() === $this) {
                 $message->setTrick(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Media[]
-     */
-    public function getMedias(): Collection
-    {
-        return $this->medias;
-    }
-
-    public function addMedia(Media $media): self
-    {
-        if (!$this->medias->contains($media)) {
-            $this->medias[] = $media;
-            $media->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMedia(Media $media): self
-    {
-        if ($this->medias->removeElement($media)) {
-            // set the owning side to null (unless already changed)
-            if ($media->getTrick() === $this) {
-                $media->setTrick(null);
             }
         }
 
