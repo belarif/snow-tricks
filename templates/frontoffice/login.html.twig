@@ -14,6 +14,9 @@
                         {% endif %}
                         <form method="post" action="{{ path('user_login') }}">
                             <div class="form-floating mb-3">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            </div>
+                            <div class="form-floating mb-3">
                                 <input class="form-control" id="username" type="text" name="_username"
                                        value="{{ last_username }}" placeholder="Utilisateur"/>
                                 <label for="username">Nom d'utilisateur</label>
