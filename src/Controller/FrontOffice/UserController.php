@@ -5,6 +5,7 @@ namespace App\Controller\FrontOffice;
 use App\Entity\User;
 use App\Form\RegisterFormType;
 use App\Repository\RoleRepository;
+use App\Repository\UserRepository;
 use App\Service\Mailer;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,14 +31,14 @@ class UserController extends AbstractController
             $user->setPassword($passwordHasher->hashPassword($user, $password));
             $role = $roleRepository->find('1');
             $user->addRole($role);
-
+            $user->setToken($tokenGenerator->generateToken());
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
 
             $email = $user->getEmail();
-            $token = $user->setToken($tokenGenerator->generateToken());
             $username = $user->getUserIdentifier();
+            $token = $user->getToken();
             $mailer->sendEmail($email, $username, $token);
 
             $this->addFlash(
@@ -48,5 +49,25 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_registration');
         }
         return $this->renderForm('/frontoffice/registration.html.twig', array('form' => $form));
+    }
+
+    /**
+     * @Route("/confirm_account/{token}", name="user_account_confirmation")
+     */
+    public function confirmAccount($token, UserRepository $userRepository, ManagerRegistry $doctrine)
+    {
+        $user = $userRepository->findOneBy(['token' => $token]);
+        if ($user) {
+            $user->setToken(null);
+            $user->setEnabled(true);
+            $em = $doctrine->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('home_page');
+        } else {
+
+            return $this->redirectToRoute('home_page');
+        }
     }
 }
