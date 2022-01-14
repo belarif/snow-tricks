@@ -12,6 +12,6 @@ class SecurityController extends AbstractController
      */
     public function login()
     {
-        return $this->renderForm('/frontoffice/login.html.twig');
+        return $this->render('/frontoffice/login.html.twig');
     }
 }
