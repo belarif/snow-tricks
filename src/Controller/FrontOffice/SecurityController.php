@@ -19,7 +19,7 @@ class SecurityController extends AbstractController
 
         return $this->render('/frontoffice/login.html.twig', [
             'controller_name' => 'SecurityController',
-            'lastUsername' => $lastUsername,
+            'last_username' => $lastUsername,
             'error' => $error,
         ]);
     }
