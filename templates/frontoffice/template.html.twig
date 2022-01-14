@@ -37,12 +37,15 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                                          href="{{ path('home_page') }}">ACCUEIL</a></li>
                     {% if logged_user is defined and logged_user is not null %}
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">DECONNEXION</a>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                                             href="{{ path('user_logout') }}">DECONNEXION</a>
                         </li>
                     {% else %}
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">S'INSCRIRE</a>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                                             href="{{ path('user_registration') }}">S'INSCRIRE</a>
                         </li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">SE
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                                             href="{{ path('user_login') }}">SE
                                 CONNECTER</a></li>
                     {% endif %}
                 </ul>
