@@ -14,7 +14,7 @@ class Mailer
         $this->mailer = $mailer;
     }
 
-    public function sendEmail($email, $username)
+    public function sendEmail($email, $username, $token)
     {
         $email = (new TemplatedEmail())
             ->from('belarif.test@gmail.com')
@@ -24,6 +24,7 @@ class Mailer
             ->context([
                 'expiration_date' => new \DateTime('+48 hours'),
                 'username' => $username,
+                'token' => $token,
             ]);
         $this->mailer->send($email);
     }
