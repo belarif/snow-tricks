@@ -5,6 +5,7 @@ namespace App\Controller\FrontOffice;
 use App\Entity\User;
 use App\Form\RegisterFormType;
 use App\Repository\RoleRepository;
+use App\Service\Mailer;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ class UserController extends AbstractController
     /**
      * @Route("/registration", name="user_registration")
      */
-    public function register(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, RoleRepository $roleRepository): Response
+    public function register(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, RoleRepository $roleRepository, Mailer $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(RegisterFormType::class, $user);
@@ -32,6 +33,10 @@ class UserController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
+
+            $email = $user->getEmail();
+            $username = $user->getUserIdentifier();
+            $mailer->sendEmail($email, $username);
 
             $this->addFlash(
                 'success',
