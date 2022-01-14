@@ -24,9 +24,9 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $plainPassword = '';
-            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
-            $user->setPassword($hashedPassword);
+            $password = $form->get('password')->getData();
+            $email = $form->get('email')->getData();
+            $user->setPassword($passwordHasher->hashPassword($user, $password));
 
             $role = $roleRepository->find('1');
             $user->addRole($role);
@@ -35,6 +35,7 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash('success', 'Votre compte a été créé avec succès, un mail de validation vous a été envoyé à l\'adresse : ' . $email);
             return $this->redirectToRoute('user_registration');
         }
         return $this->renderForm('/frontoffice/registration.html.twig', array('form' => $form));
