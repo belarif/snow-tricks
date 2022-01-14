@@ -12,13 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class UserController extends AbstractController
 {
     /**
      * @Route("/registration", name="user_registration")
      */
-    public function register(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, RoleRepository $roleRepository, Mailer $mailer): Response
+    public function register(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, RoleRepository $roleRepository, Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
     {
         $user = new User();
         $form = $this->createForm(RegisterFormType::class, $user);
@@ -35,8 +36,9 @@ class UserController extends AbstractController
             $em->flush();
 
             $email = $user->getEmail();
+            $token = $user->setToken($tokenGenerator->generateToken());
             $username = $user->getUserIdentifier();
-            $mailer->sendEmail($email, $username);
+            $mailer->sendEmail($email, $username, $token);
 
             $this->addFlash(
                 'success',
