@@ -12,7 +12,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -20,11 +20,10 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            secured_area:
-                form_login:
-                    login_path: user_login
-                    check_path: user_login
-                    enable_csrf: true
+            form_login:
+                login_path: user_login
+                check_path: user_login
+                enable_csrf: true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
