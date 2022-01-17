@@ -1,0 +1,26 @@
+{% extends 'frontoffice/template.html.twig' %}
+
+{% block title %} Mon profil {% endblock title %}
+
+{% block stylesheet %}
+    {{ encore_entry_link_tags('frontoffice') }}
+{% endblock stylesheet %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h3>Mes coordonnées :</h3>
+                <p>Nom d'utilisateur :</p>
+                <p>E-mail :</p>
+            </div>
+            <div class="col-6">
+                {{ form_start(form) }}
+                {{ form_row(form.lastName, {'label': 'Nom :'}) }}
+                {{ form_row(form.firstName, {'label': 'Prénom :'}) }}
+                {{ form_row(form.photo, {'label': 'Avatar :'}) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
