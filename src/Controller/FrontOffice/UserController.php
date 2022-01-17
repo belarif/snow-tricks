@@ -31,7 +31,9 @@ class UserController extends AbstractController
             $user->setPassword($passwordHasher->hashPassword($user, $password));
             $role = $roleRepository->find('1');
             $user->addRole($role);
+            $user->setRoles((array)$role->getRoleName());
             $user->setToken($tokenGenerator->generateToken());
+
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
