@@ -20,7 +20,8 @@ class ProfileFormType extends AbstractType
             ->add('firstName', TextType::class, [
                 'attr' => ['class' => 'form-control'],
             ])
-            ->add('photo', FileType::class, [
+            ->add('avatar', FileType::class, [
+                'data_class' => null,
                 'attr' => ['class' => 'form-control'],
             ]);
     }
