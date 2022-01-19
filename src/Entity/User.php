@@ -48,7 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $photo;
+    private $avatar;
 
     /**
      * @ORM\Column(type="json")
@@ -241,14 +241,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getAvatar(): ?string
     {
-        return $this->photo;
+        return $this->avatar;
     }
 
-    public function setPhoto(?string $photo): self
+    public function setAvatar(?string $avatar): self
     {
-        $this->photo = $photo;
+        $this->avatar = $avatar;
 
         return $this;
     }
