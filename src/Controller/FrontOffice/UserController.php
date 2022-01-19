@@ -73,10 +73,10 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('home_page');
+            return $this->redirectToRoute('app_homepage');
         } else {
 
-            return $this->redirectToRoute('home_page');
+            return $this->redirectToRoute('app_homepage');
         }
     }
 }
