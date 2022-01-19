@@ -4,6 +4,6 @@
     lien ci-dessous
 </p>
 <p>
-    <a href="{{ url('user_account_confirmation', {'token' : token }) }}">Cliquer ici pour activer votre compte</a>
+    <a href="{{ url('app_account_confirmation', {'token' : token }) }}">Cliquer ici pour activer votre compte</a>
     (Ce lien est valable jusqu'au : {{ expiration_date|date("d M") }})
 </p>
