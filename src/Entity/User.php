@@ -91,6 +91,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $enabled;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $profileStatus;
+
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
@@ -345,6 +350,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getProfileStatus(): ?bool
+    {
+        return $this->profileStatus;
+    }
+
+    public function setProfileStatus(bool $profileStatus): self
+    {
+        $this->profileStatus = $profileStatus;
 
         return $this;
     }
