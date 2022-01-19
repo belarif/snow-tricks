@@ -12,7 +12,7 @@
                         {% if error %}
                             <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                         {% endif %}
-                        <form method="post" action="{{ path('user_login') }}">
+                        <form method="post" action="{{ path('app_login') }}">
                             <div class="form-floating mb-3">
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                             </div>

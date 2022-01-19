@@ -35,17 +35,17 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                                         href="{{ path('home_page') }}">ACCUEIL</a></li>
+                                                         href="{{ path('app_homepage') }}">ACCUEIL</a></li>
                     {% if logged_user is defined and logged_user is not null %}
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                                             href="{{ path('user_logout') }}">DECONNEXION</a>
+                                                             href="{{ path('app_logout') }}">DECONNEXION</a>
                         </li>
                     {% else %}
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                                             href="{{ path('user_registration') }}">S'INSCRIRE</a>
+                                                             href="{{ path('app_registration') }}">S'INSCRIRE</a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                                             href="{{ path('user_login') }}">SE
+                                                             href="{{ path('app_login') }}">SE
                                 CONNECTER</a></li>
                     {% endif %}
                 </ul>

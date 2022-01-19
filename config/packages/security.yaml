@@ -21,12 +21,13 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
-                login_path: user_login
-                check_path: user_login
+                login_path: app_login
+                check_path: app_login
                 enable_csrf: true
+
             logout:
-                path: user_logout
-                target: home_page
+                path: app_logout
+                target: app_homepage
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used

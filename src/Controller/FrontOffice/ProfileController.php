@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/profile", name="user_profile")
+     * @Route("/profile", name="app_profile")
      */
     public function profile(UserRepository $userRepository, Request $request, ManagerRegistry $doctrine): Response
     {
