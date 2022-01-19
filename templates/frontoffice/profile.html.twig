@@ -18,7 +18,12 @@
                 {{ form_start(form) }}
                 {{ form_row(form.lastName, {'label': 'Nom :'}) }}
                 {{ form_row(form.firstName, {'label': 'Prénom :'}) }}
-                {{ form_row(form.photo, {'label': 'Avatar :'}) }}
+                {{ form_row(form.avatar, {'label': 'Avatar :'}) }}
+                <div class="mt-4 mb-0">
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </div>
+                </div>
                 {{ form_end(form) }}
             </div>
         </div>
