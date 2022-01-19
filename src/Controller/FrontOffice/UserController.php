@@ -18,7 +18,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/registration", name="user_registration")
+     * @Route("/registration", name="app_registration")
      */
     public function register(
         Request                     $request,
@@ -61,7 +61,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/confirm_account/{token}", name="user_account_confirmation")
+     * @Route("/confirm_account/{token}", name="app_account_confirmation")
      */
     public function confirmAccount($token, UserRepository $userRepository, ManagerRegistry $doctrine)
     {
