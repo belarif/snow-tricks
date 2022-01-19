@@ -20,13 +20,20 @@ class UserController extends AbstractController
     /**
      * @Route("/registration", name="user_registration")
      */
-    public function register(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, RoleRepository $roleRepository, Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
+    public function register(
+        Request                     $request,
+        ManagerRegistry             $doctrine,
+        UserPasswordHasherInterface $passwordHasher,
+        RoleRepository              $roleRepository,
+        Mailer                      $mailer,
+        TokenGeneratorInterface     $tokenGenerator
+    ): Response
     {
         $user = new User();
         $form = $this->createForm(RegisterFormType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
             $password = $form->get('password')->getData();
             $user->setPassword($passwordHasher->hashPassword($user, $password));
             $role = $roleRepository->find('1');
