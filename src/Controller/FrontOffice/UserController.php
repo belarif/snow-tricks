@@ -103,4 +103,9 @@ class UserController extends AbstractController
 
         return $this->renderForm('frontoffice/forgotPassword.html.twig', ['form' => $form]);
     }
+
+    /**
+     * @Route("reset_password", name="app_reset_password")
+     */
+
 }
