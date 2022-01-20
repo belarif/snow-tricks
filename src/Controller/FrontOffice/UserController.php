@@ -40,6 +40,7 @@ class UserController extends AbstractController
             $user->addRole($role);
             $user->setRoles((array)$role->getRoleName());
             $user->setToken($tokenGenerator->generateToken());
+            $user->setProfileStatus(false);
 
             $em = $doctrine->getManager();
             $em->persist($user);
@@ -55,7 +56,7 @@ class UserController extends AbstractController
                 'Votre compte a été créé avec succès, un mail d\'activation vous a été envoyé à l\'adresse : ' . $email
             );
 
-            return $this->redirectToRoute('user_registration');
+            return $this->redirectToRoute('app_registration');
         }
         return $this->renderForm('/frontoffice/registration.html.twig', array('form' => $form));
     }
