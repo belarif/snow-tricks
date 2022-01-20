@@ -41,13 +41,14 @@ class UserController extends AbstractController
             $email = $user->getEmail();
             $username = $user->getUserIdentifier();
             $token = $user->getToken();
-            $mailer->sendEmail($email, $username, $token);
+            $subject = 'activer votre compte SnowTricks';
+            $htmlTemplate = '/emails/activation.html.twig';
+            $mailer->sendEmail($email, $username, $token, $subject, $htmlTemplate);
 
             $this->addFlash(
                 'success',
                 'Votre compte a été créé avec succès, un mail d\'activation vous a été envoyé à l\'adresse : ' . $email
             );
-
             return $this->redirectToRoute('user_registration');
         }
         return $this->renderForm('/frontoffice/registration.html.twig', array('form' => $form));
