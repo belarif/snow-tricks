@@ -76,5 +76,8 @@ class UserController extends AbstractController
     /**
      * @Route("/forgot_password", name="app_forgot_password")
      */
-
+    public function forgotPassword(): Response
+    {
+        return $this->render('frontoffice/forgotPassword.html.twig');
+    }
 }
