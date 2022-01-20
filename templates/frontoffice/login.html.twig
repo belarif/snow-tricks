@@ -17,12 +17,12 @@
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="username" type="text" name="_username"
+                                <input class="form-control" id="username" type="text" name="_username" required
                                        value="{{ last_username }}" placeholder="Utilisateur"/>
                                 <label for="username">Nom d'utilisateur</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="password" type="password" name="_password"
+                                <input class="form-control" id="password" type="password" name="_password" required
                                        placeholder="Password"/>
                                 <label for="password">Mot de passe</label>
                             </div>
