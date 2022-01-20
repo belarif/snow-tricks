@@ -5,7 +5,7 @@ namespace App\Controller\FrontOffice;
 use App\Entity\User;
 use App\Form\ForgotPasswordFormType;
 use App\Form\RegisterFormType;
-use App\Form\ResetPasswordFormTymeType;
+use App\Form\ResetPasswordFormType;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
@@ -111,7 +111,7 @@ class UserController extends AbstractController
     public function resetPassword(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher)
     {
         $user = new User();
-        $form = $this->createForm(ResetPasswordFormTymeType::class, $user);
+        $form = $this->createForm(ResetPasswordFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $username = $form->get('username')->getData();
