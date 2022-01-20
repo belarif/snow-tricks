@@ -3,6 +3,7 @@
 namespace App\Controller\FrontOffice;
 
 use App\Entity\User;
+use App\Form\ForgotPasswordFormType;
 use App\Form\RegisterFormType;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
@@ -77,17 +78,29 @@ class UserController extends AbstractController
     /**
      * @Route("/forgot_password", name="app_forgot_password")
      */
-    public function forgotPassword(UserRepository $userRepository, Mailer $mailer): Response
+    public function forgotPassword(Request $request, UserRepository $userRepository, Mailer $mailer): Response
     {
-        if (isset($_POST['username']) && !empty($_POST['username'])) {
-            if (isset($_POST['submit'])) {
-                $username = strip_tags($_POST['username']);
-                $user = $userRepository->findOneBy(array('username' => $username));
-                $email = $user->getEmail();
-                $token = $user->getToken();
-
+        $user = new User();
+        $form = $this->createForm(ForgotPasswordFormType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $username = $form->get('username')->getData();
+            $user = $userRepository->findOneBy(array('username' => $username));
+            if (!$user) {
+                $this->addFlash(
+                    'existingUser',
+                    'Aucun compte existant avec cette adresse email'
+                );
+                return $this->redirectToRoute('app_forgot_password');
             }
+
+            $email = $user->getEmail();
+            $token = $user->getToken();
+            $subject = 'Réinitialiser votre mot de passe';
+            $htmlTemplate = '/emails/forgotPassword.html.twig';
+            $mailer->sendEmail($email, $username, $token, $subject, $htmlTemplate);
         }
-        return $this->render('frontoffice/forgotPassword.html.twig');
+
+        return $this->renderForm('frontoffice/forgotPassword.html.twig', ['form' => $form]);
     }
 }
