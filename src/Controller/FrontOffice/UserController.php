@@ -76,8 +76,17 @@ class UserController extends AbstractController
     /**
      * @Route("/forgot_password", name="app_forgot_password")
      */
-    public function forgotPassword(): Response
+    public function forgotPassword(UserRepository $userRepository, Mailer $mailer): Response
     {
+        if (isset($_POST['username']) && !empty($_POST['username'])) {
+            if (isset($_POST['submit'])) {
+                $username = strip_tags($_POST['username']);
+                $user = $userRepository->findOneBy(array('username' => $username));
+                $email = $user->getEmail();
+                $token = $user->getToken();
+
+            }
+        }
         return $this->render('frontoffice/forgotPassword.html.twig');
     }
 }
