@@ -56,7 +56,7 @@ class UserController extends AbstractController
                 'Votre compte a été créé avec succès, un mail d\'activation vous a été envoyé à l\'adresse : ' . $email
             );
 
-            return $this->redirectToRoute('app_registration');
+            return $this->redirectToRoute('app_login');
         }
         return $this->renderForm('/frontoffice/registration.html.twig', array('form' => $form));
     }
