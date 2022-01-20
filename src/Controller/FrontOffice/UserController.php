@@ -5,6 +5,7 @@ namespace App\Controller\FrontOffice;
 use App\Entity\User;
 use App\Form\ForgotPasswordFormType;
 use App\Form\RegisterFormType;
+use App\Form\ResetPasswordFormTymeType;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
@@ -107,5 +108,23 @@ class UserController extends AbstractController
     /**
      * @Route("reset_password", name="app_reset_password")
      */
+    public function resetPassword(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher)
+    {
+        $user = new User();
+        $form = $this->createForm(ResetPasswordFormTymeType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $username = $form->get('username')->getData();
+            $password = $form->get('password')->getData();
+            $user->setUsername($username);
+            $user->setPassword($passwordHasher->hashPassword($user, $password));
 
+            $em = $doctrine->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('app_homepage');
+        }
+        return $this->renderForm('frontoffice/resetPassword.html.twig', ['form' => $form]);
+    }
 }
