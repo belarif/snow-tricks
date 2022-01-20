@@ -72,4 +72,9 @@ class UserController extends AbstractController
             return $this->redirectToRoute('home_page');
         }
     }
+
+    /**
+     * @Route("/forgot_password", name="app_forgot_password")
+     */
+
 }
