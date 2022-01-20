@@ -9,22 +9,32 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-6">
-                <h3>Mes coordonnées :</h3>
-                <p>Nom d'utilisateur :</p>
-                <p>E-mail :</p>
-            </div>
-            <div class="col-6">
-                {{ form_start(form) }}
-                {{ form_row(form.lastName, {'label': 'Nom :'}) }}
-                {{ form_row(form.firstName, {'label': 'Prénom :'}) }}
-                {{ form_row(form.avatar, {'label': 'Avatar :'}) }}
-                <div class="mt-4 mb-0">
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Envoyer</button>
+            <div class="d-flex flex-column flex-md-row justify-content-between">
+                <div class="text-center text-md-start">
+                    <h3>Mes coordonnées :</h3>
+                    <div class="mb-4 mt-2">
+                        <img src="{{ asset('build/images/avatars/'~app.user.avatar) }}" width="130" height="120" alt="">
                     </div>
+                    <p>Nom d'utilisateur : {{ app.user.userIdentifier }}</p>
+                    <p>E-mail : <b>{{ app.user.email }}</b></p>
+                    <p>Nom : {{ app.user.lastName | upper }}</p>
+                    <p>Prénom : {{ app.user.firstName | capitalize }}</p>
                 </div>
-                {{ form_end(form) }}
+                {% if app.user.profileStatus == false %}
+                    <div class="mt-sm-5">
+                        <h4>Veuillez finir votre inscription en complétant votre profil</h4>
+                        {{ form_start(form) }}
+                        {{ form_row(form.lastName, {'label': 'Nom :'}) }}
+                        {{ form_row(form.firstName, {'label': 'Prénom :'}) }}
+                        {{ form_row(form.avatar, {'label': 'Avatar :'}) }}
+                        <div class="mt-4 mb-0">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Envoyer</button>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
