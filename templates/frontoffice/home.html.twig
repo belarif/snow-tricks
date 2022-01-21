@@ -20,16 +20,23 @@
         </div>
     </section>
 
-    <section id="tricks">
+    <section class="page-section" id="tricks">
         <div class="container">
-            <div class="row row-cols-1 row-cols-sm-5 pt-3">
-                {% for message in app.flashes('successDeleteTrick') %}
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                    </div>
-                {% endfor %}
+            {% for message in app.flashes('successDeleteTrick') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('successCreateTrick') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            <div class="row row-cols-1 row-cols-sm-5">
                 {% for trick in listTricks %}
                     <div class="col mb-4">
                         <div class="card">
