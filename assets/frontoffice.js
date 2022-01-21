@@ -9,7 +9,7 @@ import('./styles/frontoffice/home.css');
 import('./styles/frontoffice/trick_details.css');
 import('./styles/frontoffice/edit_trick.css');
 import('./js/frontoffice/trick_details');
-import('./js/frontoffice/tricks');
+import('./js/frontoffice/delete_trick');
 import('./styles/frontoffice/register.css');
 import('./styles/frontoffice/register.css');
 
