@@ -70,6 +70,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/edit/{slug}", name="edit")
+     * @IsGranted("ROLE_VISITOR")
      */
     public function edit(Request $request, TrickRepository $trickRepository): Response
     {
@@ -83,6 +84,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="delete")
+     * @IsGranted("ROLE_VISITOR")
      */
     public function delete(TrickRepository $trickRepository, Request $request, ManagerRegistry $doctrine): Response
     {
