@@ -86,6 +86,7 @@ class TrickController extends AbstractController
         $em = $doctrine->getManager();
         $em->remove($trickDelete);
         $em->flush();
+        $this->addFlash('successDeleteTrick', 'Le trick a été supprimé avec succès');
         return $this->redirectToRoute('app_homepage');
     }
 }
