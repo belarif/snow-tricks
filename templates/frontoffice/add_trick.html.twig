@@ -1,0 +1,35 @@
+{% extends 'frontoffice/template.html.twig' %}
+
+{% block title %} Ajouter un trick{% endblock title %}
+
+{% block stylesheet %}
+    {{ encore_entry_link_tags('frontoffice') }}
+{% endblock stylesheet %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 addForm">
+                <h2 class="text-center">Créer un snow trick</h2>
+                <hr>
+                {{ form_start(form) }}
+                {{ form_label(form.name, 'Nom :') }}
+                {{ form_widget(form.name) }}
+                {{ form_label(form.group, 'Groupe :') }}
+                {{ form_widget(form.group) }}
+                {{ form_label(form.description, 'Description :') }}
+                {{ form_widget(form.description) }}
+                {{ form_label(form.images, 'Image(s) :') }}
+                {{ form_widget(form.images) }}
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary mt-3" type="submit">Envoyer</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+{{ encore_entry_script_tags('frontoffice') }}
+{% endblock javascript %}
