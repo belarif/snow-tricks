@@ -33,19 +33,22 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                                         href="{{ path('home_page') }}">accueil</a></li>
+                                                         href="{{ path('app_homepage') }}">accueil</a></li>
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                                          href="{{ path('trick_create') }}">créer un trick</a></li>
-                    {% if logged_user is defined and logged_user is not null %}
+                    {% if app.user is defined and app.user is not null %}
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                                             href="{{ path('user_logout') }}">déconnexion</a>
+                                                             href="{{ path('app_logout') }}">déconnexion</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                                             href="{{ path('app_profile') }}">mon compte</a>
                         </li>
                     {% else %}
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                                             href="{{ path('user_registration') }}">s'inscrire</a>
+                                                             href="{{ path('app_registration') }}">s'inscrire</a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                                             href="{{ path('user_login') }}">se
+                                                             href="{{ path('app_login') }}">se
                                 connecter</a></li>
                     {% endif %}
                 </ul>

@@ -18,43 +18,58 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/registration", name="user_registration")
+     * @Route("/registration", name="app_registration")
      */
-    public function register(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, RoleRepository $roleRepository, Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
+    public function register(
+        Request                     $request,
+        ManagerRegistry             $doctrine,
+        UserPasswordHasherInterface $passwordHasher,
+        RoleRepository              $roleRepository,
+        Mailer                      $mailer,
+        TokenGeneratorInterface     $tokenGenerator,
+        UserRepository              $userRepository
+    ): Response
     {
         $user = new User();
         $form = $this->createForm(RegisterFormType::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $email = $form->get('email')->getData();
+            $existing_user = $userRepository->findOneBy(array('email' => $email));
+            if (!$existing_user) {
+                $password = $form->get('password')->getData();
+                $user->setPassword($passwordHasher->hashPassword($user, $password));
+                $role = $roleRepository->find('1');
+                $user->addRole($role);
+                $user->setRoles((array)$role->getRoleName());
+                $user->setToken($tokenGenerator->generateToken());
+                $user->setProfileStatus(false);
 
-            $password = $form->get('password')->getData();
-            $user->setPassword($passwordHasher->hashPassword($user, $password));
-            $role = $roleRepository->find('1');
-            $user->addRole($role);
-            $user->setRoles((array)$role->getRoleName());
-            $user->setToken($tokenGenerator->generateToken());
+                $em = $doctrine->getManager();
+                $em->persist($user);
+                $em->flush();
 
-            $em = $doctrine->getManager();
-            $em->persist($user);
-            $em->flush();
+                $email = $user->getEmail();
+                $username = $user->getUserIdentifier();
+                $token = $user->getToken();
+                $mailer->sendEmail($email, $username, $token);
 
-            $email = $user->getEmail();
-            $username = $user->getUserIdentifier();
-            $token = $user->getToken();
-            $mailer->sendEmail($email, $username, $token);
-
-            $this->addFlash(
-                'success',
-                'Votre compte a été créé avec succès, un mail d\'activation vous a été envoyé à l\'adresse : ' . $email
-            );
-
-            return $this->redirectToRoute('user_registration');
+                $this->addFlash(
+                    'success',
+                    'Votre compte a été créé avec succès, un mail d\'activation vous a été envoyé à l\'adresse : ' . $email
+                );
+                return $this->redirectToRoute('app_login');
+            } else {
+                $this->addFlash('existingUser', 'Un compte existe déjà avec cette adresse email !!');
+                return $this->redirectToRoute('app_registration');
+            }
         }
         return $this->renderForm('/frontoffice/registration.html.twig', array('form' => $form));
     }
 
     /**
-     * @Route("/confirm_account/{token}", name="user_account_confirmation")
+     * @Route("/confirm_account/{token}", name="app_account_confirmation")
      */
     public function confirmAccount($token, UserRepository $userRepository, ManagerRegistry $doctrine)
     {
@@ -66,10 +81,10 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('home_page');
+            return $this->redirectToRoute('app_homepage');
         } else {
 
-            return $this->redirectToRoute('home_page');
+            return $this->redirectToRoute('app_homepage');
         }
     }
 }
