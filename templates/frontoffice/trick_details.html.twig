@@ -62,18 +62,14 @@
                                             <div id="carouselExampleControls" class="carousel"
                                                  data-bs-ride="carousel">
                                                 <div class="carousel-inner">
-                                                    {% for media in trick.medias %}
+                                                    {% for image in trick.images %}
                                                         <div class="{% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
                                                             <div class="card">
                                                                 <div class="img-wrapper">
-                                                                    {% if media.type.id == 1 %}
-                                                                        <img src="{{ asset('build/images/'~media.src) }}"
-                                                                             alt="">
-                                                                    {% else %}
-                                                                        <embed src="{{ media.src }}"
-                                                                               allowfullscreen="true" class="w-100"
-                                                                               height="h-100">
-                                                                    {% endif %}
+                                                                    <img src="{{ asset('build/images/'~image.src) }}"
+                                                                         alt="">
+                                                                    <embed src="" allowfullscreen="true" class="w-100"
+                                                                           height="h-100">
                                                                 </div>
                                                             </div>
                                                         </div>
