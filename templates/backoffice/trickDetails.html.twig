@@ -34,15 +34,11 @@
                         <div id="carouselImages" class="carousel carousel-dark slide"
                              data-bs-touch="false" data-bs-interval="false">
                             <div class="carousel-inner">
-                                {% for media in trick.medias %}
-                                    {% if media.type.id == 1 %}
-
-                                        <div class="carousel-item {% if loop.first %} active {% endif %}">
-                                            <img src="{{ asset('/build/images/'~media.src) }}" alt="" width="300"
-                                                 height="200">
-                                        </div>
-
-                                    {% endif %}
+                                {% for image in trick.images %}
+                                    <div class="carousel-item {% if loop.first %} active {% endif %}">
+                                        <img src="{{ asset('/build/images/'~image.src) }}" alt="" width="300"
+                                             height="200">
+                                    </div>
                                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages"
                                             data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -65,16 +61,14 @@
                         <div id="carouselVideos" class="carousel carousel-dark slide"
                              data-bs-touch="false" data-bs-interval="false">
                             <div class="carousel-inner">
-                                {% for media in trick.medias %}
-                                    {% if media.type.id == 2 %}
-                                        <div class="carousel-item {% if loop.first %} active {% endif %}">
-                                            <iframe width="300" height="200" src="{{ media.src }}"
-                                                    title="YouTube video player"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen>
-                                            </iframe>
-                                        </div>
-                                    {% endif %}
+                                {% for video in trick.videos %}
+                                    <div class="carousel-item {% if loop.first %} active {% endif %}">
+                                        <iframe width="300" height="200" src="{{ video.src }}"
+                                                title="YouTube video player"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>
+                                        </iframe>
+                                    </div>
                                     <button class="carousel-control-prev" type="button"
                                             data-bs-target="#carouselVideos" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
