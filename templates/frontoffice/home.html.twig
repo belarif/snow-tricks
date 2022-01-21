@@ -44,7 +44,8 @@
                                     <div>
                                         <a href="{{ path('trick_edit', { 'slug':trick.slug }) }}"><i
                                                     class="bi bi-pencil-fill"></i></a>
-                                        <a class="ms-3" href="#"><i class="bi bi-trash-fill"></i></a>
+                                        <a class="ms-3" href="javascript:void(0)" onclick="deleteTrick({{ trick.id }})"><i
+                                                    class="bi bi-trash-fill"></i></a>
                                     </div>
                                 </div>
                             </div>
