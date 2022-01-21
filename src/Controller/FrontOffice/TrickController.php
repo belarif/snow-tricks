@@ -28,10 +28,8 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $images = $form->get('images')->getData();
             foreach ($images as $img) {
-
                 $file = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $img->guessExtension();
                 $img->move(
                     $this->getParameter('app.images_directory'),
@@ -50,10 +48,8 @@ class TrickController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($trick);
             $em->flush();
-
             return $this->redirectToRoute('home_page');
         }
-
         return $this->renderForm('/frontoffice/add_trick.html.twig', array('form' => $form, 'trick' => $trick));
     }
 
