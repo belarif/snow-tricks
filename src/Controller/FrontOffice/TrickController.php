@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/add", name="add")
+     * @Route("/create", name="create")
      */
     public function new(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
