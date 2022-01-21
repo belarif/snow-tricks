@@ -12,4 +12,5 @@ import('./js/frontoffice/trick_details');
 import('./js/frontoffice/delete_trick');
 import('./styles/frontoffice/register.css');
 import('./styles/frontoffice/register.css');
+import('./styles/frontoffice/login.css');
 
