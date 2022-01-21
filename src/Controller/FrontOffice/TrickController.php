@@ -8,6 +8,7 @@ use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,7 @@ class TrickController extends AbstractController
 {
     /**
      * @Route("/create", name="create")
+     * @IsGranted("ROLE_VISITOR")
      */
     public function new(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
@@ -40,7 +42,8 @@ class TrickController extends AbstractController
                 $trick->addImage($image);
             }
 
-            $user = $userRepository->find('1');
+            $username = $this->getUser()->getUserIdentifier();
+            $user = $userRepository->findOneBy(array('username' => $username));
             $name = $form->get('name')->getData();
             $slug = preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($name)));
             $trick->setSlug($slug);
@@ -48,7 +51,9 @@ class TrickController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($trick);
             $em->flush();
-            return $this->redirectToRoute('home_page');
+
+            $this->addFlash('successCreateTrick', 'Le trick a été créé avec succès');
+            return $this->redirectToRoute('app_homepage');
         }
         return $this->renderForm('/frontoffice/add_trick.html.twig', array('form' => $form, 'trick' => $trick));
     }
