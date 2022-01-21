@@ -85,7 +85,7 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('app_homepage');
+            return $this->redirectToRoute('app_login');
         } else {
 
             return $this->redirectToRoute('app_homepage');
