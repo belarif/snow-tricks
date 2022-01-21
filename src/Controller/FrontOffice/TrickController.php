@@ -75,4 +75,8 @@ class TrickController extends AbstractController
 
         return $this->renderForm('/frontoffice/edit_trick.html.twig', array('editTrick' => $editTrick, 'form' => $form));
     }
+
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
 }
