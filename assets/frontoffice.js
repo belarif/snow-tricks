@@ -14,4 +14,5 @@ import('./styles/frontoffice/register.css');
 import('./styles/frontoffice/register.css');
 import('./styles/frontoffice/login.css');
 import('./styles/frontoffice/create_trick.css');
+import('./styles/frontoffice/profile.css');
 
