@@ -2,6 +2,8 @@
 
 namespace App\Controller\FrontOffice;
 
+use App\Entity\Trick;
+use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,5 +23,18 @@ class TrickController extends AbstractController
         $slug = $request->get('slug');
         $trickDetails = $trickRepository->getTrick($slug);
         return $this->render('/frontoffice/trick_details.html.twig', array('trickDetails' => $trickDetails));
+    }
+
+    /**
+     * @Route("/edit/{slug}", name="edit")
+     */
+    public function edit(Request $request, TrickRepository $trickRepository): Response
+    {
+        $slug = $request->get('slug');
+        $editTrick = $trickRepository->getTrick($slug);
+        $trick = new Trick();
+        $form = $this->createForm(TrickType::class, $trick);
+
+        return $this->renderForm('/frontoffice/edit_trick.html.twig', array('editTrick' => $editTrick, 'form' => $form));
     }
 }
