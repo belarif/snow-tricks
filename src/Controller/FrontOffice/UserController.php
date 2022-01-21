@@ -3,7 +3,9 @@
 namespace App\Controller\FrontOffice;
 
 use App\Entity\User;
+use App\Form\ForgotPasswordFormType;
 use App\Form\RegisterFormType;
+use App\Form\ResetPasswordFormType;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
@@ -53,7 +55,9 @@ class UserController extends AbstractController
                 $email = $user->getEmail();
                 $username = $user->getUserIdentifier();
                 $token = $user->getToken();
-                $mailer->sendEmail($email, $username, $token);
+                $subject = 'activer votre compte SnowTricks';
+                $htmlTemplate = '/emails/activation.html.twig';
+                $mailer->sendEmail($email, $username, $token, $subject, $htmlTemplate);
 
                 $this->addFlash(
                     'success',
@@ -86,5 +90,57 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('app_homepage');
         }
+    }
+
+    /**
+     * @Route("/forgot_password", name="app_forgot_password")
+     */
+    public function forgotPassword(Request $request, UserRepository $userRepository, Mailer $mailer): Response
+    {
+        $user = new User();
+        $form = $this->createForm(ForgotPasswordFormType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $username = $form->get('username')->getData();
+            $user = $userRepository->findOneBy(array('username' => $username));
+            if (!$user) {
+                $this->addFlash(
+                    'existingUser',
+                    'Aucun compte existant avec cette adresse email'
+                );
+                return $this->redirectToRoute('app_forgot_password');
+            }
+
+            $email = $user->getEmail();
+            $token = $user->getToken();
+            $subject = 'Réinitialiser votre mot de passe';
+            $htmlTemplate = '/emails/forgotPassword.html.twig';
+            $mailer->sendEmail($email, $username, $token, $subject, $htmlTemplate);
+        }
+
+        return $this->renderForm('frontoffice/forgotPassword.html.twig', ['form' => $form]);
+    }
+
+    /**
+     * @Route("reset_password", name="app_reset_password")
+     */
+    public function resetPassword(Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher)
+    {
+        $user = new User();
+        $form = $this->createForm(ResetPasswordFormType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $username = $form->get('username')->getData();
+            $password = $form->get('password')->getData();
+            $user->setUsername($username);
+            $user->setPassword($passwordHasher->hashPassword($user, $password));
+
+            $em = $doctrine->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('app_homepage');
+        }
+        return $this->renderForm('frontoffice/resetPassword.html.twig', ['form' => $form]);
     }
 }

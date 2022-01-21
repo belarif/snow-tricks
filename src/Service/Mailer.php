@@ -14,13 +14,13 @@ class Mailer
         $this->mailer = $mailer;
     }
 
-    public function sendEmail($email, $username, $token)
+    public function sendEmail($email, $username, $token, $subject, $htmlTemplate)
     {
         $email = (new TemplatedEmail())
             ->from('belarif.test@gmail.com')
             ->to($email)
-            ->subject('activer votre compte SnowTricks')
-            ->htmlTemplate('/emails/activation.html.twig')
+            ->subject($subject)
+            ->htmlTemplate($htmlTemplate)
             ->context([
                 'expiration_date' => new \DateTime('+48 hours'),
                 'username' => $username,
