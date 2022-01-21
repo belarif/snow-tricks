@@ -23,14 +23,14 @@
     <section class="page-section" id="tricks">
         <div class="container">
             {% for message in app.flashes('successDeleteTrick') %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
                     {{ message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                             aria-label="Close"></button>
                 </div>
             {% endfor %}
             {% for message in app.flashes('successCreateTrick') %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
                     {{ message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                             aria-label="Close"></button>
@@ -56,11 +56,14 @@
                                            class="card-title">{{ trick.name }}</a>
                                     </div>
                                     <div>
-                                        <a href="{{ path('trick_edit', { 'slug':trick.slug }) }}"><i
-                                                    class="bi bi-pencil-fill"></i></a>
-                                        <a class="ms-3" href="javascript:void(0)" onclick="deleteTrick({{ trick.id }})"><i
-                                                    class="bi bi-trash-fill"></i></a>
+                                        {% if is_granted('ROLE_VISITOR') %}
+                                            <a href="{{ path('trick_edit', { 'slug':trick.slug }) }}"><i
+                                                        class="bi bi-pencil-fill"></i></a>
+                                            <a class="ms-3" href="javascript:void(0)" onclick="deleteTrick({{ trick.id }})"><i
+                                                        class="bi bi-trash-fill"></i></a>
+                                        {% endif %}
                                     </div>
+
                                 </div>
                             </div>
                         </div>
