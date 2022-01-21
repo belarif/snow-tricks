@@ -55,7 +55,7 @@ class TrickController extends AbstractController
             $this->addFlash('successCreateTrick', 'Le trick a été créé avec succès');
             return $this->redirectToRoute('app_homepage');
         }
-        return $this->renderForm('/frontoffice/add_trick.html.twig', array('form' => $form, 'trick' => $trick));
+        return $this->renderForm('/frontoffice/createTrick.html.twig', array('form' => $form, 'trick' => $trick));
     }
 
     /**
@@ -65,7 +65,7 @@ class TrickController extends AbstractController
     {
         $slug = $request->get('slug');
         $trickDetails = $trickRepository->getTrick($slug);
-        return $this->render('/frontoffice/trick_details.html.twig', array('trickDetails' => $trickDetails));
+        return $this->render('/frontoffice/detailsTrick.html.twig', array('trickDetails' => $trickDetails));
     }
 
     /**
@@ -78,7 +78,7 @@ class TrickController extends AbstractController
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
 
-        return $this->renderForm('/frontoffice/edit_trick.html.twig', array('editTrick' => $editTrick, 'form' => $form));
+        return $this->renderForm('/frontoffice/editTrick.html.twig', array('editTrick' => $editTrick, 'form' => $form));
     }
 
     /**
