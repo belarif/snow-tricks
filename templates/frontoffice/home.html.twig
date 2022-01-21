@@ -20,14 +20,16 @@
         </div>
     </section>
 
-    <section class="page-section" id="tricks">
+    <section id="tricks">
         <div class="container">
-            <div class="row row-cols-1 row-cols-sm-5">
+            <div class="row row-cols-1 row-cols-sm-5 pt-3">
                 {% for trick in listTricks %}
                     <div class="col mb-4">
                         <div class="card">
+                            <img src="{{ asset('build/images/image-default.jpg') }}" class="card-img-top" alt=""
+                                 width="50" height="140">
                             {% for image in trick.images %}
-                                {% if loop.last %}
+                                {% if loop.first %}
                                     <img src="{{ asset('build/images/'~image.src) }}" class="card-img-top" alt=""
                                          width="50" height="140">
                                 {% endif %}
