@@ -22,7 +22,6 @@ class AppFixtures extends Fixture
         $manager->persist($role);
         $manager->flush();
         /*** End creation of role ***/
-
     }
 }
 

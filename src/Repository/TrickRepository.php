@@ -46,5 +46,3 @@ class TrickRepository extends ServiceEntityRepository
 }
 
 
-
-

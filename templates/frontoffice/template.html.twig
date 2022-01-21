@@ -13,6 +13,7 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
               type="text/css"/>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         {% block stylesheet %}
             {{ encore_entry_link_tags('frontoffice') }}
         {% endblock stylesheet %}
@@ -54,17 +55,13 @@
     </nav>
 
     <div class="content">
-        {% block content %}
-
-        {% endblock content %}
+        {% block content %} {% endblock content %}
     </div>
 
     <!-- Copyright Section-->
     <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright &copy; Blog professionnel 2021</small></div>
-        </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <div class="container"><small>Copyright &copy; Blog professionnel 2021</small></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

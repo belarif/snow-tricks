@@ -37,7 +37,8 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <a class="text-decoration-none" href="{{ path('home_page') }}"
+                                        <a class="text-decoration-none"
+                                           href="{{ path('trick_details', { 'slug' : trick.slug }) }}"
                                            class="card-title">{{ trick.name }}</a>
                                     </div>
                                     <div>
@@ -52,7 +53,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center mt-4">
-            <button class="load-more">
+            <button class="custom-btn">
                 <i class="fa fa-spinner fa-spin"></i>Charger plus
             </button>
         </div>

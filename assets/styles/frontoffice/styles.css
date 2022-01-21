@@ -11496,3 +11496,11 @@ html {
   background-color: #4C5461;
 }
 
+.custom-btn {
+  background-color: #2575C2;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+}
+
