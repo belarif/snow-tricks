@@ -79,4 +79,13 @@ class TrickController extends AbstractController
     /**
      * @Route("/delete/{id}", name="delete")
      */
+    public function delete(TrickRepository $trickRepository, Request $request, ManagerRegistry $doctrine): Response
+    {
+        $trick_id = $request->get('id');
+        $trickDelete = $trickRepository->find($trick_id);
+        $em = $doctrine->getManager();
+        $em->remove($trickDelete);
+        $em->flush();
+        return $this->redirectToRoute('app_homepage');
+    }
 }
