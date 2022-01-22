@@ -96,6 +96,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $profileStatus;
 
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
@@ -362,6 +367,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfileStatus(bool $profileStatus): self
     {
         $this->profileStatus = $profileStatus;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $lastName, $firstName): self
+    {
+        $this->slug = $lastName . $firstName;
 
         return $this;
     }
