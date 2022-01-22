@@ -20,4 +20,8 @@ class UserController extends AbstractController
         $users = $userRepository->getUsers();
         return $this->render('/backoffice/usersList.html.twig', ['users' => $users]);
     }
+
+    /**
+     * @Route("/details", name="user_details")
+     */
 }
