@@ -6,9 +6,9 @@
     <div class="container-fluid px-4">
         <h4 class="mt-4"> Gestion des utilisateurs </h4>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="#">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
             <li class="breadcrumb-item active">
-                détails {% for user in userDetails %} {{ user.username }} {% endfor %}</li>
+                détails {% for user in userDetails %} {{ user.lastName }} {{ user.firstName }} {% endfor %}</li>
         </ol>
         <div class="card mb-4">
             <div class="card-header">
@@ -18,7 +18,7 @@
             <div class="card-body">
                 {% for user in userDetails %}
                     <div class="my-3">
-                        <img src="{{ asset('build/images/avatars/'~user.avatar) }}" alt="" width="100" height="80">
+                        <img src="{{ asset('build/images/avatars/'~user.avatar) }}" alt="" width="140" height="120">
                     </div>
                     <p><b>Nom</b> : {{ user.lastName | upper }}</p>
                     <p><b>Prénom</b> : {{ user.firstName | capitalize }}</p>
