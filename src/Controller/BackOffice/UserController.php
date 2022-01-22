@@ -37,4 +37,8 @@ class UserController extends AbstractController
             'userDetails' => $userDetails
         ]);
     }
+
+    /**
+     * @Route("/delete/{id}", name="user_delete")
+     */
 }
