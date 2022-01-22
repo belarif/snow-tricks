@@ -3,6 +3,7 @@
 namespace App\Controller\BackOffice;
 
 use App\Repository\UserRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,4 +42,13 @@ class UserController extends AbstractController
     /**
      * @Route("/delete/{id}", name="user_delete")
      */
+    public function delete(UserRepository $userRepository, Request $request, ManagerRegistry $doctrine): Response
+    {
+        $user_id = $request->get('id');
+        $userDelete = $userRepository->find($user_id);
+        $em = $doctrine->getManager();
+        $em->remove($userDelete);
+        $em->flush();
+        return $this->redirectToRoute('admin_users_list');
+    }
 }
