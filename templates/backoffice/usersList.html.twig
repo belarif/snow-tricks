@@ -1,0 +1,54 @@
+{% extends 'backoffice/layout.html.twig' %}
+
+{% block title %} Liste des utilisateurs {% endblock title %}
+
+{% block javascript %}
+{{ encore_entry_script_tags('backoffice') }}
+{% endblock javascript %}
+
+{% block content %}
+    <div class="container-fluid px-4">
+        <h4 class="mt-4">Gestion des utilisateurs </h4>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
+            <li class="breadcrumb-item active">liste des utilisateurs</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Liste des utilisateurs
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                    <tr>
+                        <th>Nom complet</th>
+                        <th>Nom d'utilisateur</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.lastName | upper }} {{ user.firstName }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            {% for role in user.roles %}
+                                <td>{{ role }}</td>
+                            {% endfor %}
+                            <td>{{ user.enabled }}</td>
+                            <td>
+                                <a href="#"> Afficher</a>
+                                <a href="#"> supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
