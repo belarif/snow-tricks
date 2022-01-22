@@ -27,6 +27,7 @@
                         <th>Email</th>
                         <th>Roles</th>
                         <th>Statut</th>
+                        <td>slug</td>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -40,8 +41,9 @@
                                 <td>{{ role }}</td>
                             {% endfor %}
                             <td>{{ user.enabled }}</td>
+                            <td>{{ user.slug }}</td>
                             <td>
-                                <a href="#"> Afficher</a>
+                                <a href="{{ path('admin_user_details', { 'slug' : user.slug }) }}"> Afficher</a>
                                 <a href="#"> supprimer</a>
                             </td>
                         </tr>
