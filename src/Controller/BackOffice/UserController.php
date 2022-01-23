@@ -2,6 +2,8 @@
 
 namespace App\Controller\BackOffice;
 
+use App\Entity\User;
+use App\Form\CreateUserType;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,6 +59,8 @@ class UserController extends AbstractController
      */
     public function new(): Response
     {
-        return $this->renderForm('/backoffice/userCreate.html.twig');
+        $user = new User();
+        $form = $this->createForm(CreateUserType::class, $user);
+        return $this->renderForm('/backoffice/userCreate.html.twig', ['form' => $form]);
     }
 }
