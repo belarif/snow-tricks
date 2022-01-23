@@ -74,7 +74,7 @@
                              data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ path('admin_users_list') }}">Liste des utilisateurs</a>
-                                <a class="nav-link" href="#">Créer</a>
+                                <a class="nav-link" href="{{ path('admin_user_create') }}">Créer</a>
                             </nav>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                 </div>
             </nav>
         </div>
-            <div id="layoutSidenav_content">
+        <div id="layoutSidenav_content">
                 <div class="content">
                     {% block content %}
 
