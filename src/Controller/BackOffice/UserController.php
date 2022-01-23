@@ -51,4 +51,8 @@ class UserController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('admin_users_list');
     }
+
+    /**
+     * @Route("/create", name="user_create")
+     */
 }
