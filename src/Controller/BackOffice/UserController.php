@@ -55,4 +55,8 @@ class UserController extends AbstractController
     /**
      * @Route("/create", name="user_create")
      */
+    public function new(): Response
+    {
+        return $this->renderForm('/backoffice/userCreate.html.twig');
+    }
 }
