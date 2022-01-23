@@ -17,7 +17,11 @@
                 Création d'un utilisateur
             </div>
             <div class="card-body">
-
+                {{ form_start(form) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.password) }}
+                {{ form_row(form.roles) }}
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
