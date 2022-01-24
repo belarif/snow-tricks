@@ -51,11 +51,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * @param $id
      * @return int|mixed|string
      */
-    public function getUser($slug)
+    public function getUser($id)
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.slug = :slug')
-            ->setParameter('slug', $slug)
+            ->andWhere('u.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
     }
