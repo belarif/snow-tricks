@@ -4,6 +4,7 @@ namespace App\Controller\BackOffice;
 
 use App\Entity\User;
 use App\Form\CreateUserType;
+use App\Form\EditUserType;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
@@ -109,5 +110,28 @@ class UserController extends AbstractController
     /**
      * @Route("/edit/{id}/{slug?}", name="user_edit")
      */
+    public function edit(
+        Request         $request,
+        UserRepository  $userRepository,
+        ManagerRegistry $doctrine
+    ): Response
+    {
+        $user = new User();
+        $form = $this->createForm(EditUserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $id = $request->get('id');
+            $selectedUser = $userRepository->findOneBy(['id' => $id]);
+            if (!$selectedUser) {
+                throw $this->createNotFoundException('Utilisateur inexistant');
+            }
+            $selectedUser->setEnabled($form->get('enabled')->getData());
+            $em = $doctrine->getManager();
+            $em->persist($selectedUser);
+            $em->flush();
+            return $this->redirectToRoute('admin_users_list');
+        }
 
+        return $this->renderForm('/backoffice/userEdit.html.twig', ['form' => $form]);
+    }
 }
