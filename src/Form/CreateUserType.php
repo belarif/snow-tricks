@@ -2,10 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Role;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,10 +18,12 @@ class CreateUserType extends AbstractType
             ->add('username', TextType::class, [
                 'attr' => ['class' => 'form-control'],
             ])
-            ->add('password', PasswordType::class, [
+            ->add('email', EmailType::class, [
                 'attr' => ['class' => 'form-control'],
             ])
-            ->add('role', EntityType::class, [
+            ->add('password', PasswordType::class, [
+                'attr' => ['class' => 'form-control'],
+            ])/*->add('role', EntityType::class, [
                     'attr' => ['class' => 'form-control'],
                     'class' => Role::class,
                     'placeholder' => 'Choisir un rôle',
@@ -31,7 +32,8 @@ class CreateUserType extends AbstractType
                     }, 'choice_value' => function ($Role) {
                         return $Role ? $Role->getId() : '';
                     }]
-            );
+            )*/
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
