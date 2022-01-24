@@ -58,8 +58,11 @@ class ProfileController extends AbstractController
 
     private function update($form, $logedUser)
     {
-        $logedUser->setLastName($form->get('lastName')->getData());
-        $logedUser->setFirstName($form->get('firstName')->getData());
+        $lastName = $form->get('lastName')->getData();
+        $firstName = $form->get('firstName')->getData();
+        $logedUser->setLastName($lastName);
+        $logedUser->setFirstName($firstName);
+        $logedUser->setSlug($lastName, $firstName);
         $avatar = $form->get('avatar')->getData();
         $file = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $avatar->guessExtension();
         $avatar->move(
