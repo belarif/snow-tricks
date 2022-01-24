@@ -43,6 +43,8 @@
                             <td>
                                 <a href="{{ path('admin_user_details', { 'slug' : user.slug, 'id' : user.id }) }}">
                                     Afficher</a>
+                                <a href="{{ path('admin_user_edit', { 'slug' : user.slug, 'id' : user.id }) }}">
+                                    Modifier</a>
                                 <a href="javascript:void(0)" onclick="deleteUser({{ user.id }})"> supprimer</a>
                             </td>
                         </tr>
