@@ -97,7 +97,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $profileStatus;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
     private $slug;
 
