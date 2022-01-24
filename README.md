@@ -27,7 +27,10 @@ votre SGBD ,la valeur de la variable `DBNAME` par le nom du fichier .sql fourni.
 
 Accès au site :
 
-Depuis la ligne de commande, exécutez la commande suivante: `php -S localhost:8000 -t public/`
+Depuis la ligne de commande, exécutez la commande suivante: `yarn run encore dev --watch` pour charger les fichiers JS,
+CSS et les images dans le repertoire public
+
+Depuis la ligne de commande, exécutez la commande suivante: `php -S localhost:8000 -t public/` pour lancer le site.
 
 Page d'accueil : http://localhost:8000/snow-tricks/accueil
 
