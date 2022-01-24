@@ -105,4 +105,9 @@ class UserController extends AbstractController
         }
         return $this->renderForm('/backoffice/userCreate.html.twig', ['form' => $form]);
     }
+
+    /**
+     * @Route("/edit/{id}/{slug?}", name="user_edit")
+     */
+
 }
