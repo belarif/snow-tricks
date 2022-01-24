@@ -41,7 +41,8 @@
                             {% endfor %}
                             <td>{{ user.enabled }}</td>
                             <td>
-                                <a href="{{ path('admin_user_details', { 'slug' : user.slug }) }}"> Afficher</a>
+                                <a href="{{ path('admin_user_details', { 'slug' : user.slug, 'id' : user.id }) }}">
+                                    Afficher</a>
                                 <a href="javascript:void(0)" onclick="deleteUser({{ user.id }})"> supprimer</a>
                             </td>
                         </tr>
