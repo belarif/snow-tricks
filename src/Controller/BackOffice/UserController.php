@@ -33,12 +33,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/details/{slug}", name="user_details")
+     * @Route("/details/{id}/{slug?}", name="user_details")
      */
     public function show(userRepository $userRepository, Request $request): Response
     {
-        $slug = $request->get('slug');
-        $userDetails = $userRepository->getUser($slug);
+        $id = $request->get('id');
+        $userDetails = $userRepository->getUser($id);
         return $this->render(
             '/backoffice/userDetails.html.twig', [
             'userDetails' => $userDetails
