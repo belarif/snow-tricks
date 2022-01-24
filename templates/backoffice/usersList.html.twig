@@ -39,7 +39,7 @@
                             {% for role in user.roles %}
                                 <td>{{ role }}</td>
                             {% endfor %}
-                            <td>{{ user.enabled }}</td>
+                            <td>{% if user.enabled == true %} activé {% else %} désactivé {% endif %}</td>
                             <td>
                                 <a href="{{ path('admin_user_details', { 'slug' : user.slug, 'id' : user.id }) }}">
                                     Afficher</a>
