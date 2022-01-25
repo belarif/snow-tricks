@@ -23,7 +23,7 @@ class Group
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=150)
      */
     private $name;
 
