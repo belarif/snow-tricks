@@ -40,14 +40,17 @@
                 {% for trick in listTricks %}
                     <div class="col mb-4">
                         <div class="card">
-                            <img src="{{ asset('build/images/image-default.jpg') }}" class="card-img-top" alt=""
-                                 width="50" height="140">
-                            {% for image in trick.images %}
-                                {% if loop.first %}
-                                    <img src="{{ asset('build/images/'~image.src) }}" class="card-img-top" alt=""
-                                         width="50" height="140">
-                                {% endif %}
-                            {% endfor %}
+                            {% if trick.images is empty %}
+                                <img src="{{ asset('build/images/image-default.jpg') }}" class="card-img-top" alt=""
+                                     width="50" height="140">
+                            {% else %}
+                                {% for image in trick.images %}
+                                    {% if loop.first %}
+                                        <img src="{{ asset('build/images/'~image.src) }}" class="card-img-top" alt=""
+                                             width="50" height="140">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
