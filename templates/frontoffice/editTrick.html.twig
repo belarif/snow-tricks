@@ -10,7 +10,7 @@
     <section class="min-vw-100 min-vh-100">
     {% for trick in editTrick %}
         {% for image in trick.images %}
-            {% if loop.last %}
+            {% if loop.first %}
                 <div class="btn-edit-trick">
                     <img src="{{ asset('build/images/'~image.src) }}" class="min-vw-100 min-vh-100 img-fluid"
                          alt="">
@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     {% for image in trick.images %}
-                                        {% if loop.last %}
+                                        {% if loop.first %}
                                             <div class="img-wrapper">
                                                 <img src="{{ asset('build/images/'~image.src) }}"
                                                      class="w-100 img-fluid" alt="">
