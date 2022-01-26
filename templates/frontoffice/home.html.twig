@@ -55,18 +55,18 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <a class="text-decoration-none"
-                                           href="{{ path('trick_details', { 'slug' : trick.slug }) }}"
+                                           href="{{ path('trick_details', { 'id' : trick.id, 'slug' : trick.slug }) }}"
                                            class="card-title">{{ trick.name }}</a>
                                     </div>
                                     <div>
                                         {% if is_granted('ROLE_VISITOR') %}
-                                            <a href="{{ path('trick_edit', { 'slug':trick.slug }) }}"><i
+                                            <a href="{{ path('trick_edit', { 'id':trick.id, 'slug' : trick.slug }) }}"><i
                                                         class="bi bi-pencil-fill"></i></a>
-                                            <a class="ms-3" href="javascript:void(0)" onclick="deleteTrick({{ trick.id }})"><i
+                                            <a class="ms-3" href="javascript:void(0)"
+                                               onclick="deleteTrick({{ trick.id }})"><i
                                                         class="bi bi-trash-fill"></i></a>
                                         {% endif %}
                                     </div>
-
                                 </div>
                             </div>
                         </div>
