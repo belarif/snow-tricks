@@ -25,12 +25,12 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/details/{slug}", name="trick_details")
+     * @Route("/details/{id}/{slug}", name="trick_details")
      */
     public function show(TrickRepository $trickRepository, Request $request): Response
     {
-        $slug = $request->get('slug');
-        $trickDetails = $trickRepository->getTrick($slug);
+        $id = $request->get('id');
+        $trickDetails = $trickRepository->getTrick($id);
         return $this->render('/backoffice/trickDetails.html.twig', array('trickDetails' => $trickDetails));
     }
 
