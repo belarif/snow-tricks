@@ -18,4 +18,21 @@ class VideoRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Video::class);
     }
+
+    public function getVideosTrick($id)
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTricks(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->addOrderBy('t.updatedAt', 'desc')
+            ->getQuery()
+            ->getResult();
+    }
 }
