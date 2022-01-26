@@ -71,6 +71,7 @@ class ProfileController extends AbstractController
         );
         $logedUser->setAvatar($file);
         $logedUser->setProfileStatus(true);
+        $logedUser->setSlug(preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($lastName))));
 
         $em = $this->doctrine->getManager();
         $em->persist($logedUser);
