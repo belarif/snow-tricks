@@ -376,9 +376,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->slug;
     }
 
-    public function setSlug(string $lastName, $firstName): self
+    public function setSlug(string $slug): self
     {
-        $this->slug = $lastName . $firstName;
+        $this->slug = $slug;
 
         return $this;
     }
