@@ -172,6 +172,14 @@
                             </div>
                             <div class="row">
                                 <div class="pb-5">
+                                    {% for message in app.flashes('trickEditSuccess') %}
+                                        <div class="alert alert-success alert-dismissible fade show text-center"
+                                             role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                    {% endfor %}
                                     <div class="offset-lg-2 col-lg-8 offset-lg-2 col-sm-12">
                                         {{ form_row(form.name, { 'attr': {'value': trick.name } }) }}
                                         {{ form_row(form.description, { 'value': trick.description }  ) }}
