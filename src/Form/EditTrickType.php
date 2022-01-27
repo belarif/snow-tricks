@@ -17,7 +17,9 @@ class EditTrickType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'mapped' => false,
+                'disabled' => true
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description'
