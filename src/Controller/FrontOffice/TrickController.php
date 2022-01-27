@@ -3,7 +3,9 @@
 namespace App\Controller\FrontOffice;
 
 use App\Entity\Image;
+use App\Entity\Message;
 use App\Entity\Trick;
+use App\Form\MessageTrickType;
 use App\Form\TrickType;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
@@ -64,21 +66,44 @@ class TrickController extends AbstractController
      * @Route("/details/{id}/{slug}", name="details")
      */
     public function show(
-        TrickRepository $trickRepository,
         Request         $request,
+        ManagerRegistry $doctrine,
+        TrickRepository $trickRepository,
         ImageRepository $imageRepository,
-        VideoRepository $videoRepository
+        VideoRepository $videoRepository,
+        UserRepository  $userRepository
     ): Response
     {
         $id = $request->get('id');
+        $slug = $request->get('slug');
         $trickDetails = $trickRepository->getTrick($id);
         $imagesTrick = $imageRepository->getImagesTrick($id);
         $videosTrick = $videoRepository->getVideosTrick($id);
 
-        return $this->render('/frontoffice/detailsTrick.html.twig', [
+        $message = new Message();
+        $form = $this->createForm(MessageTrickType::class, $message);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $username = $this->getUser()->getUserIdentifier();
+            $user = $userRepository->findOneBy(['username' => $username]);
+            $trick = $trickRepository->findOneBy(['id' => $id]);
+            $content = $form->get('content')->getData();
+
+            $message->setUser($user);
+            $message->setTrick($trick);
+            $message->setContent($content);
+            $em = $doctrine->getManager();
+            $em->persist($message);
+            $em->flush();
+
+            $this->addFlash('messageSentSuccess', 'Votre message a été envoyé avec succès');
+            return $this->redirectToRoute('trick_details', ['id' => $id, 'slug' => $slug]);
+        }
+        return $this->renderForm('/frontoffice/detailsTrick.html.twig', [
             'trickDetails' => $trickDetails,
             'videosTrick' => $videosTrick,
-            'imagesTrick' => $imagesTrick
+            'imagesTrick' => $imagesTrick,
+            'form' => $form
         ]);
     }
 
