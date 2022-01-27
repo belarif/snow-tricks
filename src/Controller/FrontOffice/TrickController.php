@@ -87,14 +87,20 @@ class TrickController extends AbstractController
      * @Route("/edit/{id}/{slug}", name="edit")
      * @IsGranted("ROLE_VISITOR")
      */
-    public function edit(Request $request, TrickRepository $trickRepository): Response
+    public function edit(
+        Request         $request,
+        TrickRepository $trickRepository
+    ): Response
     {
         $id = $request->get('id');
         $editTrick = $trickRepository->getTrick($id);
         $trick = new Trick();
         $form = $this->createForm(EditTrickType::class, $trick);
 
-        return $this->renderForm('/frontoffice/editTrick.html.twig', array('editTrick' => $editTrick, 'form' => $form));
+        return $this->renderForm('/frontoffice/editTrick.html.twig', [
+            'editTrick' => $editTrick,
+            'form' => $form
+        ]);
     }
 
     /**
