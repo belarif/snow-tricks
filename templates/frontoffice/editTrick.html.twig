@@ -29,7 +29,6 @@
         <!-- Modal -->
         <div class="modal fade" id="editTrickModal" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
-
             <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -172,22 +171,33 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="offset-lg-2 col-lg-8 offset-lg-2 col-sm-12">
-                                    {{ form_label(form.name, 'Nom :') }}
-                                    {{ form_widget(form.name, { 'attr': {'value': trick.name } }) }}
-                                    {{ form_label(form.description, 'Description :') }}
-                                    {{ form_widget(form.description) }}
-                                </div>
-                                <div class="offset-lg-2 col-lg-8 offset-lg-2 col-sm-12">
-                                    <div class="row d-flex justify-content-between">
-                                        <div class="col-sm-12 col-md-6">
-                                            {{ form_label(form.group, 'Groupe :') }}
-                                            {{ form_widget(form.group) }}
+                                <div class="pb-5">
+                                    {% for message in app.flashes('trickEditSuccess') %}
+                                        <div class="alert alert-success alert-dismissible fade show text-center"
+                                             role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
                                         </div>
-                                        <div class="col-sm-12 col-md-6">
-                                            <div class="mt-3">
-                                                <a class="btn btn-danger" href="#" role="button">supprimer</a>
-                                                <button class="btn btn-primary" type="submit">envoyer</button>
+                                    {% endfor %}
+                                    <div class="offset-lg-2 col-lg-8 offset-lg-2 col-sm-12">
+                                        {{ form_row(form.name, { 'attr': {'value': trick.name } }) }}
+                                        {{ form_row(form.description, { 'value': trick.description }  ) }}
+                                    </div>
+                                    <div class="offset-lg-2 col-lg-8 offset-lg-2 col-sm-12">
+                                        <div class="row d-flex justify-content-between">
+                                            <div class="col-sm-12 col-md-6">
+                                                {% for choice in form.group.vars.choices %}
+                                                    {% if choice.value == trick.group.id %}
+                                                        {{ form_row(form.group, {'attr': {'selected': 'selected'}} ) }}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="mt-3">
+                                                    <a class="btn btn-danger" href="#" role="button">supprimer</a>
+                                                    <button class="btn btn-primary" type="submit">envoyer</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -198,7 +208,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     {% endfor %}
     </section>

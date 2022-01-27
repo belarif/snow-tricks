@@ -6,7 +6,9 @@ use App\Entity\Image;
 use App\Entity\Message;
 use App\Entity\Trick;
 use App\Form\MessageTrickType;
-use App\Form\TrickType;
+use App\Form\CreateTrickType;
+use App\Form\EditTrickType;
+use App\Repository\GroupRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
@@ -30,7 +32,7 @@ class TrickController extends AbstractController
     public function new(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(CreateTrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -110,15 +112,60 @@ class TrickController extends AbstractController
     /**
      * @Route("/edit/{id}/{slug}", name="edit")
      * @IsGranted("ROLE_VISITOR")
+     * @param Request $request
+     * @param TrickRepository $trickRepository
+     * @param GroupRepository $groupRepository
+     * @param ManagerRegistry $doctrine
+     * @return Response
      */
-    public function edit(Request $request, TrickRepository $trickRepository): Response
+    public function edit(
+        Request         $request,
+        TrickRepository $trickRepository,
+        GroupRepository $groupRepository,
+        ManagerRegistry $doctrine
+    ): Response
     {
         $id = $request->get('id');
+        $slug = $request->get('slug');
         $editTrick = $trickRepository->getTrick($id);
-        $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
 
-        return $this->renderForm('/frontoffice/editTrick.html.twig', array('editTrick' => $editTrick, 'form' => $form));
+        $trick = new Trick();
+        $form = $this->createForm(EditTrickType::class, $trick);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->update($id, $form, $slug, $trickRepository, $groupRepository, $doctrine);
+        }
+
+        return $this->renderForm('/frontoffice/editTrick.html.twig', [
+            'editTrick' => $editTrick,
+            'form' => $form
+        ]);
+    }
+
+    private function update(
+        $id,
+        $form,
+        $slug,
+        TrickRepository $trickRepository,
+        GroupRepository $groupRepository,
+        ManagerRegistry $doctrine
+    ): void
+    {
+        $trick = $trickRepository->find($id);
+        if (!$trick) {
+            throw $this->createNotFoundException('Ce trick n\'existe pas');
+        }
+
+        $description = $form->get('description')->getData();
+        $group_id = $form->get('group')->getData();
+        $group = $groupRepository->findOneBy(['id' => $group_id]);
+        $trick->setDescription($description);
+        $trick->setGroup($group);
+        $em = $doctrine->getManager();
+        $em->flush();
+
+        $this->addFlash('trickEditSuccess', 'Le trick a été modifié avec succès');
+        $this->redirectToRoute('trick_edit', ['id' => $id, 'slug' => $slug]);
     }
 
     /**
