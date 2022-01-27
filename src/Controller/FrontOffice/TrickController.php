@@ -5,8 +5,10 @@ namespace App\Controller\FrontOffice;
 use App\Entity\Image;
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
+use App\Repository\VideoRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,11 +63,23 @@ class TrickController extends AbstractController
     /**
      * @Route("/details/{id}/{slug}", name="details")
      */
-    public function show(TrickRepository $trickRepository, Request $request): Response
+    public function show(
+        TrickRepository $trickRepository,
+        Request         $request,
+        ImageRepository $imageRepository,
+        VideoRepository $videoRepository
+    ): Response
     {
         $id = $request->get('id');
         $trickDetails = $trickRepository->getTrick($id);
-        return $this->render('/frontoffice/detailsTrick.html.twig', array('trickDetails' => $trickDetails));
+        $imagesTrick = $imageRepository->getImagesTrick($id);
+        $videosTrick = $videoRepository->getVideosTrick($id);
+
+        return $this->render('/frontoffice/detailsTrick.html.twig', [
+            'trickDetails' => $trickDetails,
+            'videosTrick' => $videosTrick,
+            'imagesTrick' => $imagesTrick
+        ]);
     }
 
     /**
