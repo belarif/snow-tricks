@@ -18,4 +18,13 @@ class ImageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Image::class);
     }
+
+    public function getImagesTrick($id): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.trick = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getArrayResult();
+    }
 }
