@@ -16,8 +16,8 @@
                          alt="">
                     <div class="btn-overlay">
                         <!-- Trigger the modal with a button -->
-                        <button type="button" class="custom-btn text-white" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
+                        <button id="modal-btn" type="button" class="custom-btn text-white" data-bs-toggle="modal"
+                                data-bs-target="#deleteTrickModal">
                             Détails {{ trick.name }}
                         </button>
                     </div>
@@ -27,7 +27,8 @@
         </section>
         <section class="text-center">
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deleteTrickModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -62,7 +63,7 @@
                                             <div id="carouselExampleControls" class="carousel"
                                                  data-bs-ride="carousel">
                                                 <div class="carousel-inner">
-                                                    {% for image in trick.images %}
+                                                    {% for image in imagesTrick %}
                                                         <div class="{% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
                                                             <div class="card">
                                                                 <div class="img-wrapper">
