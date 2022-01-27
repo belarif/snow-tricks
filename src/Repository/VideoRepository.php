@@ -22,16 +22,8 @@ class VideoRepository extends ServiceEntityRepository
     public function getVideosTrick($id)
     {
         return $this->createQueryBuilder('v')
-            ->andWhere('v.id = :id')
+            ->andWhere('v.trick = :id')
             ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function getTricks(): array
-    {
-        return $this->createQueryBuilder('t')
-            ->addOrderBy('t.updatedAt', 'desc')
             ->getQuery()
             ->getResult();
     }
