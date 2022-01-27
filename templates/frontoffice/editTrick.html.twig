@@ -16,8 +16,8 @@
                          alt="">
                     <div class="btn-overlay">
                         <!-- Trigger the modal with a button -->
-                        <button type="button" class="custom-btn text-white" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
+                        <button id="modal-btn" type="button" class="custom-btn text-white" data-bs-toggle="modal"
+                                data-bs-target="#editTrickModal">
                             Modifier {{ trick.name }}
                         </button>
                     </div>
@@ -27,12 +27,14 @@
         </section>
         <section class="text-center">
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        {{ form_start(form) }}
+        <div class="modal fade" id="editTrickModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+
             <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="container-fluid">
+                            {{ form_start(form) }}
                             <div class="row">
                                 <div class="col-12">
                                     {% for image in trick.images %}
@@ -191,12 +193,13 @@
                                     </div>
                                 </div>
                             </div>
+                            {{ form_end(form) }}
                         </div>
                     </div>
                 </div>
             </div>
-        {{ form_end(form) }}
-    </div>
+
+        </div>
     {% endfor %}
     </section>
 {% endblock content %}
