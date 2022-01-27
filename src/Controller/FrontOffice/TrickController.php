@@ -4,7 +4,8 @@ namespace App\Controller\FrontOffice;
 
 use App\Entity\Image;
 use App\Entity\Trick;
-use App\Form\TrickType;
+use App\Form\CreateTrickType;
+use App\Form\EditTrickType;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
@@ -28,7 +29,7 @@ class TrickController extends AbstractController
     public function new(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(CreateTrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -91,7 +92,7 @@ class TrickController extends AbstractController
         $id = $request->get('id');
         $editTrick = $trickRepository->getTrick($id);
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(EditTrickType::class, $trick);
 
         return $this->renderForm('/frontoffice/editTrick.html.twig', array('editTrick' => $editTrick, 'form' => $form));
     }
