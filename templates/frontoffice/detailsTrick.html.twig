@@ -152,14 +152,16 @@
                                                     aria-label="Close"></button>
                                         </div>
                                     {% endfor %}
-                                    <div class="mb-4">
-                                        {{ form_start(form) }}
-                                        {{ form_row(form.content) }}
-                                        <div class="d-flex justify-content-end">
-                                            <button class="custom-btn" type="submit">Envoyer</button>
+                                    {% if app.user %}
+                                        <div class="mb-4">
+                                            {{ form_start(form) }}
+                                            {{ form_row(form.content) }}
+                                            <div class="d-flex justify-content-end">
+                                                <button class="custom-btn" type="submit">Envoyer</button>
+                                            </div>
+                                            {{ form_end(form) }}
                                         </div>
-                                        {{ form_end(form) }}
-                                    </div>
+                                    {% endif %}
                                 </div>
                                 <div class="col-12 mb-4">
                                     <div class="card message">
