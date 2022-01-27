@@ -1,3 +1,4 @@
+/** medias carousel **/
 var multipleCardCarousel = document.querySelector(
     "#carouselExampleControls"
 );
@@ -28,4 +29,9 @@ if (window.matchMedia("(min-width: 768px)").matches) {
     });
 } else {
     $(multipleCardCarousel).addClass("slide");
+}
+
+/** click modal button automatically when page loaded **/
+window.onload = function () {
+    $("#modal-btn").click();
 }
