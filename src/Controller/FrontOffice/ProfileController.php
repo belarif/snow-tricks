@@ -3,7 +3,7 @@
 namespace App\Controller\FrontOffice;
 
 use App\Entity\User;
-use App\Form\ProfileFormType;
+use App\Form\EditProfileType;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -46,7 +46,7 @@ class ProfileController extends AbstractController
         $loggedUser = $this->userRepository->findOneBy(['username' => $username]);
 
         $user = new User();
-        $form = $this->createForm(ProfileFormType::class, $user);
+        $form = $this->createForm(EditProfileType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->update($form, $loggedUser);

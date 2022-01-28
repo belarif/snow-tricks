@@ -3,9 +3,9 @@
 namespace App\Controller\FrontOffice;
 
 use App\Entity\User;
-use App\Form\ForgotPasswordFormType;
-use App\Form\RegisterFormType;
-use App\Form\ResetPasswordFormType;
+use App\Form\ForgotPasswordType;
+use App\Form\RegisterType;
+use App\Form\ResetPasswordType;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
@@ -53,7 +53,7 @@ class UserController extends AbstractController
     public function register(Request $request): Response
     {
         $user = new User();
-        $form = $this->createForm(RegisterFormType::class, $user);
+        $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -119,16 +119,13 @@ class UserController extends AbstractController
     public function forgotPassword(Request $request): Response
     {
         $user = new User();
-        $form = $this->createForm(ForgotPasswordFormType::class, $user);
+        $form = $this->createForm(ForgotPasswordType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $username = $form->get('username')->getData();
             $user = $this->userRepository->findOneBy(['username' => $username]);
             if (!$user) {
-                $this->addFlash(
-                    'existingUser',
-                    'Aucun compte existant avec cette adresse email'
-                );
+                $this->addFlash('existingUser', 'Aucun compte existant avec ce nom d\'utilisateur');
                 return $this->redirectToRoute('app_forgot_password');
             }
             $email = $user->getEmail();
@@ -136,6 +133,8 @@ class UserController extends AbstractController
             $subject = 'Réinitialiser votre mot de passe';
             $htmlTemplate = '/emails/forgotPassword.html.twig';
             $this->mailer->sendEmail($email, $username, $token, $subject, $htmlTemplate);
+            $this->addFlash('resetPasswordRequestSuccess', 'Un mail vous a été envoyé à l\'adresse : ' . $email);
+            return $this->redirectToRoute('app_forgot_password');
         }
         return $this->renderForm('frontoffice/forgotPassword.html.twig', ['form' => $form]);
     }
@@ -149,7 +148,7 @@ class UserController extends AbstractController
     public function resetPassword(Request $request): Response
     {
         $user = new User();
-        $form = $this->createForm(ResetPasswordFormType::class, $user);
+        $form = $this->createForm(ResetPasswordType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $username = $form->get('username')->getData();
