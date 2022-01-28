@@ -30,6 +30,7 @@ class MessageController extends AbstractController
 
     /**
      * @Route("/list", name="messages_list", methods={"GET"})
+     * @return Response
      */
     public function messagesList(): Response
     {
@@ -39,6 +40,8 @@ class MessageController extends AbstractController
 
     /**
      * @Route("/details/{id}", name="message_details", methods={"GET"})
+     * @param Request $request
+     * @return Response
      */
     public function show(Request $request): Response
     {
@@ -49,6 +52,8 @@ class MessageController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="message_delete")
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function delete(Request $request): RedirectResponse
     {
