@@ -16,6 +16,7 @@ use App\Repository\VideoRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,82 +26,99 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TrickController extends AbstractController
 {
+    private $trickRepository;
+    private $managerRegistry;
+    private $userRepository;
+    private $imageRepository;
+    private $videoRepository;
+    private $groupRepository;
+
+    public function __construct(
+        ManagerRegistry $managerRegistry,
+        TrickRepository $trickRepository,
+        UserRepository  $userRepository,
+        ImageRepository $imageRepository,
+        VideoRepository $videoRepository,
+        GroupRepository $groupRepository
+    )
+    {
+        $this->managerRegistry = $managerRegistry;
+        $this->trickRepository = $trickRepository;
+        $this->userRepository = $userRepository;
+        $this->imageRepository = $imageRepository;
+        $this->videoRepository = $videoRepository;
+        $this->groupRepository = $groupRepository;
+    }
+
     /**
      * @Route("/create", name="create", methods={"GET","POST"})
      * @IsGranted("ROLE_VISITOR")
+     *
+     * @param Request $request
+     * @return Response
      */
-    public function new(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
+    public function new(Request $request): Response
     {
         $trick = new Trick();
         $form = $this->createForm(CreateTrickType::class, $trick);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $images = $form->get('images')->getData();
-            foreach ($images as $img) {
-                $file = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $img->guessExtension();
-                $img->move(
-                    $this->getParameter('app.images_directory'),
-                    $file
-                );
-                $image = new Image();
-                $image->setSrc($file);
-                $trick->addImage($image);
-            }
-
-            $username = $this->getUser()->getUserIdentifier();
-            $user = $userRepository->findOneBy(array('username' => $username));
-            $name = $form->get('name')->getData();
-            $slug = preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($name)));
-            $trick->setSlug($slug);
-            $trick->setUser($user);
-            $em = $doctrine->getManager();
-            $em->persist($trick);
-            $em->flush();
-
+            $this->createTrickProcess($form, $trick);
             $this->addFlash('successCreateTrick', 'Le trick a été créé avec succès');
             return $this->redirectToRoute('app_homepage');
         }
-        return $this->renderForm('/frontoffice/createTrick.html.twig', array('form' => $form, 'trick' => $trick));
+        return $this->renderForm('/frontoffice/createTrick.html.twig', ['form' => $form, 'trick' => $trick]);
     }
 
     /**
-     * @Route("/details/{id}/{slug}", name="details", methods={"GET"})
+     * @param $form
+     * @param $trick
      */
-    public function show(
-        Request         $request,
-        ManagerRegistry $doctrine,
-        TrickRepository $trickRepository,
-        ImageRepository $imageRepository,
-        VideoRepository $videoRepository,
-        UserRepository  $userRepository
-    ): Response
+    private function createTrickProcess($form, $trick)
+    {
+        $images = $form->get('images')->getData();
+        foreach ($images as $img) {
+            $file = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $img->guessExtension();
+            $img->move($this->getParameter('app.images_directory'), $file);
+            $image = new Image();
+            $image->setSrc($file);
+            $trick->addImage($image);
+        }
+
+        $username = $this->getUser()->getUserIdentifier();
+        $user = $this->userRepository->findOneBy(['username' => $username]);
+        $name = $form->get('name')->getData();
+        $slug = preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($name)));
+        $trick->setSlug($slug);
+        $trick->setUser($user);
+        $em = $this->managerRegistry->getManager();
+        $em->persist($trick);
+        $em->flush();
+    }
+
+    /**
+     * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"})
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function show(Request $request): Response
     {
         $id = $request->get('id');
         $slug = $request->get('slug');
-        $trickDetails = $trickRepository->getTrick($id);
-        $imagesTrick = $imageRepository->getImagesTrick($id);
-        $videosTrick = $videoRepository->getVideosTrick($id);
+        $trickDetails = $this->trickRepository->getTrick($id);
+        $imagesTrick = $this->imageRepository->getImagesTrick($id);
+        $videosTrick = $this->videoRepository->getVideosTrick($id);
 
         $message = new Message();
         $form = $this->createForm(MessageTrickType::class, $message);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $username = $this->getUser()->getUserIdentifier();
-            $user = $userRepository->findOneBy(['username' => $username]);
-            $trick = $trickRepository->findOneBy(['id' => $id]);
-            $content = $form->get('content')->getData();
-
-            $message->setUser($user);
-            $message->setTrick($trick);
-            $message->setContent($content);
-            $em = $doctrine->getManager();
-            $em->persist($message);
-            $em->flush();
-
+            $this->messageTrick($id, $form, $message);
             $this->addFlash('messageSentSuccess', 'Votre message a été envoyé avec succès');
             return $this->redirectToRoute('trick_details', ['id' => $id, 'slug' => $slug]);
         }
+
         return $this->renderForm('/frontoffice/detailsTrick.html.twig', [
             'trickDetails' => $trickDetails,
             'videosTrick' => $videosTrick,
@@ -110,58 +128,66 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @param $id
+     * @param $form
+     * @param $message
+     */
+    private function messageTrick($id, $form, $message): void
+    {
+        $username = $this->getUser()->getUserIdentifier();
+        $user = $this->userRepository->findOneBy(['username' => $username]);
+        $trick = $this->trickRepository->findOneBy(['id' => $id]);
+        $content = $form->get('content')->getData();
+        $message->setUser($user);
+        $message->setTrick($trick);
+        $message->setContent($content);
+        $em = $this->managerRegistry->getManager();
+        $em->persist($message);
+        $em->flush();
+    }
+
+    /**
      * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"})
      * @IsGranted("ROLE_VISITOR")
+     *
      * @param Request $request
-     * @param TrickRepository $trickRepository
-     * @param GroupRepository $groupRepository
-     * @param ManagerRegistry $doctrine
      * @return Response
      */
-    public function edit(
-        Request         $request,
-        TrickRepository $trickRepository,
-        GroupRepository $groupRepository,
-        ManagerRegistry $doctrine
-    ): Response
+    public function edit(Request $request): Response
     {
         $id = $request->get('id');
         $slug = $request->get('slug');
-        $editTrick = $trickRepository->getTrick($id);
+        $editTrick = $this->trickRepository->getTrick($id);
 
         $trick = new Trick();
         $form = $this->createForm(EditTrickType::class, $trick);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->update($id, $form, $slug, $trickRepository, $groupRepository, $doctrine);
+            $this->update($id, $form, $slug);
         }
-
         return $this->renderForm('/frontoffice/editTrick.html.twig', [
             'editTrick' => $editTrick,
             'form' => $form
         ]);
     }
 
-    private function update(
-        $id,
-        $form,
-        $slug,
-        TrickRepository $trickRepository,
-        GroupRepository $groupRepository,
-        ManagerRegistry $doctrine
-    ): void
+    /**
+     * @param $id
+     * @param $form
+     * @param $slug
+     */
+    private function update($id, $form, $slug): void
     {
-        $trick = $trickRepository->find($id);
+        $trick = $this->trickRepository->find($id);
         if (!$trick) {
             throw $this->createNotFoundException('Ce trick n\'existe pas');
         }
-
         $description = $form->get('description')->getData();
         $group_id = $form->get('group')->getData();
-        $group = $groupRepository->findOneBy(['id' => $group_id]);
+        $group = $this->groupRepository->findOneBy(['id' => $group_id]);
         $trick->setDescription($description);
         $trick->setGroup($group);
-        $em = $doctrine->getManager();
+        $em = $this->managerRegistry->getManager();
         $em->flush();
 
         $this->addFlash('trickEditSuccess', 'Le trick a été modifié avec succès');
@@ -171,12 +197,15 @@ class TrickController extends AbstractController
     /**
      * @Route("/delete/{id}", name="delete")
      * @IsGranted("ROLE_VISITOR")
+     *
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function delete(TrickRepository $trickRepository, Request $request, ManagerRegistry $doctrine): Response
+    public function delete(Request $request): redirectResponse
     {
         $trick_id = $request->get('id');
-        $trickDelete = $trickRepository->find($trick_id);
-        $em = $doctrine->getManager();
+        $trickDelete = $this->trickRepository->find($trick_id);
+        $em = $this->managerRegistry->getManager();
         $em->remove($trickDelete);
         $em->flush();
         $this->addFlash('successDeleteTrick', 'Le trick a été supprimé avec succès');
