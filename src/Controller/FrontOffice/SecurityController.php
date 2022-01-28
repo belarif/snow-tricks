@@ -10,20 +10,18 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/login", name="app_login", methods={"GET"})
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render('/frontoffice/login.html.twig', [
             'controller_name' => 'SecurityController',
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
     }
-
 
     /**
      * @Route("/logout", name="app_logout")
