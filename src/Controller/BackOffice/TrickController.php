@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/list", name="tricks_list")
+     * @Route("/list", name="tricks_list", methods={"GET"})
      */
     public function tricksList(TrickRepository $trickRepository): Response
     {
@@ -25,7 +25,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}/{slug}", name="trick_details")
+     * @Route("/details/{id}/{slug}", name="trick_details", methods={"GET"})
      */
     public function show(TrickRepository $trickRepository, Request $request): Response
     {
