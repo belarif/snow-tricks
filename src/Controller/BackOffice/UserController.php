@@ -96,7 +96,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $email = $form->get('email')->getData();
-            $existing_user = $this->userRepository->findOneBy(array('email' => $email));
+            $existing_user = $this->userRepository->findOneBy(['email' => $email]);
             if (!$existing_user) {
                 $this->processCreation($form, $user);
 
