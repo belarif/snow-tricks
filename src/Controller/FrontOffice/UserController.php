@@ -140,27 +140,29 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("reset_password", name="app_reset_password")
+     * @Route("reset_password/{username}", name="app_reset_password")
      *
      * @param Request $request
      * @return Response
      */
     public function resetPassword(Request $request): Response
     {
+        $username = $request->get('username');
         $user = new User();
         $form = $this->createForm(ResetPasswordType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $username = $form->get('username')->getData();
             $password = $form->get('password')->getData();
-            $user->setUsername($username);
+            $user = $this->userRepository->findOneBy(['username' => $username]);
+            if (!$user) {
+                throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
+            }
             $user->setPassword($this->passwordHasher->hashPassword($user, $password));
-
             $em = $this->managerRegistry->getManager();
-            $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('app_homepage');
+            $this->addFlash('resetPasswordSuccess', 'Votre mon de passe a été modifié avec succès');
+            return $this->redirectToRoute('app_login');
         }
-        return $this->renderForm('frontoffice/resetPassword.html.twig', ['form' => $form]);
+        return $this->renderForm('frontoffice/resetPassword.html.twig', ['form' => $form, 'username' => $username]);
     }
 }
