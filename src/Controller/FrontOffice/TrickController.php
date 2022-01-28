@@ -5,9 +5,9 @@ namespace App\Controller\FrontOffice;
 use App\Entity\Image;
 use App\Entity\Message;
 use App\Entity\Trick;
-use App\Form\MessageTrickType;
 use App\Form\CreateTrickType;
 use App\Form\EditTrickType;
+use App\Form\MessageTrickType;
 use App\Repository\GroupRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/create", name="create")
+     * @Route("/create", name="create", methods={"GET","POST"})
      * @IsGranted("ROLE_VISITOR")
      */
     public function new(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
@@ -65,7 +65,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}/{slug}", name="details")
+     * @Route("/details/{id}/{slug}", name="details", methods={"GET"})
      */
     public function show(
         Request         $request,
@@ -110,7 +110,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}/{slug}", name="edit")
+     * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"})
      * @IsGranted("ROLE_VISITOR")
      * @param Request $request
      * @param TrickRepository $trickRepository
