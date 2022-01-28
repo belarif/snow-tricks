@@ -15,7 +15,9 @@ class ResetPasswordType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
+                'mapped' => false,
+                'disabled' => true
             ])
             ->add('password', PasswordType::class, [
                 'attr' => ['class' => 'form-control']
