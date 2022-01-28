@@ -19,62 +19,69 @@ class ProfileController extends AbstractController
 {
 
     private $userRepository;
+    private $managerRegistry;
 
-    private $doctrine;
-
-    public function __construct(UserRepository $userRepository, ManagerRegistry $doctrine)
+    public function __construct(
+        UserRepository  $userRepository,
+        ManagerRegistry $managerRegistry
+    )
     {
         $this->userRepository = $userRepository;
-        $this->doctrine = $doctrine;
+        $this->managerRegistry = $managerRegistry;
     }
 
     /**
      * @Route("/profile", name="app_profile")
+     *
+     * @param Request $request
+     * @return Response
      */
     public function profile(Request $request): Response
     {
-        $logedUser = $this->getUser();
-        if (!$logedUser) {
+        $loggedUser = $this->getUser();
+        if (!$loggedUser) {
             throw $this->createNotFoundException('Utilisateur inexistant');
         }
-        $username = $logedUser->getUserIdentifier();
-        $logedUser = $this->userRepository->findOneBy(array('username' => $username));
+        $username = $loggedUser->getUserIdentifier();
+        $loggedUser = $this->userRepository->findOneBy(['username' => $username]);
 
         $user = new User();
         $form = $this->createForm(ProfileFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->update($form, $logedUser);
-
+            $this->update($form, $loggedUser);
             $this->addFlash(
                 'success',
                 'Votre inscription a été complété avec succès'
             );
             $this->redirectToRoute('app_profile');
         }
-
-        return $this->renderForm('/frontoffice/profile.html.twig', array('form' => $form));
+        return $this->renderForm('/frontoffice/profile.html.twig', ['form' => $form]);
     }
 
-    private function update($form, $logedUser)
+    /**
+     * @param $form
+     * @param $loggedUser
+     */
+    private function update($form, $loggedUser): void
     {
         $lastName = $form->get('lastName')->getData();
         $firstName = $form->get('firstName')->getData();
-        $logedUser->setLastName($lastName);
-        $logedUser->setFirstName($firstName);
-        $logedUser->setSlug($lastName, $firstName);
+        $loggedUser->setLastName($lastName);
+        $loggedUser->setFirstName($firstName);
+        $loggedUser->setSlug($lastName, $firstName);
         $avatar = $form->get('avatar')->getData();
         $file = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $avatar->guessExtension();
         $avatar->move(
             $this->getParameter('app.avatars_directory'),
             $file
         );
-        $logedUser->setAvatar($file);
-        $logedUser->setProfileStatus(true);
-        $logedUser->setSlug(preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($lastName))));
+        $loggedUser->setAvatar($file);
+        $loggedUser->setProfileStatus(true);
+        $loggedUser->setSlug(preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($lastName))));
 
-        $em = $this->doctrine->getManager();
-        $em->persist($logedUser);
+        $em = $this->managerRegistry->getManager();
+        $em->persist($loggedUser);
         $em->flush();
     }
 }
