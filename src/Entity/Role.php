@@ -30,7 +30,7 @@ class Role
     /**
      * @ORM\Column(type="string", length=80)
      */
-    private $role_name;
+    private $roleName;
 
     public function getId(): ?int
     {
@@ -51,12 +51,12 @@ class Role
 
     public function getRoleName(): ?string
     {
-        return $this->role_name;
+        return $this->roleName;
     }
 
-    public function setRoleName(string $role_name): self
+    public function setRoleName(string $roleName): self
     {
-        $this->role_name = $role_name;
+        $this->roleName = $roleName;
 
         return $this;
     }
