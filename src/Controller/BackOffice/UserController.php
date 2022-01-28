@@ -23,7 +23,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/list", name="users_list")
+     * @Route("/list", name="users_list", methods={"GET"})
      */
     public function usersList(UserRepository $userRepository)
     {
@@ -34,7 +34,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}/{slug?}", name="user_details")
+     * @Route("/details/{id}/{slug?}", name="user_details, methods={"GET"}")
      */
     public function show(userRepository $userRepository, Request $request): Response
     {
@@ -60,7 +60,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="user_create")
+     * @Route("/create", name="user_create", methods={"GET","POST"})
      */
     public function new(
         Request                     $request,
@@ -108,7 +108,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}/{slug?}", name="user_edit")
+     * @Route("/edit/{id}/{slug?}", name="user_edit", , methods={"PUT"})
      */
     public function edit(
         Request         $request,
