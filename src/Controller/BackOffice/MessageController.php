@@ -17,16 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class MessageController extends AbstractController
 {
     private $messageRepository;
-    private $request;
     private $managerRegistry;
 
     public function __construct(
-        Request           $request,
         MessageRepository $messageRepository,
         ManagerRegistry   $managerRegistry
     )
     {
-        $this->request = $request;
         $this->messageRepository = $messageRepository;
         $this->managerRegistry = $managerRegistry;
     }
@@ -43,9 +40,9 @@ class MessageController extends AbstractController
     /**
      * @Route("/details/{id}", name="message_details", methods={"GET"})
      */
-    public function show(): Response
+    public function show(Request $request): Response
     {
-        $message_id = $this->request->get('id');
+        $message_id = $request->get('id');
         $messageDetails = $this->messageRepository->getMessage($message_id);
         return $this->render('/backoffice/messageDetails.html.twig', ['messageDetails' => $messageDetails]);
     }
@@ -53,9 +50,9 @@ class MessageController extends AbstractController
     /**
      * @Route("/delete/{id}", name="message_delete")
      */
-    public function delete(): RedirectResponse
+    public function delete(Request $request): RedirectResponse
     {
-        $message_id = $this->request->get('id');
+        $message_id = $request->get('id');
         $messageDelete = $this->messageRepository->find($message_id);
         $em = $this->managerRegistry->getManager();
         $em->remove($messageDelete);
