@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MessageController extends AbstractController
 {
     /**
-     * @Route("/list", name="messages_list")
+     * @Route("/list", name="messages_list", methods={"GET"})
      */
     public function messagesList(MessageRepository $messageRepository)
     {
@@ -25,7 +25,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}", name="message_details")
+     * @Route("/details/{id}", name="message_details", methods={"GET"})
      */
     public function show(MessageRepository $messageRepository, Request $request): Response
     {
