@@ -31,7 +31,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/profile", name="app_profile")
+     * @Route("/profile", name="app_profile", methods={"GET","POST"})
      *
      * @param Request $request
      * @return Response
