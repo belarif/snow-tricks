@@ -18,12 +18,12 @@
             </div>
             <div class="card-body">
                 {{ form_start(form) }}
-                {% if form.vars.value == enabled %}
+                {% if form.vars.value == selectedUser.enabled %}
                     {{ form_row(form.enabled, { 'label' : 'Statut', 'checked' : 'checked' }) }}
                 {% else %}
                     {{ form_row(form.enabled, { 'label' : 'Statut' }) }}
                 {% endif %}
-
+                {{ form_row(form.role, { 'label' : 'Roles :' }) }}
                 <div class="d-flex align-items-center justify-content-end mt-4 mb-0">
                     <button type="submit" class="btn btn-primary">Modifier</button>
                 </div>
