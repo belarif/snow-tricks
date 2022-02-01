@@ -137,7 +137,7 @@ class UserController extends AbstractController
     {
         $id = $request->get('id');
         $selectedUser = $this->userRepository->findOneBy(['id' => $id]);
-        $enabled = $selectedUser->getEnabled();
+
         $user = new User();
         $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
@@ -145,7 +145,7 @@ class UserController extends AbstractController
             $this->update($form, $selectedUser);
             return $this->redirectToRoute('admin_users_list');
         }
-        return $this->renderForm('/backoffice/userEdit.html.twig', ['form' => $form, 'enabled' => $enabled]);
+        return $this->renderForm('/backoffice/userEdit.html.twig', ['form' => $form, 'selectedUser' => $selectedUser]);
     }
 
     /**
