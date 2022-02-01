@@ -8,6 +8,7 @@ use App\Form\EditUserType;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 /**
  * @Route("/admin/users", name="admin_")
- *
+ * @IsGranted("ROLE_ADMIN")
  */
 class UserController extends AbstractController
 {
