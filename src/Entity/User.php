@@ -51,11 +51,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $avatar;
 
     /**
-     * @ORM\Column(type="json")
-     */
-    protected $roles = [];
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -150,11 +145,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $userRoles = $this->getRole();
-        foreach ($userRoles as $userRole) {
-            $roles[] = $userRole->getRoleName();
-        }
-        return array_unique($roles);
+        $roles = $this->role->map(function (Role $role) {
+            return $role->getRole();
+        });
+
+        return array_unique($roles->toArray());
     }
 
     public function setRoles(array $roles): self
