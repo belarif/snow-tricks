@@ -5,7 +5,6 @@ namespace App\Controller\BackOffice;
 use App\Entity\User;
 use App\Form\CreateUserType;
 use App\Form\EditUserType;
-use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,7 +24,6 @@ class UserController extends AbstractController
 {
     private $userRepository;
     private $managerRegistry;
-    private $roleRepository;
     private $passwordHasher;
     private $tokenGenerator;
     private $mailer;
@@ -33,7 +31,6 @@ class UserController extends AbstractController
     public function __construct(
         UserRepository              $userRepository,
         ManagerRegistry             $managerRegistry,
-        RoleRepository              $roleRepository,
         UserPasswordHasherInterface $passwordHasher,
         TokenGeneratorInterface     $tokenGenerator,
         Mailer                      $mailer
@@ -41,7 +38,6 @@ class UserController extends AbstractController
     {
         $this->userRepository = $userRepository;
         $this->managerRegistry = $managerRegistry;
-        $this->roleRepository = $roleRepository;
         $this->passwordHasher = $passwordHasher;
         $this->tokenGenerator = $tokenGenerator;
         $this->mailer = $mailer;
@@ -153,7 +149,7 @@ class UserController extends AbstractController
 
     /**
      * @param $form
-     * @param $id
+     * @param $selectedUser
      */
     private function update($form, $selectedUser): void
     {
