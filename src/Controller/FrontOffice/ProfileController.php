@@ -17,7 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProfileController extends AbstractController
 {
-
     private $userRepository;
     private $managerRegistry;
 
