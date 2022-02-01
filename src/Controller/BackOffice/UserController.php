@@ -124,9 +124,6 @@ class UserController extends AbstractController
     {
         $password = $form->get('password')->getData();
         $user->setPassword($this->passwordHasher->hashPassword($user, $password));
-        $role = $this->roleRepository->find('1');
-        $user->addRole($role);
-        $user->setRoles((array)$role->getRoleName());
         $user->setToken($this->tokenGenerator->generateToken());
         $user->setProfileStatus(false);
         $em = $this->managerRegistry->getManager();
