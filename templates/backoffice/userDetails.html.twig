@@ -32,7 +32,7 @@
                     <p>
                         <b>Roles</b> :
                         {% for role in user.roles %}
-                            {{ role }}
+                            {{ role }},
                         {% endfor %}
                     </p>
                     <p><b>Date de création</b> : {{ user.createdAt | date("d/m/Y \\à h:m:s") }}</p>
