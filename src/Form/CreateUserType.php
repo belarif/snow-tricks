@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Role;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -24,7 +26,13 @@ class CreateUserType extends AbstractType
             ->add('password', PasswordType::class, [
                 'attr' => ['class' => 'form-control'],
             ])
-        ;
+            ->add('role', EntityType::class, [
+                    'class' => Role::class,
+                    'multiple' => true,
+                    'choice_label' => function (Role $Role) {
+                        return $Role->getRole();
+                    }]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
