@@ -58,18 +58,15 @@
             </div>
         </div>
     </nav>
-
     <div class="content">
         {% block content %} {% endblock content %}
     </div>
-
     <!-- Copyright Section-->
     <div class="copyright py-4 text-center text-white">
         <div class="container"><small>Copyright &copy; Blog professionnel 2021</small></div>
     </div>
-
-    <nav class="navbar fixed-bottom" id="mobileNav">
-        <ul class="nav text-center">
+    <nav class="fixed-bottom" id="mobileNav">
+        <ul class="nav justify-content-around">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{ path('app_homepage') }}"><i
                             class="bi bi-house-door-fill"></i></a>
