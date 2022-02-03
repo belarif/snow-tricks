@@ -30,7 +30,7 @@ class UserFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-        $role_id = 1;
+        $role_id = 2;
         $roleRepository = $manager->getRepository(Role::class);
         $role = $roleRepository->find($role_id);
         if ($role) {
