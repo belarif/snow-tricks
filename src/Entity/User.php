@@ -69,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\ManyToMany(targetEntity=Role::class)
      * @JoinTable(name="st_user_role")
      */
-    private $role;
+    private $roles;
 
     /**
      * @ORM\Column(type="string", length=80)
@@ -101,7 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->tricks = new ArrayCollection();
         $this->enabled = false;
         $this->messages = new ArrayCollection();
-        $this->role = new ArrayCollection();
+        $this->roles = new ArrayCollection();
         $this->createdAt = new DateTime();
     }
 
@@ -145,7 +145,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->role->map(function (Role $role) {
+        $roles = $this->roles->map(function (Role $role) {
             return $role->getRoleName();
         });
 
@@ -164,7 +164,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRole(): Collection
     {
-        return $this->role;
+        return $this->roles;
     }
 
     /**
@@ -173,8 +173,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function addRole(Role $role): self
     {
-        if (!$this->role->contains($role)) {
-            $this->role[] = $role;
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
         }
 
         return $this;
@@ -182,7 +182,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeRole(Role $role): self
     {
-        $this->role->removeElement($role);
+        $this->roles->removeElement($role);
 
         return $this;
     }
