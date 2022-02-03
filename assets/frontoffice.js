@@ -17,4 +17,5 @@ import('./styles/frontoffice/create_trick.css');
 import('./styles/frontoffice/profile.css');
 import('./styles/frontoffice/forgot_password.css');
 import('./styles/frontoffice/reset_password.css');
+import('./styles/frontoffice/template.css');
 
