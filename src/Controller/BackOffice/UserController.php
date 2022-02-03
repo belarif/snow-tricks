@@ -158,8 +158,9 @@ class UserController extends AbstractController
             throw $this->createNotFoundException('Utilisateur inexistant');
         }
         $selectedUser->setEnabled($form->get('enabled')->getData());
+        $roles = $form->get('roles')->getData();
+        $selectedUser->setRoles($roles);
         $em = $this->managerRegistry->getManager();
-        $em->persist($selectedUser);
         $em->flush();
     }
 }
