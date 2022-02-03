@@ -1,0 +1,5 @@
+@media (max-width: 425px) {
+    #mainNav, .copyright {
+        display: none;
+    }
+}
