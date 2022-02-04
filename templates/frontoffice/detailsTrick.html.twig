@@ -9,21 +9,25 @@
 {% block content %}
     <section class="min-vw-100 min-vh-100">
     {% for trick in trickDetails %}
-        {% for image in trick.images %}
-            {% if loop.first %}
-                <div class="btn-trick-details">
-                    <img src="{{ asset('build/images/'~image.src) }}" class="min-vw-100 min-vh-100 img-fluid"
-                         alt="">
-                    <div class="btn-overlay">
-                        <!-- Trigger the modal with a button -->
-                        <button id="modal-btn" type="button" class="custom-btn text-white" data-bs-toggle="modal"
-                                data-bs-target="#deleteTrickModal" hidden>
-                            Détails
-                        </button>
-                    </div>
-                </div>
+        <div class="btn-trick-details">
+            {% if trick.images is empty %}
+                <img src="{{ asset('build/images/image-default.jpg') }}" class="min-vw-100 min-vh-100 img-fluid" alt="">
+            {% else %}
+                {% for image in trick.images %}
+                    {% if loop.first %}
+                        <img src="{{ asset('build/images/'~image.src) }}" class="min-vw-100 min-vh-100 img-fluid"
+                             alt="">
+                    {% endif %}
+                {% endfor %}
             {% endif %}
-        {% endfor %}
+            <div class="btn-overlay">
+                <!-- Trigger the modal with a button -->
+                <button id="modal-btn" type="button" class="custom-btn text-white" data-bs-toggle="modal"
+                        data-bs-target="#deleteTrickModal" hidden>
+                    Détails
+                </button>
+            </div>
+        </div>
         </section>
         <section class="text-center">
         <!-- Modal -->
@@ -51,6 +55,7 @@
                                                                             class="bi bi-trash-fill"></i></a>
                                                             </button>
                                                         </div>
+                                                        <h3 class="">{{ trick.name }}</h3>
                                                     </div>
                                                 {% endif %}
                                             </div>
