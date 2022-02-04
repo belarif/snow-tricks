@@ -5,6 +5,7 @@ namespace App\Controller\FrontOffice;
 use App\Entity\Image;
 use App\Entity\Message;
 use App\Entity\Trick;
+use App\Entity\Video;
 use App\Form\CreateTrickType;
 use App\Form\EditTrickType;
 use App\Form\MessageTrickType;
@@ -84,6 +85,12 @@ class TrickController extends AbstractController
             $image->setSrc($file);
             $trick->addImage($image);
         }
+        $videos = $form->get('videos')->getData();
+        foreach ($videos as $src) {
+            $video = new Video();
+            $video->setSrc($src);
+            $trick->addVideo($video);
+        }
 
         $username = $this->getUser()->getUserIdentifier();
         $user = $this->userRepository->findOneBy(['username' => $username]);
@@ -91,6 +98,7 @@ class TrickController extends AbstractController
         $slug = preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($name)));
         $trick->setSlug($slug);
         $trick->setUser($user);
+
         $em = $this->managerRegistry->getManager();
         $em->persist($trick);
         $em->flush();
