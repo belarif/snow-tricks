@@ -161,7 +161,7 @@ class UserController extends AbstractController
             $em = $this->managerRegistry->getManager();
             $em->flush();
             $this->addFlash('resetPasswordSuccess', 'Votre mon de passe a été modifié avec succès');
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_homepage');
         }
         return $this->renderForm('frontoffice/resetPassword.html.twig', ['form' => $form, 'username' => $username]);
     }
