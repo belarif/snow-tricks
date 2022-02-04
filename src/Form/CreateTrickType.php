@@ -6,7 +6,9 @@ use App\Entity\Group;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,6 +31,16 @@ class CreateTrickType extends AbstractType
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false
+            ])
+            ->add('videos', CollectionType::class, [
+                'allow_add' => true,
+                'prototype' => true,
+                'mapped' => false,
+                'entry_type' => TextType::class,
+                'entry_options' => [
+                    'attr' => ['class' => 'text-box'],
+                    'required' => false
+                ],
             ]);
     }
 
@@ -39,3 +51,4 @@ class CreateTrickType extends AbstractType
         ]);
     }
 }
+
