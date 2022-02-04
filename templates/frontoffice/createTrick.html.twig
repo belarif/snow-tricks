@@ -21,6 +21,20 @@
                 {{ form_widget(form.description) }}
                 {{ form_label(form.images, 'Image(s) :') }}
                 {{ form_widget(form.images) }}
+                {{ form_label(form.images, 'Vidéo(s) :') }}
+                <ul id="video-fields-list"
+                    data-prototype="{{ form_widget(form.videos.vars.prototype)|e }}"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.videos|length }}">
+                    {% for videoField in form.videos %}
+                        <li>
+                            {{ form_widget(videoField) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button type="button" class="add-another-collection-widget" data-list-selector="#video-fields-list">
+                    Ajouter
+                </button>
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-primary mt-3" type="submit">Envoyer</button>
                 </div>
