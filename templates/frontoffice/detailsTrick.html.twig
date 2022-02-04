@@ -9,84 +9,103 @@
 {% block content %}
     <section class="min-vw-100 min-vh-100">
     {% for trick in trickDetails %}
-        {% for image in trick.images %}
-            {% if loop.first %}
-                <div class="btn-trick-details">
-                    <img src="{{ asset('build/images/'~image.src) }}" class="min-vw-100 min-vh-100 img-fluid"
-                         alt="">
-                    <div class="btn-overlay">
-                        <!-- Trigger the modal with a button -->
-                        <button id="modal-btn" type="button" class="custom-btn text-white" data-bs-toggle="modal"
-                                data-bs-target="#deleteTrickModal" hidden>
-                            Détails
-                        </button>
-                    </div>
-                </div>
+        <div class="btn-trick-details">
+            {% if trick.images is empty %}
+                <img src="{{ asset('build/images/image-default.jpg') }}" class="min-vw-100 min-vh-100 img-fluid" alt="">
+            {% else %}
+                {% for image in trick.images %}
+                    {% if loop.first %}
+                        <img src="{{ asset('build/images/'~image.src) }}" class="min-vw-100 min-vh-100 img-fluid"
+                             alt="">
+                    {% endif %}
+                {% endfor %}
             {% endif %}
-        {% endfor %}
-        </section>
-        <section class="text-center">
-        <!-- Modal -->
-        <div class="modal fade" id="deleteTrickModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    {% for image in trick.images %}
-                                        {% if loop.first %}
+            <div class="btn-overlay">
+                <!-- Trigger the modal with a button -->
+                <button id="modal-btn" type="button" class="custom-btn text-white" data-bs-toggle="modal"
+                        data-bs-target="#deleteTrickModal" hidden>
+                    Détails
+                </button>
+            </div>
+        </div>
+    {% endfor %}
+    </section>
+
+    <section class="text-center">
+        {% for trick in trickDetails %}
+            <!-- Modal -->
+            <div class="modal fade" id="deleteTrickModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="image-trick">
                                             <div class="img-wrapper">
-                                                <img src="{{ asset('build/images/'~image.src) }}"
-                                                     class="w-100 img-fluid img-responsive" height="550" alt="">
+                                                {% if trick.images is empty %}
+                                                    <img src="{{ asset('build/images/image-default.jpg') }}"
+                                                         class="w-100 img-responsive" height="560" alt="">
+                                                {% else %}
+                                                    {% for image in trick.images %}
+                                                        {% if loop.first %}
+                                                            <img src="{{ asset('build/images/'~image.src) }}"
+                                                                 class="w-100 img-responsive" height="560" alt="">
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
                                                 {% if app.user %}
                                                     <div class="img-overlay">
                                                         <div class="btn-group m-3 me-3" role="group"
                                                              aria-label="Basic outlined example">
-                                                            <button type="button" class="btn btn-light"><a href="#"><i
+                                                            <button type="button" class="btn btn-light"><a
+                                                                        href="{{ path('trick_edit', { 'id' : trick.id, 'slug' : trick.slug }) }}"><i
                                                                             class="bi bi-pencil-fill"></i></a>
                                                             </button>
-                                                            <button type="button" class="btn btn-light"><a href="#"><i
+                                                            <button type="button" class="btn btn-light"><a
+                                                                        href="javascript:void(0)"
+                                                                        onclick="deleteTrick({{ trick.id }})"><i
                                                                             class="bi bi-trash-fill"></i></a>
                                                             </button>
                                                         </div>
                                                     </div>
                                                 {% endif %}
                                             </div>
-                                        {% endif %}
-                                    {% endfor %}
+                                            <h1 class="centered">{{ trick.name | upper }}</h1>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div id="content-desktop" class="my-5">
-                                        <div class="container">
-                                            <div id="carouselExampleControls" class="carousel"
-                                                 data-bs-ride="carousel">
-                                                <div class="carousel-inner">
-                                                    {% for image in imagesTrick %}
-                                                        <div class="{% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
-                                                            <div class="card">
-                                                                <div class="img-wrapper">
-                                                                    <img src="{{ asset('build/images/'~image.src) }}"
-                                                                         alt="">
-                                                                    <embed src="" allowfullscreen="true" class="w-100"
-                                                                           height="h-100">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="content-desktop" class="my-5">
+                                            <div class="container">
+                                                <div id="carouselExampleControls" class="carousel"
+                                                     data-bs-ride="carousel">
+                                                    <div class="carousel-inner">
+                                                        {% for image in trick.images %}
+                                                            <div class="{% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
+                                                                <div class="card">
+                                                                    <div class="img-wrapper">
+                                                                        <img src="{{ asset('build/images/'~image.src) }}"
+                                                                             alt="">
+                                                                        <embed src="" allowfullscreen="true"
+                                                                               class="w-100"
+                                                                               height="h-100">
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    {% endfor %}
-                                                </div>
-                                                <button class="carousel-control-prev" type="button"
-                                                        data-bs-target="#carouselExampleControls"
-                                                        data-bs-slide="prev">
+                                                        {% endfor %}
+                                                    </div>
+                                                    <button class="carousel-control-prev" type="button"
+                                                            data-bs-target="#carouselExampleControls"
+                                                            data-bs-slide="prev">
                                                     <span class="carousel-control-prev-icon"
                                                           aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Previous</span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button"
-                                                        data-bs-target="#carouselExampleControls"
+                                                        <span class="visually-hidden">Previous</span>
+                                                    </button>
+                                                    <button class="carousel-control-next" type="button"
+                                                            data-bs-target="#carouselExampleControls"
                                                         data-bs-slide="next">
                                                     <span class="carousel-control-next-icon"
                                                           aria-hidden="true"></span>
@@ -202,3 +221,4 @@
 {% block javascript %}
 {{ encore_entry_script_tags('frontoffice') }}
 {% endblock javascript %}
+

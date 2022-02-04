@@ -9,38 +9,53 @@
 {% block content %}
     <section class="min-vw-100 min-vh-100">
     {% for trick in editTrick %}
-        {% for image in trick.images %}
-            {% if loop.first %}
-                <div class="btn-edit-trick">
-                    <img src="{{ asset('build/images/'~image.src) }}" class="min-vw-100 min-vh-100 img-fluid"
-                         alt="">
-                    <div class="btn-overlay">
-                        <!-- Trigger the modal with a button -->
-                        <button id="modal-btn" type="button" class="custom-btn text-white" data-bs-toggle="modal"
-                                data-bs-target="#editTrickModal" hidden>
-                            Modifier
-                        </button>
-                    </div>
-                </div>
+        <div class="btn-edit-trick">
+            {% if trick.images is empty %}
+                <img src="{{ asset('build/images/image-default.jpg') }}" class="min-vw-100 min-vh-100 img-fluid" alt="">
+            {% else %}
+                {% for image in trick.images %}
+                    {% if loop.first %}
+                        <img src="{{ asset('build/images/'~image.src) }}" class="min-vw-100 min-vh-100 img-fluid"
+                             alt="">
+                    {% endif %}
+                {% endfor %}
             {% endif %}
-        {% endfor %}
-        </section>
-        <section class="text-center">
-        <!-- Modal -->
-        <div class="modal fade" id="editTrickModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            {{ form_start(form) }}
-                            <div class="row">
-                                <div class="col-12">
-                                    {% for image in trick.images %}
-                                        {% if loop.first %}
-                                            <div class="img-wrapper">
-                                                <img src="{{ asset('build/images/'~image.src) }}"
-                                                     class="w-100 img-fluid" alt="">
+            <div class="btn-overlay">
+                <!-- Trigger the modal with a button -->
+                <button id="modal-btn" type="button" class="custom-btn text-white" data-bs-toggle="modal"
+                        data-bs-target="#editTrickModal" hidden>
+                    Modifier
+                </button>
+            </div>
+        </div>
+    {% endfor %}
+    </section>
+    <section class="text-center">
+        {% for trick in editTrick %}
+            <!-- Modal -->
+            <div class="modal fade" id="editTrickModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                {{ form_start(form) }}
+                                <div class="row">
+                                    <div class="col-12">
+                                    <div class="image-trick">
+                                        <div class="img-wrapper">
+                                            {% if trick.images is empty %}
+                                                <img src="{{ asset('build/images/image-default.jpg') }}"
+                                                     class="w-100 img-responsive" height="560" alt="">
+                                            {% else %}
+                                                {% for image in trick.images %}
+                                                    {% if loop.first %}
+                                                        <img src="{{ asset('build/images/'~image.src) }}"
+                                                             class="w-100 img-responsive" height="560" alt="">
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                            {% if app.user %}
                                                 <div class="img-overlay">
                                                     <div class="btn-group m-3 me-3" role="group"
                                                          aria-label="Basic outlined example">
@@ -52,9 +67,10 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <h1 class="centered">{{ trick.name | upper }}</h1>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
