@@ -107,8 +107,6 @@ class TrickController extends AbstractController
         $id = $request->get('id');
         $slug = $request->get('slug');
         $trickDetails = $this->trickRepository->getTrick($id);
-        $imagesTrick = $this->imageRepository->getImagesTrick($id);
-        $videosTrick = $this->videoRepository->getVideosTrick($id);
 
         $message = new Message();
         $form = $this->createForm(MessageTrickType::class, $message);
@@ -121,8 +119,6 @@ class TrickController extends AbstractController
 
         return $this->renderForm('/frontoffice/detailsTrick.html.twig', [
             'trickDetails' => $trickDetails,
-            'videosTrick' => $videosTrick,
-            'imagesTrick' => $imagesTrick,
             'form' => $form
         ]);
     }
