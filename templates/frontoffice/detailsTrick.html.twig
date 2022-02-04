@@ -55,10 +55,13 @@
                                             <div class="img-overlay">
                                                 <div class="btn-group m-3 me-3" role="group"
                                                      aria-label="Basic outlined example">
-                                                    <button type="button" class="btn btn-light"><a href="#"><i
+                                                    <button type="button" class="btn btn-light"><a
+                                                                href="{{ path('trick_edit', { 'id' : trick.id, 'slug' : trick.slug }) }}"><i
                                                                     class="bi bi-pencil-fill"></i></a>
                                                     </button>
-                                                    <button type="button" class="btn btn-light"><a href="#"><i
+                                                    <button type="button" class="btn btn-light"><a
+                                                                href="javascript:void(0)"
+                                                                onclick="deleteTrick({{ trick.id }})"><i
                                                                     class="bi bi-trash-fill"></i></a>
                                                     </button>
                                                 </div>
@@ -212,3 +215,4 @@
 {% block javascript %}
 {{ encore_entry_script_tags('frontoffice') }}
 {% endblock javascript %}
+
