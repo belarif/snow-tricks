@@ -32,43 +32,45 @@
         <section class="text-center">
         <!-- Modal -->
         <div class="modal fade" id="deleteTrickModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="img-wrapper">
-                                        {% if trick.images is empty %}
-                                            <img src="{{ asset('build/images/image-default.jpg') }}"
-                                                 class="w-100 img-responsive" height="560" alt="">
-                                        {% else %}
-                                            {% for image in trick.images %}
-                                                {% if loop.first %}
-                                                    <img src="{{ asset('build/images/'~image.src) }}"
-                                                         class="w-100 img-responsive" height="560" alt="">
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% endif %}
-                                        {% if app.user %}
-                                            <div class="img-overlay">
-                                                <div class="btn-group m-3 me-3" role="group"
-                                                     aria-label="Basic outlined example">
-                                                    <button type="button" class="btn btn-light"><a
-                                                                href="{{ path('trick_edit', { 'id' : trick.id, 'slug' : trick.slug }) }}"><i
-                                                                    class="bi bi-pencil-fill"></i></a>
-                                                    </button>
-                                                    <button type="button" class="btn btn-light"><a
-                                                                href="javascript:void(0)"
-                                                                onclick="deleteTrick({{ trick.id }})"><i
-                                                                    class="bi bi-trash-fill"></i></a>
-                                                    </button>
-                                                </div>
-                                                <h3 class="text-white">{{ trick.name }}</h3>
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="image-trick">
+                                <div class="img-wrapper">
+                                    {% if trick.images is empty %}
+                                        <img src="{{ asset('build/images/image-default.jpg') }}"
+                                             class="w-100 img-responsive" height="560" alt="">
+                                    {% else %}
+                                        {% for image in trick.images %}
+                                            {% if loop.first %}
+                                                <img src="{{ asset('build/images/'~image.src) }}"
+                                                     class="w-100 img-responsive" height="560" alt="">
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if app.user %}
+                                        <div class="img-overlay">
+                                            <div class="btn-group m-3 me-3" role="group"
+                                                 aria-label="Basic outlined example">
+                                                <button type="button" class="btn btn-light"><a
+                                                            href="{{ path('trick_edit', { 'id' : trick.id, 'slug' : trick.slug }) }}"><i
+                                                                class="bi bi-pencil-fill"></i></a>
+                                                </button>
+                                                <button type="button" class="btn btn-light"><a
+                                                            href="javascript:void(0)"
+                                                            onclick="deleteTrick({{ trick.id }})"><i
+                                                                class="bi bi-trash-fill"></i></a>
+                                                </button>
                                             </div>
-                                        {% endif %}
-                                    </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <h1 class="centered">{{ trick.name | upper }}</h1>
+                                <div>
                                 </div>
                             </div>
                             <div class="row">
