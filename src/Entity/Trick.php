@@ -260,4 +260,21 @@ class Trick
 
         return $this;
     }
+
+	public function addVideosFromArray(array $urls): self {
+		$urls = array_filter(
+			$urls,
+			function ($url) {
+				return $url != null;
+			}
+		);
+
+		foreach ($urls as $src) {
+			$video = new Video();
+			$video->setSrc($src);
+			$this->addVideo($video);
+		}
+
+		return $this;
+	}
 }

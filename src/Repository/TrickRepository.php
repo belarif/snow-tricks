@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -31,17 +32,24 @@ class TrickRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    /**
-     * @param $id
-     * @return int|mixed|string
-     */
-    public function getTrick($id)
+	/**
+	 * @param $id
+	 * @return Trick
+	 * @throws EntityNotFoundException
+	 */
+    public function getTrick($id): Trick
     {
-        return $this->createQueryBuilder('t')
+        $trick = $this->createQueryBuilder('t')
             ->andWhere('t.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
+
+		if (!$trick) {
+			throw new EntityNotFoundException('Trick with id ' . $id . ' is not found');
+		}
+
+		return $trick[0];
     }
 }
 
