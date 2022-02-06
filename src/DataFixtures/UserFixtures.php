@@ -2,14 +2,17 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
+	public const ADMIN_ONE = 'ADMIN_ONE';
+	public const ADMIN_TWO = 'ADMIN_TWO';
+
     /**
      * @var UserPasswordHasherInterface
      */
@@ -18,9 +21,7 @@ class UserFixtures extends Fixture
     /**
      * @param UserPasswordHasherInterface $passwordHasher
      */
-    public function __construct(
-        UserPasswordHasherInterface $passwordHasher
-    )
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
     }
@@ -30,20 +31,42 @@ class UserFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-        $role_id = 2;
-        $roleRepository = $manager->getRepository(Role::class);
-        $role = $roleRepository->find($role_id);
-        if ($role) {
-            $user = new User();
-            $user->setUsername('belarif');
-            $user->setEmail('hocine.belarif1@gmail.com');
-            $user->setPassword($this->passwordHasher->hashPassword($user, 'admin'));
-            $user->addRole($role);
-            $user->setEnabled(true);
-            $user->setProfileStatus(false);
-            $manager->persist($user);
-            $manager->flush();
-        }
+		$users = [
+			[
+				'username' =>  'belarif',
+				'email' => 'hocine.belarif1@gmail.com',
+				'password' => 'admin',
+				'level' => self::ADMIN_ONE
+			],
+			[
+				'username' =>  'bobo',
+				'email' => 'bobo@gmail.com',
+				'password' => 'bobo',
+				'level' => self::ADMIN_TWO
+			],
+		];
+
+	    foreach ($users as $user) {
+		    $newUser = new User();
+		    $newUser->setUsername($user['username']);
+		    $newUser->setEmail($user['email']);
+		    $newUser->setPassword($this->passwordHasher->hashPassword($newUser, $user['password']));
+		    $newUser->addRole($this->getReference(RoleFixtures::ROLE_ADMIN));
+		    $newUser->setEnabled(true);
+		    $newUser->setProfileStatus(false);
+
+		    $manager->persist($newUser);
+		    $manager->flush();
+
+			$this->setReference($user['level'], $newUser);
+		}
     }
+
+	public function getDependencies(): array
+	{
+		return [
+			RoleFixtures::class
+		];
+	}
 }
 

@@ -6,9 +6,10 @@ use App\Entity\Image;
 use App\Entity\Trick;
 use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class MediaFixtures extends Fixture
+class MediaFixtures extends Fixture implements DependentFixtureInterface
 {
 
     /**
@@ -20,10 +21,20 @@ class MediaFixtures extends Fixture
         $trickRepository = $manager->getRepository(Trick::class);
         $trick = $trickRepository->find($trick_id);
 
-        $videos = ['https://www.youtube.com/embed/hih9jIzOoRg', 'https://www.youtube.com/embed/CA5bURVJ5zk',
-            'https://www.youtube.com/embed/mfNA0UEJo1Y', 'https://www.youtube.com/embed/qsd8uaex-Is',
-            'https://www.youtube.com/embed/V9xuy-rVj9w'];
-        $images = ['mute-grab-1.png', 'mute-grab-2.png', 'mute-grab-3.png', 'mute-grab-4.png'];
+        $videos = [
+			'https://www.youtube.com/embed/hih9jIzOoRg',
+	        'https://www.youtube.com/embed/CA5bURVJ5zk',
+            'https://www.youtube.com/embed/mfNA0UEJo1Y',
+	        'https://www.youtube.com/embed/qsd8uaex-Is',
+            'https://www.youtube.com/embed/V9xuy-rVj9w'
+        ];
+
+        $images = [
+			'mute-grab-1.png',
+	        'mute-grab-2.png',
+	        'mute-grab-3.png',
+	        'mute-grab-4.png'
+        ];
 
         if ($trick) {
             foreach ($videos as $newVideo) {
@@ -43,4 +54,11 @@ class MediaFixtures extends Fixture
             }
         }
     }
+
+	public function getDependencies(): array
+	{
+		return [
+			TrickFixtures::class
+		];
+	}
 }
