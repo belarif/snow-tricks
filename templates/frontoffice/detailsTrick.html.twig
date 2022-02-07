@@ -89,8 +89,16 @@
                                                                     <div class="img-wrapper">
                                                                         <img src="{{ asset('build/images/'~image.src) }}"
                                                                              alt="">
-                                                                        <embed src="" allowfullscreen="true"
-                                                                               class="w-100"
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                        {% for video in trick.videos %}
+                                                            <div class="{% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
+                                                                <div class="card">
+                                                                    <div class="img-wrapper">
+                                                                        <embed src="{{ video.src }}"
+                                                                               allowfullscreen="true" class="w-100"
                                                                                height="h-100">
                                                                     </div>
                                                                 </div>
