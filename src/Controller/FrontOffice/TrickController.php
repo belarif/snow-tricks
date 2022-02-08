@@ -8,7 +8,6 @@ use App\Entity\Trick;
 use App\Form\CreateTrickType;
 use App\Form\EditTrickType;
 use App\Form\MessageTrickType;
-use App\Repository\GroupRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,21 +23,17 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TrickController extends AbstractController
 {
-	private EntityManagerInterface $em;
+	private $em;
 
-    private TrickRepository $trickRepository;
-
-    private GroupRepository $groupRepository;
+    private $trickRepository;
 
     public function __construct(
-		EntityManagerInterface $em,
-        TrickRepository $trickRepository,
-        GroupRepository $groupRepository
+        EntityManagerInterface $em,
+        TrickRepository $trickRepository
     )
     {
 		$this->em = $em;
         $this->trickRepository = $trickRepository;
-        $this->groupRepository = $groupRepository;
     }
 
     /**
