@@ -90,13 +90,13 @@
                                                                 <div class="d-flex justify-content-end">
                                                                     <div class="btn-group m-3 me-3" role="group"
                                                                          aria-label="Basic outlined example">
-                                                                        <button type="button" class="btn btn-light"><a
-                                                                                    href="#"><i
-                                                                                        class="bi bi-pencil-fill"></i></a>
+                                                                        <button type="button" class="btn btn-light"
+                                                                                id="show">
+                                                                            <i class="bi bi-pencil-fill"></i>
                                                                         </button>
                                                                         <button type="button" class="btn btn-light"><a
-                                                                                    href="#"><i
-                                                                                        class="bi bi-trash-fill"></i></a>
+                                                                                    href="#">
+                                                                                <i class="bi bi-trash-fill"></i></a>
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -113,9 +113,9 @@
                                                                 <div class="d-flex justify-content-end">
                                                                     <div class="btn-group m-3 me-3" role="group"
                                                                          aria-label="Basic outlined example">
-                                                                        <button type="button" class="btn btn-light"><a
-                                                                                    href="#"><i
-                                                                                        class="bi bi-pencil-fill"></i></a>
+                                                                        <button type="button" class="btn btn-light"
+                                                                                id="show"><i
+                                                                                    class="bi bi-pencil-fill"></i>
                                                                         </button>
                                                                         <button type="button" class="btn btn-light"><a
                                                                                     href="#"><i
@@ -219,6 +219,7 @@
                                     {% endfor %}
                                     <div class="offset-lg-2 col-lg-8 offset-lg-2 col-sm-12">
                                         {{ form_row(form.name, { 'attr': {'value': trick.name } }) }}
+                                        {{ form_row(form.images) }}
                                         {{ form_row(form.description, { 'value': trick.description }  ) }}
                                     </div>
                                     <div class="offset-lg-2 col-lg-8 offset-lg-2 col-sm-12">
@@ -253,4 +254,5 @@
 {% block javascript %}
 {{ encore_entry_script_tags('frontoffice') }}
 {% endblock javascript %}
+
 
