@@ -30,10 +30,10 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
         ];
 
         $images = [
-			'mute-grab-1.png',
-	        'mute-grab-2.png',
-	        'mute-grab-3.png',
-	        'mute-grab-4.png'
+            'mute-grab-1.png',
+            'mute-grab-2.jpg',
+            'mute-grab-3.jpg',
+            'mute-grab-4.jpg'
         ];
 
         if ($trick) {
