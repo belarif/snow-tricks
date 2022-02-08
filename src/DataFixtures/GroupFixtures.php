@@ -8,8 +8,8 @@ use Doctrine\Persistence\ObjectManager;
 
 class GroupFixtures extends Fixture
 {
-    public const GROUP_ONE = 'Les grabs';
-    public const GROUP_TWO = 'La manière de rideur';
+    public const GROUP_ONE = 'La manière de rideur';
+    public const GROUP_TWO = 'Les grabs';
     public const GROUP_THREE = 'Les rotations';
     public const GROUP_FOUR = 'Les flips';
     public const GROUP_FIVE = 'Les rotations désaxées';
