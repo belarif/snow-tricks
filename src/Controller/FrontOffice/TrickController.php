@@ -64,7 +64,6 @@ class TrickController extends AbstractController
 	 */
     private function createTrickProcess(FormInterface $form, Trick $trick)
     {
-	    $name = $form->get('name')->getData();
         $images = $form->get('images')->getData();
 
         foreach ($images as $img) {
@@ -77,7 +76,7 @@ class TrickController extends AbstractController
         }
 
 		$trick->addVideosFromArray($form->get('videos')->getData());
-        $trick->setSlug(preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($name))));
+        $trick->setSlug(preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($form->get('name')->getData()))));
         $trick->setUser($this->getUser());
 
         $this->em->persist($trick);
