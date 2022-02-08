@@ -5,12 +5,12 @@
 suivante : https://github.com/belarif/snowTricks.git copiez cette url à utiliser pour installer le projet en local.
 
 2. Ouvrez le terminal de votre IDE. Si vous utilisez le server WampServer64, positionnez vous sur le chemin : `c:
-/wamp64/www` grace à la commande: cd Comme suit: `cd c:/wamp64/www `Si vous utilisez un server autre que WampServer64,
-positionnez vous sur le chemin qui permettra l'exécution du site.
+   /wamp64/www` grace à la commande: cd Comme suit: `cd c:/wamp64/www `Si vous utilisez un server autre que
+   WampServer64, positionnez vous sur le chemin qui permettra l'exécution du site.
 
-3. Sur le meme chemin, tapez la commande suivante pour cloner le projet : git
-clone https://github.com/belarif/snowTricks.git Après exécution de la commande, le projet sera copié sur votre
-ordinateur
+3. Sur le même chemin, tapez la commande suivante pour cloner le projet : git
+   clone https://github.com/belarif/snowTricks.git Après exécution de la commande, le projet sera copié sur votre
+   ordinateur
 
 ### Installation des dépendances
 Toujours depuis votre terminal, exécutez la commande suivant : `composer install`
@@ -18,7 +18,7 @@ Toujours depuis votre terminal, exécutez la commande suivant : `composer instal
 ### Création de la base de données
 1. Modifier le fichier `.env` pour adapater les accès de votre SGBD
 2. Création de la BD: `php bin/console doctrine:schema:create --force`
-3. Création du schema de la BD: `php bin/console doctrine:schema:update --force` (à remplacer par la commande `doctrine:migrations:migrate`)
+3. Création du schéma de la BD: `php bin/console doctrine:migrations:migrate`
 4. Création des fixtures
 
 ### Installation des resources publiques
