@@ -93,13 +93,12 @@ class TrickController extends AbstractController
 	 * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"})
 	 *
 	 * @param Request $request
+	 * @param int $id
 	 * @return Response
 	 * @throws \Doctrine\ORM\EntityNotFoundException
 	 */
-    public function show(Request $request): Response
+    public function show(Request $request, int $id): Response
     {
-        $id = $request->get('id');
-        $slug = $request->get('slug');
         $trick = $this->trickRepository->getTrick($id);
 
         $message = new Message();
@@ -109,7 +108,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->messageTrick($id, $form, $message);
             $this->addFlash('messageSentSuccess', 'Votre message a été envoyé avec succès');
-            return $this->redirectToRoute('trick_details', ['id' => $id, 'slug' => $slug]);
+            return $this->redirectToRoute('trick_details', ['id' => $id, 'slug' => $trick->getSlug()]);
         }
 
         return $this->renderForm('/frontoffice/detailsTrick.html.twig', [
@@ -139,13 +138,12 @@ class TrickController extends AbstractController
 	 * @IsGranted("ROLE_VISITOR")
 	 *
 	 * @param Request $request
+	 * @param int $id
 	 * @return Response
 	 * @throws \Doctrine\ORM\EntityNotFoundException
 	 */
-    public function edit(Request $request): Response
+    public function edit(Request $request, int $id): Response
     {
-        $id = $request->get('id');
-        $slug = $request->get('slug');
         $trick = $this->trickRepository->getTrick($id);
 
         $form = $this->createForm(EditTrickType::class, $trick);
@@ -155,7 +153,7 @@ class TrickController extends AbstractController
 			$this->em->flush();
 
 			$this->addFlash('trickEditSuccess', 'Le trick a été modifié avec succès');
-			$this->redirectToRoute('trick_edit', ['id' => $id, 'slug' => $slug]);
+			$this->redirectToRoute('trick_edit', ['id' => $id, 'slug' => $trick->getSlug()]);
         }
 
         return $this->renderForm('/frontoffice/editTrick.html.twig', [
@@ -164,17 +162,17 @@ class TrickController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/delete/{id}", name="delete")
-     * @IsGranted("ROLE_VISITOR")
-     *
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function delete(Request $request): redirectResponse
+	/**
+	 * @Route("/delete/{id}", name="delete")
+	 * @IsGranted("ROLE_VISITOR")
+	 *
+	 * @param Request $request
+	 * @param int $id
+	 * @return RedirectResponse
+	 */
+    public function delete(Request $request, int $id): redirectResponse
     {
-        $trick_id = $request->get('id');
-        $trickDelete = $this->trickRepository->find($trick_id);
+        $trickDelete = $this->trickRepository->find($id);
         $this->em->remove($trickDelete);
         $this->em->flush();
 
