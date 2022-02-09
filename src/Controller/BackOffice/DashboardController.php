@@ -17,8 +17,9 @@ class DashboardController extends AbstractController
      * @Route("/dashboard", name="dashboard", methods={"GET"})
      * @return Response
      */
-    public function index(): Response
+    public function dashboard(): Response
     {
         return $this->render('backoffice/dashboard.html.twig');
     }
 }
+
