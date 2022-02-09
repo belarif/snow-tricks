@@ -3,7 +3,7 @@
 namespace App\Controller\BackOffice;
 
 use App\Repository\TrickRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,34 +18,34 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     private $trickRepository;
-    private $managerRegistry;
 
-    public function __construct(ManagerRegistry $managerRegistry, TrickRepository $trickRepository)
+    private $em;
+
+    public function __construct(EntityManagerInterface $em, TrickRepository $trickRepository)
     {
-        $this->managerRegistry = $managerRegistry;
+        $this->em = $em;
         $this->trickRepository = $trickRepository;
     }
 
     /**
      * @Route("/list", name="tricks_list", methods={"GET"})
+     *
      * @return Response
      */
     public function tricksList(): Response
     {
-        $tricks = $this->trickRepository->getTricks();
-        return $this->render('/backoffice/tricksList.html.twig', ['tricks' => $tricks]);
+        return $this->render('/backoffice/tricksList.html.twig', ['tricks' => $this->trickRepository->getTricks()]);
     }
 
     /**
      * @Route("/details/{id}/{slug}", name="trick_details", methods={"GET"})
+     *
      * @param Request $request
      * @return Response
      */
-    public function show(Request $request): Response
+    public function show(int $id): Response
     {
-        $id = $request->get('id');
-        $trickDetails = $this->trickRepository->getTrick($id);
-        return $this->render('/backoffice/trickDetails.html.twig', ['trickDetails' => $trickDetails]);
+        return $this->render('/backoffice/trickDetails.html.twig', ['trick' => $this->trickRepository->getTrick($id)]);
     }
 
     /**
@@ -57,9 +57,10 @@ class TrickController extends AbstractController
     {
         $trick_id = $request->get('id');
         $trickDelete = $this->trickRepository->find($trick_id);
-        $em = $this->managerRegistry->getManager();
-        $em->remove($trickDelete);
-        $em->flush();
+
+        $this->em->remove($trickDelete);
+        $this->em->flush();
+
         return $this->redirectToRoute('admin_tricks_list');
     }
 }
