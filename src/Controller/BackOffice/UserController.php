@@ -9,7 +9,6 @@ use App\Repository\UserRepository;
 use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +19,6 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 /**
  * @Route("/admin/users", name="admin_")
- * @IsGranted("ROLE_ADMIN")
  */
 class UserController extends AbstractController
 {
@@ -142,6 +140,7 @@ class UserController extends AbstractController
      * @param Request $request
      * @param int $id
      * @return Response
+     * @throws EntityNotFoundException
      */
     public function edit(Request $request, int $id): Response
     {
@@ -157,3 +156,4 @@ class UserController extends AbstractController
         return $this->renderForm('/backoffice/userEdit.html.twig', ['form' => $form, 'user' => $user]);
     }
 }
+

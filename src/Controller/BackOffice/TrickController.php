@@ -4,16 +4,14 @@ namespace App\Controller\BackOffice;
 
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/admin/tricks", name="admin_")
- * @IsGranted("ROLE_ADMIN")
  */
 class TrickController extends AbstractController
 {
@@ -40,8 +38,9 @@ class TrickController extends AbstractController
     /**
      * @Route("/details/{id}/{slug}", name="trick_details", methods={"GET"})
      *
-     * @param Request $request
+     * @param int $id
      * @return Response
+     * @throws EntityNotFoundException
      */
     public function show(int $id): Response
     {
@@ -62,6 +61,7 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('admin_tricks_list');
     }
 }
+
 
 
 

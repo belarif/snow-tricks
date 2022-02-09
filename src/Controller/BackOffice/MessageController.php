@@ -4,17 +4,14 @@ namespace App\Controller\BackOffice;
 
 use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-;
-
 /**
  * @Route("/admin/messages", name="admin_")
- * @IsGranted("ROLE_ADMIN")
  */
 class MessageController extends AbstractController
 {
@@ -46,7 +43,7 @@ class MessageController extends AbstractController
      *
      * @param int $id
      * @return Response
-     * @throws \Doctrine\ORM\EntityNotFoundException
+     * @throws EntityNotFoundException
      */
     public function show(int $id): Response
     {
@@ -67,6 +64,7 @@ class MessageController extends AbstractController
         return $this->redirectToRoute('admin_messages_list');
     }
 }
+
 
 
 
