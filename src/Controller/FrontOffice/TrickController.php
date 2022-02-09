@@ -10,7 +10,7 @@ use App\Form\EditTrickType;
 use App\Form\MessageTrickType;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -38,7 +38,6 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/create", name="create", methods={"GET","POST"})
-     * @IsGranted("ROLE_VISITOR")
      *
      * @param Request $request
      * @return Response
@@ -83,14 +82,14 @@ class TrickController extends AbstractController
         $this->em->flush();
     }
 
-	/**
-	 * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"})
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 * @return Response
-	 * @throws \Doctrine\ORM\EntityNotFoundException
-	 */
+    /**
+     * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"})
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     * @throws EntityNotFoundException
+     */
     public function show(Request $request, int $id): Response
     {
         $trick = $this->trickRepository->getTrick($id);
@@ -127,15 +126,14 @@ class TrickController extends AbstractController
         $this->em->flush();
     }
 
-	/**
-	 * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"})
-	 * @IsGranted("ROLE_VISITOR")
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 * @return Response
-	 * @throws \Doctrine\ORM\EntityNotFoundException
-	 */
+    /**
+     * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"})
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     * @throws EntityNotFoundException
+     */
     public function edit(Request $request, int $id): Response
     {
         $trick = $this->trickRepository->getTrick($id);
@@ -158,7 +156,6 @@ class TrickController extends AbstractController
 
 	/**
 	 * @Route("/delete/{id}", name="delete")
-	 * @IsGranted("ROLE_VISITOR")
 	 *
 	 * @param int $id
 	 * @return RedirectResponse
