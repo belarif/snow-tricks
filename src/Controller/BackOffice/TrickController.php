@@ -50,20 +50,19 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="trick_delete")
-     * @param Request $request
+     *
+     * @param int $id
      * @return RedirectResponse
      */
-    public function delete(Request $request): RedirectResponse
+    public function delete(int $id): RedirectResponse
     {
-        $trick_id = $request->get('id');
-        $trickDelete = $this->trickRepository->find($trick_id);
-
-        $this->em->remove($trickDelete);
+        $this->em->remove($this->trickRepository->find($id));
         $this->em->flush();
 
         return $this->redirectToRoute('admin_tricks_list');
     }
 }
+
 
 
 

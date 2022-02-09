@@ -165,11 +165,11 @@ class TrickController extends AbstractController
 	 */
     public function delete(int $id): redirectResponse
     {
-        $trick = $this->trickRepository->find($id);
-        $this->em->remove($trick);
+        $this->em->remove($this->trickRepository->find($id));
         $this->em->flush();
 
         $this->addFlash('successDeleteTrick', 'Le trick a été supprimé avec succès');
         return $this->redirectToRoute('app_homepage');
     }
 }
+
