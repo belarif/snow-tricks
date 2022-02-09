@@ -1,6 +1,6 @@
 {% extends 'backoffice/layout.html.twig' %}
 
-{% block title %} Détails {% for user in userDetails %} {{ user.lastName }} {{ user.firstName }} {% endfor %} {% endblock title %}
+{% block title %} Détails {{ user.lastName }} {{ user.firstName }} {% endblock title %}
 
 {% block content %}
     <div class="container-fluid px-4">
@@ -8,42 +8,41 @@
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{ path('admin_dashboard') }}">Tableau de bord</a></li>
             <li class="breadcrumb-item active">
-                détails {% for user in userDetails %} {{ user.lastName }} {{ user.firstName }} {% endfor %}</li>
+                détails {{ user.lastName }} {{ user.firstName }} </li>
         </ol>
         <div class="card mb-4">
             <div class="card-header">
                 <i class="me-1"></i>
-                Détails {% for user in userDetails %} {{ user.lastName }} {{ user.firstName }} {% endfor %}
+                Détails {{ user.lastName }} {{ user.firstName }}
             </div>
             <div class="card-body">
-                {% for user in userDetails %}
-                    <div class="my-3">
-                        <img src="{{ asset('build/images/avatars/'~user.avatar) }}" alt="" width="140" height="120">
+                <div class="my-3">
+                    <img src="{{ asset('build/images/avatars/'~user.avatar) }}" alt="" width="140" height="120">
+                </div>
+                <p><b>Nom</b> : {{ user.lastName | upper }}</p>
+                <p><b>Prénom</b> : {{ user.firstName | capitalize }}</p>
+                <p><b>Identifiant</b> : {{ user.username }}</p>
+                <p><b>E-mail</b> : {{ user.email }}</p>
+                <p><b>Statut du compte</b> : {% if user.enabled == 1 %}
+                        activé
+                    {% else %}
+                        désactivé
+                    {% endif %}</p>
+                <p>
+                    <b>Roles</b> :
+                    {% for role in user.roles %}
+                        {{ role }},
+                    {% endfor %}
+                </p>
+                <p><b>Date de création</b> : {{ user.createdAt | date("d/m/Y \\à h:m:s") }}</p>
+                <div class="d-flex justify-content-end">
+                    <div class="justify-content-between">
+                        <a class="btn btn-primary" href="{{ path('admin_users_list') }}" role="button">Retour
+                            liste</a>
                     </div>
-                    <p><b>Nom</b> : {{ user.lastName | upper }}</p>
-                    <p><b>Prénom</b> : {{ user.firstName | capitalize }}</p>
-                    <p><b>Identifiant</b> : {{ user.username }}</p>
-                    <p><b>E-mail</b> : {{ user.email }}</p>
-                    <p><b>Statut du compte</b> : {% if user.enabled == 1 %}
-                            activé
-                        {% else %}
-                            désactivé
-                        {% endif %}</p>
-                    <p>
-                        <b>Roles</b> :
-                        {% for role in user.roles %}
-                            {{ role }},
-                        {% endfor %}
-                    </p>
-                    <p><b>Date de création</b> : {{ user.createdAt | date("d/m/Y \\à h:m:s") }}</p>
-                    <div class="d-flex justify-content-end">
-                        <div class="justify-content-between">
-                            <a class="btn btn-primary" href="{{ path('admin_users_list') }}" role="button">Retour
-                                liste</a>
-                        </div>
-                    </div>
-                {% endfor %}
+                </div>
             </div>
         </div>
     </div>
 {% endblock content %}
+
