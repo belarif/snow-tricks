@@ -11,6 +11,7 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
+     *
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -18,6 +19,7 @@ class SecurityController extends AbstractController
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
+
         return $this->render('/frontoffice/login.html.twig', [
             'controller_name' => 'SecurityController',
             'last_username' => $lastUsername,
@@ -33,3 +35,4 @@ class SecurityController extends AbstractController
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
 }
+
