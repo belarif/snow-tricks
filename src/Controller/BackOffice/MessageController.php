@@ -3,13 +3,14 @@
 namespace App\Controller\BackOffice;
 
 use App\Repository\MessageRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+;
 
 /**
  * @Route("/admin/messages", name="admin_")
@@ -18,54 +19,55 @@ use Symfony\Component\Routing\Annotation\Route;
 class MessageController extends AbstractController
 {
     private $messageRepository;
-    private $managerRegistry;
+
+    private $em;
 
     public function __construct(
-        MessageRepository $messageRepository,
-        ManagerRegistry   $managerRegistry
+        MessageRepository      $messageRepository,
+        EntityManagerInterface $em
     )
     {
         $this->messageRepository = $messageRepository;
-        $this->managerRegistry = $managerRegistry;
+        $this->em = $em;
     }
 
     /**
      * @Route("/list", name="messages_list", methods={"GET"})
+     *
      * @return Response
      */
     public function messagesList(): Response
     {
-        $messages = $this->messageRepository->getMessages();
-        return $this->render('backoffice/messagesList.html.twig', ['messages' => $messages]);
+        return $this->render('backoffice/messagesList.html.twig', ['messages' => $this->messageRepository->getMessages()]);
     }
 
     /**
      * @Route("/details/{id}", name="message_details", methods={"GET"})
-     * @param Request $request
+     *
+     * @param int $id
      * @return Response
+     * @throws \Doctrine\ORM\EntityNotFoundException
      */
-    public function show(Request $request): Response
+    public function show(int $id): Response
     {
-        $message_id = $request->get('id');
-        $messageDetails = $this->messageRepository->getMessage($message_id);
-        return $this->render('/backoffice/messageDetails.html.twig', ['messageDetails' => $messageDetails]);
+        return $this->render('/backoffice/messageDetails.html.twig', ['message' => $this->messageRepository->getMessage($id)]);
     }
 
     /**
      * @Route("/delete/{id}", name="message_delete")
-     * @param Request $request
+     *
+     * @param int $id
      * @return RedirectResponse
      */
-    public function delete(Request $request): RedirectResponse
+    public function delete(int $id): RedirectResponse
     {
-        $message_id = $request->get('id');
-        $messageDelete = $this->messageRepository->find($message_id);
-        $em = $this->managerRegistry->getManager();
-        $em->remove($messageDelete);
-        $em->flush();
+        $this->em->remove($this->messageRepository->find($id));
+        $this->em->flush();
+
         return $this->redirectToRoute('admin_messages_list');
     }
 }
+
 
 
 
