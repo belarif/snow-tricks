@@ -16,13 +16,11 @@
                     Détails du message
                 </div>
                 <div class="card-body">
-                    {% for message in messageDetails %}
-                        <p><b>Message</b> : {{ message.content }}</p>
-                        <p><b>Auteur</b> : {{ message.user.lastName | upper }} {{ message.user.firstName | capitalize }}
-                        </p>
-                        <p><b>Trick</b> : {{ message.trick.name }}</p>
-                        <p><b>Date du message</b> : {{ message.createdAt | date("d/m/Y \\à h:m:s") }}</p>
-                    {% endfor %}
+                    <p><b>Message</b> : {{ message.content }}</p>
+                    <p><b>Auteur</b> : {{ message.user.lastName | upper }} {{ message.user.firstName | capitalize }}
+                    </p>
+                    <p><b>Figure</b> : {{ message.trick.name }}</p>
+                    <p><b>Date du message</b> : {{ message.createdAt | date("d/m/Y \\à h:m:s") }}</p>
                     <div class="d-flex justify-content-end">
                         <div class="justify-content-between">
                             <a href="{{ path('admin_messages_list') }}">
