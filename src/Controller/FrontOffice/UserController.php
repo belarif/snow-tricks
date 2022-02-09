@@ -62,10 +62,9 @@ class UserController extends AbstractController
 
             if (!$existing_user) {
                 $user->setPassword($this->passwordHasher->hashPassword($user, $form->get('password')->getData()));
+                $role = $this->roleRepository->findOneBy(['roleName' => 'ROLE_VISITOR']);
 
-                $role = $this->roleRepository->find('1');
                 $user->addRole($role);
-                $user->setRoles((array)$role->getRoleName());
                 $user->setToken($this->tokenGenerator->generateToken());
                 $user->setProfileStatus(false);
 
@@ -182,4 +181,5 @@ class UserController extends AbstractController
         return $this->renderForm('frontoffice/resetPassword.html.twig', ['form' => $form, 'username' => $username]);
     }
 }
+
 
