@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Message;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -30,14 +31,21 @@ class MessageRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getMessage($message_id)
+    public function getMessage($id): Message
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.id = :message_id')
-            ->setParameter('message_id', $message_id)
+        $message = $this->createQueryBuilder('m')
+            ->andWhere('m.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
+
+        if (!$message) {
+            throw new EntityNotFoundException('Message with id ' . $id . ' is not found');
+        }
+
+        return $message[0];
     }
 }
+
 
 
