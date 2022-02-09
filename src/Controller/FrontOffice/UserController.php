@@ -182,3 +182,4 @@ class UserController extends AbstractController
         return $this->renderForm('frontoffice/resetPassword.html.twig', ['form' => $form, 'username' => $username]);
     }
 }
+
