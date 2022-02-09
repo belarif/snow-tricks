@@ -18,13 +18,13 @@
             </div>
             <div class="card-body">
                 {{ form_start(form) }}
-                {% if form.vars.value == selectedUser.enabled %}
+                {% if form.vars.value == user.enabled %}
                     {{ form_row(form.enabled, { 'label' : 'Statut', 'checked' : 'checked' }) }}
                 {% else %}
                     {{ form_row(form.enabled, { 'label' : 'Statut' }) }}
                 {% endif %}
-                {% for role in selectedUser.roles %}
-                    {{ form_row(form.roles, { 'label' : 'Roles :', 'selected' : 'selected' }) }}
+                {% for role in user.roles %}
+                    {{ form_row(form.role, { 'label' : 'Roles :' }) }}
                 {% endfor %}
                 <div class="d-flex align-items-center justify-content-end mt-4 mb-0">
                     <button type="submit" class="btn btn-primary">Modifier</button>
