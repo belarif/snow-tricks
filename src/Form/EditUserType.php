@@ -19,13 +19,13 @@ class EditUserType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'required' => false,
             ])
-            ->add('roles', EntityType::class, [
-                    'class' => Role::class,
-                    'multiple' => true,
-                    'choice_label' => function (Role $Role) {
-                        return $Role->getRole();
-                    }]
-            );
+            ->add('role', EntityType::class, [
+                'class' => Role::class,
+                'multiple' => true,
+                'choice_label' => function (Role $Role) {
+                    return $Role->getRole();
+                }
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
