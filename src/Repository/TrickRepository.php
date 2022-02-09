@@ -27,7 +27,7 @@ class TrickRepository extends ServiceEntityRepository
     public function getTricks(): array
     {
         return $this->createQueryBuilder('t')
-            ->addOrderBy('t.updatedAt', 'desc')
+            ->addOrderBy('t.createdAt', 'desc')
             ->getQuery()
             ->getResult();
     }
