@@ -160,14 +160,13 @@ class TrickController extends AbstractController
 	 * @Route("/delete/{id}", name="delete")
 	 * @IsGranted("ROLE_VISITOR")
 	 *
-	 * @param Request $request
 	 * @param int $id
 	 * @return RedirectResponse
 	 */
-    public function delete(Request $request, int $id): redirectResponse
+    public function delete(int $id): redirectResponse
     {
-        $trickDelete = $this->trickRepository->find($id);
-        $this->em->remove($trickDelete);
+        $trick = $this->trickRepository->find($id);
+        $this->em->remove($trick);
         $this->em->flush();
 
         $this->addFlash('successDeleteTrick', 'Le trick a été supprimé avec succès');
