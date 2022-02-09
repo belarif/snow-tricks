@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -51,12 +52,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * @param $id
      * @return int|mixed|string
      */
-    public function getUser($id)
+    public function getUser($id): User
     {
-        return $this->createQueryBuilder('u')
+        $user = $this->createQueryBuilder('u')
             ->andWhere('u.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
+
+        if (!$user) {
+            throw new EntityNotFoundException('User with id ' . $id . ' is not found');
+        }
+
+        return $user[0];
     }
 }
+
