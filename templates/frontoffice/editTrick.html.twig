@@ -81,17 +81,19 @@
                                                         <div class="{% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
                                                             <div class="card">
                                                                 <div class="img-wrapper">
-                                                                    <img src="{{ asset('build/images/'~image.src) }}" alt="">
+                                                                    <img src="{{ asset('build/images/'~image.src) }}"
+                                                                         alt="">
                                                                 </div>
                                                                 <div class="d-flex justify-content-end">
                                                                     <div class="btn-group m-3 me-3" role="group"
                                                                          aria-label="Basic outlined example">
                                                                         <button type="button" class="btn btn-light"
-                                                                                id="show">
-                                                                            <i class="bi bi-pencil-fill"></i>
+                                                                                id="show"><a href="#">
+                                                                                <i class="bi bi-pencil-fill"></i></a>
                                                                         </button>
                                                                         <button type="button" class="btn btn-light"><a
-                                                                                    href="#">
+                                                                                    href="javascript:void(0)"
+                                                                                    onclick="deleteImage({{ image.id }})">
                                                                                 <i class="bi bi-trash-fill"></i></a>
                                                                         </button>
                                                                     </div>
@@ -114,7 +116,8 @@
                                                                                     class="bi bi-pencil-fill"></i>
                                                                         </button>
                                                                         <button type="button" class="btn btn-light"><a
-                                                                                    href="#"><i
+                                                                                    href="javascript:void(0)"
+                                                                                    onclick="deleteVideo({{ video.id }})"><i
                                                                                         class="bi bi-trash-fill"></i></a>
                                                                         </button>
                                                                     </div>
@@ -206,6 +209,14 @@
                             <div class="row">
                                 <div class="pb-5">
                                     {% for message in app.flashes('trickEditSuccess') %}
+                                        <div class="alert alert-success alert-dismissible fade show text-center"
+                                             role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                    {% endfor %}
+                                    {% for message in app.flashes('successDeleteImage') %}
                                         <div class="alert alert-success alert-dismissible fade show text-center"
                                              role="alert">
                                             {{ message }}
