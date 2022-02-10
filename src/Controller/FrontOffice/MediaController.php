@@ -3,6 +3,7 @@
 namespace App\Controller\FrontOffice;
 
 use App\Repository\ImageRepository;
+use App\Repository\VideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,13 +18,17 @@ class MediaController extends AbstractController
 
     private $imageRepository;
 
+    private $videoRepository;
+
     public function __construct(
         EntityManagerInterface $em,
-        ImageRepository        $imageRepository
+        ImageRepository        $imageRepository,
+        VideoRepository        $videoRepository
     )
     {
         $this->em = $em;
         $this->imageRepository = $imageRepository;
+        $this->videoRepository = $videoRepository;
     }
 
     /**
@@ -32,7 +37,7 @@ class MediaController extends AbstractController
      * @param int $id
      * @return RedirectResponse
      */
-    public function delete(int $id): redirectResponse
+    public function deleteImage(int $id): redirectResponse
     {
         $image = $this->imageRepository->find($id);
 
@@ -41,5 +46,22 @@ class MediaController extends AbstractController
 
         $this->addFlash('successDeleteImage', 'L\'image a été supprimé avec succès');
         return $this->redirectToRoute('trick_edit', ['id' => $image->getTrick()->getId(), 'slug' => $image->getTrick()->getSlug()]);
+    }
+
+    /**
+     * @Route("/video/delete/{id}", name="video_delete")
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function deleteVideo(int $id): redirectResponse
+    {
+        $video = $this->videoRepository->find($id);
+
+        $this->em->remove($video);
+        $this->em->flush();
+
+        $this->addFlash('successDeleteVideo', 'La vidéo a été supprimé avec succès');
+        return $this->redirectToRoute('trick_edit', ['id' => $video->getTrick()->getId(), 'slug' => $video->getTrick()->getSlug()]);
     }
 }
