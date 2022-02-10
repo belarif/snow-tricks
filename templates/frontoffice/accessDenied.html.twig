@@ -1,9 +1,24 @@
-<div>
-    <div>
-        <h1>{{ response }}</h1>
+{% extends 'frontoffice/template.html.twig' %}
+
+{% block title %} Accès limité {% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex align-items-center justify-content-center min-vh-100">
+                    <div>
+                        <h1>{{ response }}</h1>
+                        <div class="text-end">
+                            <a href="{{ path('app_homepage') }}">Retour à l'accueil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <a href="{{ path('app_homepage') }}">Retour à l'accueil</a>
-</div>
+{% endblock content %}
+
 
 
 
