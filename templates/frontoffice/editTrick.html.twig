@@ -49,21 +49,24 @@
                                                     {% if loop.first %}
                                                         <img src="{{ asset('build/images/'~image.src) }}"
                                                              class="w-100 img-responsive" height="560" alt="">
+                                                        {% if app.user %}
+                                                            <div class="img-overlay">
+                                                                <div class="btn-group m-3 me-3" role="group"
+                                                                     aria-label="Basic outlined example">
+                                                                    <button type="button" class="btn btn-light"><a
+                                                                                href="#"><i
+                                                                                    class="bi bi-pencil-fill"></i></a>
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-light"><a
+                                                                                href="javascript:void(0)"
+                                                                                onclick="deleteImage({{ image.id }})"><i
+                                                                                    class="bi bi-trash-fill"></i></a>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
                                                     {% endif %}
                                                 {% endfor %}
-                                            {% endif %}
-                                            {% if app.user %}
-                                                <div class="img-overlay">
-                                                    <div class="btn-group m-3 me-3" role="group"
-                                                         aria-label="Basic outlined example">
-                                                        <button type="button" class="btn btn-light"><a href="#"><i
-                                                                        class="bi bi-pencil-fill"></i></a>
-                                                        </button>
-                                                        <button type="button" class="btn btn-light"><a href="#"><i
-                                                                        class="bi bi-trash-fill"></i></a>
-                                                        </button>
-                                                    </div>
-                                                </div>
                                             {% endif %}
                                         </div>
                                         <h1 class="centered">{{ trick.name | upper }}</h1>
