@@ -14,3 +14,12 @@ function deleteImage(id) {
 
 window.deleteImage = deleteImage;
 
+function deleteVideo(id) {
+    if (confirm("Êtes vous sûr de vouloir supprimer la vidéo ?")) {
+        window.location.href = "/snow-tricks/medias/video/delete/" + id;
+    } else {
+        alert("Vous avez annulé la suppression");
+    }
+}
+
+window.deleteVideo = deleteVideo;
