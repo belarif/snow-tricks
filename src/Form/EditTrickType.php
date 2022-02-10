@@ -6,6 +6,7 @@ use App\Entity\Group;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,6 +24,12 @@ class EditTrickType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description'
+            ])
+            ->add('images', FileType::class, [
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
+                'label' => false
             ])
             ->add('group', EntityType::class, [
                 'class' => Group::class,
@@ -43,3 +50,4 @@ class EditTrickType extends AbstractType
         ]);
     }
 }
+
