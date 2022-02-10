@@ -10,7 +10,11 @@
                     <div class="card-header"><h3 class="text-center font-weight-light">Se connecter</h3></div>
                     <div class="card-body">
                         {% if error %}
-                            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                {{ error.messageKey | trans(error.messageData, 'security') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
                         {% endif %}
                         {% for message in app.flashes('success') %}
                             <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
