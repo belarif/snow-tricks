@@ -6,6 +6,7 @@ use App\Entity\Group;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,28 +19,39 @@ class EditTrickType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom :',
                 'mapped' => false,
                 'disabled' => true
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description'
-            ])
-            ->add('images', FileType::class, [
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false,
-                'label' => false
+                'label' => 'Description :'
             ])
             ->add('group', EntityType::class, [
                 'class' => Group::class,
                 'placeholder' => 'Choisir un groupe',
-                'label' => 'Groupe',
+                'label' => 'Groupe :',
                 'choice_label' => function (Group $Group) {
                     return $Group->getName();
                 }, 'choice_value' => function ($Group) {
                     return $Group ? $Group->getId() : '';
                 }
+            ])
+            ->add('images', FileType::class, [
+                'label' => 'Images :',
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
+            ])
+            ->add('videos', CollectionType::class, [
+                'label' => false,
+                'allow_add' => true,
+                'prototype' => true,
+                'mapped' => false,
+                'entry_type' => TextType::class,
+                'entry_options' => [
+                    'attr' => ['class' => 'text-box'],
+                    'required' => false
+                ],
             ]);
     }
 
