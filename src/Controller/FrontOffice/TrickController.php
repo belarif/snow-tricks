@@ -142,10 +142,21 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
-			$this->em->flush();
+            $images = $form->get('images')->getData();
+            foreach ($images as $img) {
+                $file = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $img->guessExtension();
+                $img->move($this->getParameter('app.images_directory'), $file);
 
-			$this->addFlash('trickEditSuccess', 'Le trick a été modifié avec succès');
-			$this->redirectToRoute('trick_edit', ['id' => $id, 'slug' => $trick->getSlug()]);
+                $image = new Image();
+                $image->setSrc($file);
+                $trick->addImage($image);
+            }
+
+            $trick->addVideosFromArray($form->get('videos')->getData());
+
+            $this->em->flush();
+            $this->addFlash('trickEditSuccess', 'Le trick a été modifié avec succès');
+            $this->redirectToRoute('trick_edit', ['id' => $id, 'slug' => $trick->getSlug()]);
         }
 
         return $this->renderForm('/frontoffice/editTrick.html.twig', [
@@ -169,4 +180,5 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('app_homepage');
     }
 }
+
 
