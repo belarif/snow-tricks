@@ -39,11 +39,19 @@
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('trick_create') }}">créer un trick</a>
                     </li>
                     {% if app.user %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                   href="{{ path('admin_dashboard') }}">Admin</a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item mx-0 mx-lg-1">
-                            <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_logout') }}">déconnexion</a>
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded"
+                               href="{{ path('app_logout') }}">déconnexion</a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1">
-                            <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_profile') }}">mon compte</a>
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_profile') }}">mon
+                                compte</a>
                         </li>
                     {% else %}
                         <li class="nav-item mx-0 mx-lg-1">
@@ -53,9 +61,6 @@
                             <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_login') }}">se connecter</a>
                         </li>
                     {% endif %}
-                    <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('admin_dashboard') }}">Admin</a>
-                    </li>
                 </ul>
             </div>
         </div>
