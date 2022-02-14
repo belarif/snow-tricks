@@ -13,15 +13,11 @@
                 <h2 class="text-center">Créer un snow trick</h2>
                 <hr>
                 {{ form_start(form) }}
-                {{ form_label(form.name, 'Nom :') }}
-                {{ form_widget(form.name) }}
-                {{ form_label(form.group, 'Groupe :') }}
-                {{ form_widget(form.group) }}
-                {{ form_label(form.description, 'Description :') }}
-                {{ form_widget(form.description) }}
-                {{ form_label(form.images, 'Image(s) :') }}
-                {{ form_widget(form.images) }}
-                {{ form_label(form.images, 'Vidéo(s) :') }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.group) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.images) }}
+                {{ form_label(form.videos, 'Vidéo(s) :') }}
                 <ul id="video-fields-list"
                     data-prototype="{{ form_widget(form.videos.vars.prototype)|e }}"
                     data-widget-tags="{{ '<li></li>'|e }}"
