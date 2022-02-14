@@ -28,7 +28,7 @@
             </div>
         </div>
     </section>
-    <section class="text-center">
+    <section>
         <!-- Modal -->
         <div class="modal fade" id="editTrickModal" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
@@ -237,24 +237,31 @@
                                     {% endfor %}
                                     <div class="offset-lg-2 col-lg-8 offset-lg-2 col-sm-12">
                                         {{ form_row(form.name, { 'attr': {'value': trick.name } }) }}
-                                        {{ form_row(form.images) }}
                                         {{ form_row(form.description, { 'value': trick.description }  ) }}
-                                    </div>
-                                    <div class="offset-lg-2 col-lg-8 offset-lg-2 col-sm-12">
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-sm-12 col-md-12">
-                                                {% for choice in form.group.vars.choices %}
-                                                    {% if choice.value == trick.group.id %}
-                                                        {{ form_row(form.group, {'attr': {'selected': 'selected'}} ) }}
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                            <div class="col-sm-12 col-md-12">
-                                                <div class="mt-3">
-                                                    <a class="btn btn-danger" href="#" role="button">supprimer</a>
-                                                    <button class="btn btn-primary" type="submit">envoyer</button>
-                                                </div>
-                                            </div>
+                                        {% for choice in form.group.vars.choices %}
+                                            {% if choice.value == trick.group.id %}
+                                                {{ form_row(form.group, {'attr': {'selected': 'selected'}} ) }}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {{ form_row(form.images) }}
+                                        {{ form_label(form.videos, 'Vidéo(s) :') }}
+                                        <ul id="video-fields-list"
+                                            data-prototype="{{ form_widget(form.videos.vars.prototype)|e }}"
+                                            data-widget-tags="{{ '<li></li>'|e }}"
+                                            data-widget-counter="{{ form.videos|length }}">
+                                            {% for videoField in form.videos %}
+                                                <li>
+                                                    {{ form_widget(videoField) }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <button type="button" class="add-another-collection-widget"
+                                                data-list-selector="#video-fields-list">
+                                            Ajouter
+                                        </button>
+                                        <div class="mt-3 text-center">
+                                            <a class="btn btn-danger" href="#" role="button">supprimer</a>
+                                            <button class="btn btn-primary" type="submit">envoyer</button>
                                         </div>
                                     </div>
                                 </div>
