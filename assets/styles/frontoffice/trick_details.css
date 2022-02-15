@@ -114,3 +114,7 @@
     transform: translate(-50%, -50%);
     color: #2575C2;
 }
+
+.card-body {
+    display: none;
+}
