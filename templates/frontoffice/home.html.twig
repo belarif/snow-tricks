@@ -48,33 +48,36 @@
             <div class="row row-cols-1 row-cols-sm-5">
                 {% for trick in listTricks %}
                     <div class="col mb-4">
-                        <div class="card">
-                            {% if trick.images is empty %}
-                                <img src="{{ asset('build/images/image-default.jpg') }}" class="card-img-top" alt=""
-                                     width="50" height="140">
-                            {% else %}
-                                {% for image in trick.images %}
-                                    {% if loop.first %}
-                                        <img src="{{ asset('build/images/'~image.src) }}" class="card-img-top" alt=""
-                                             width="50" height="140">
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <a class="text-decoration-none"
-                                           href="{{ path('trick_details', { 'id' : trick.id, 'slug' : trick.slug }) }}"
-                                           class="card-title">{{ trick.name }}</a>
-                                    </div>
-                                    <div>
-                                        {% if is_granted('ROLE_VISITOR') %}
-                                            <a href="{{ path('trick_edit', { 'id':trick.id, 'slug' : trick.slug }) }}"><i
-                                                        class="bi bi-pencil-fill"></i></a>
-                                            <a class="ms-3" href="javascript:void(0)"
-                                               onclick="deleteTrick({{ trick.id }})"><i
-                                                        class="bi bi-trash-fill"></i></a>
+                        <div class="card-trick">
+                            <div class="card">
+                                {% if trick.images is empty %}
+                                    <img src="{{ asset('build/images/image-default.jpg') }}" class="card-img-top" alt=""
+                                         width="50" height="140">
+                                {% else %}
+                                    {% for image in trick.images %}
+                                        {% if loop.first %}
+                                            <img src="{{ asset('build/images/'~image.src) }}" class="card-img-top"
+                                                 alt=""
+                                                 width="50" height="140">
                                         {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <a class="text-decoration-none"
+                                               href="{{ path('trick_details', { 'id' : trick.id, 'slug' : trick.slug }) }}"
+                                               class="card-title">{{ trick.name }}</a>
+                                        </div>
+                                        <div>
+                                            {% if is_granted('ROLE_VISITOR') %}
+                                                <a href="{{ path('trick_edit', { 'id':trick.id, 'slug' : trick.slug }) }}"><i
+                                                            class="bi bi-pencil-fill"></i></a>
+                                                <a class="ms-3" href="javascript:void(0)"
+                                                   onclick="deleteTrick({{ trick.id }})"><i
+                                                            class="bi bi-trash-fill"></i></a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
