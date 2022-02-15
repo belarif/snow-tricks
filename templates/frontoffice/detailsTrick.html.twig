@@ -192,16 +192,18 @@
                                 <div class="col-12 mb-4">
                                     <div class="card message">
                                         {% for message in trick.messages %}
-                                            <div class="card-body">
-                                                <div class="d-flex mb-4">
-                                                    <div class="flex-shrink-0">
-                                                        <img class="rounded-circle"
-                                                             src="{{ asset('build/images/avatars/'~message.user.avatar) }}"
-                                                             width="80" height="60" alt="">
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <div class="fw-bold">{{ message.user.lastName | lower }} {{ message.user.firstName | lower }}</div>
-                                                        {{ message.content }}
+                                            <div class="card-message">
+                                                <div class="card-body">
+                                                    <div class="d-flex mb-4">
+                                                        <div class="flex-shrink-0">
+                                                            <img class="rounded-circle"
+                                                                 src="{{ asset('build/images/avatars/'~message.user.avatar) }}"
+                                                                 width="80" height="60" alt="">
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <div class="fw-bold">{{ message.user.lastName | lower }} {{ message.user.firstName | lower }}</div>
+                                                            {{ message.content }}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

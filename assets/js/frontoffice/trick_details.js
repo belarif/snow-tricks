@@ -37,11 +37,11 @@ window.onload = function () {
 }
 
 $(document).ready(function () {
-    $(".card-body").slice(0, 3).show();
+    $(".card-message").slice(0, 3).show();
     $("#loadMore").on("click", function (e) {
         e.preventDefault();
-        $(".card-body:hidden").slice(0, 2).slideDown();
-        if ($(".card-body:hidden").length === 0) {
+        $(".card-message:hidden").slice(0, 2).slideDown();
+        if ($(".card-message:hidden").length === 0) {
             $("#loadMore").text("Aucun message");
         }
     });
