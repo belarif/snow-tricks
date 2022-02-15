@@ -1,4 +1,5 @@
-// add-collection-widget.js
+import('../../styles/frontoffice/create_trick.css');
+
 jQuery(document).ready(function () {
     jQuery('.add-another-collection-widget').click(function (e) {
         var list = jQuery(jQuery(this).attr('data-list-selector'));

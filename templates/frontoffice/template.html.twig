@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title> {% block title %} {% endblock title %} </title>
-        <link rel="icon" type="image/x-icon" href="#"/>
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
-              type="text/css"/>
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        {% block stylesheet %}
-            {{ encore_entry_link_tags('frontoffice') }}
-        {% endblock stylesheet %}
-    </head>
+        {% block head %}
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+            <meta name="description" content=""/>
+            <meta name="author" content=""/>
+            <title> {% block title %} {% endblock title %} </title>
+            <link rel="icon" type="image/x-icon" href="#"/>
+            <!--<link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+            <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">-->
+            <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+             <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+                   type="text/css"/>-->
+            <!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
 
+            {% block stylesheets %}
+                {{ encore_entry_link_tags('template') }}
+            {% endblock stylesheets %}
+        {% endblock head %}
+    </head>
     <body id="page-top">
-    <!-- Navigation-->
     <nav class="navbar navbar-expand-lg text-uppercase fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#page-top"></a>
@@ -36,7 +37,8 @@
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_homepage') }}">accueil</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('trick_create') }}">créer un trick</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('trick_create') }}">créer un
+                            trick</a>
                     </li>
                     {% if app.user %}
                         {% if is_granted('ROLE_ADMIN') %}
@@ -58,27 +60,25 @@
                             <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_registration') }}">s'inscrire</a>
                         </li>
                         <li class="nav-item mx-0 mx-lg-1">
-                            <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_login') }}">se connecter</a>
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_login') }}">se
+                                connecter</a>
                         </li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-
     <div class="content">
         {% block content %} {% endblock content %}
     </div>
-
-    <!-- Copyright Section-->
     <div class="copyright py-4 text-center text-white">
         <div class="container"><small>Copyright &copy; Blog professionnel 2021</small></div>
     </div>
-
     <nav class="fixed-bottom" id="mobileNav">
         <ul class="nav justify-content-around">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ path('app_homepage') }}"><i class="bi bi-house-door-fill"></i></a>
+                <a class="nav-link active" aria-current="page" href="{{ path('app_homepage') }}"><i
+                            class="bi bi-house-door-fill"></i></a>
             </li>
             {% if app.user %}
                 <li class="nav-item">
@@ -92,10 +92,11 @@
         </ul>
     </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
     {% block javascript %}
-        {{ encore_entry_script_tags('frontoffice') }}
-    {% endblock javascript %}
+    {{ encore_entry_script_tags('template') }}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"/> <!--menu humburger-->
+{% endblock javascript %}
+
     </body>
 </html>
 
