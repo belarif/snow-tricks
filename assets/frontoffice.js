@@ -8,6 +8,7 @@ import('./styles/frontoffice/styles.css');
 import('./styles/frontoffice/home.css');
 import('./styles/frontoffice/trick_details.css');
 import('./styles/frontoffice/edit_trick.css');
+import('./js/frontoffice/home.js');
 import('./js/frontoffice/trick_details');
 import('./js/frontoffice/delete_trick');
 import('./js/frontoffice/edit_trick');
