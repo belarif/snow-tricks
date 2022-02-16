@@ -64,4 +64,10 @@ class MediaController extends AbstractController
         $this->addFlash('successDeleteVideo', 'La vidéo a été supprimé avec succès');
         return $this->redirectToRoute('trick_edit', ['id' => $video->getTrick()->getId(), 'slug' => $video->getTrick()->getSlug()]);
     }
+
+    /**
+     * @Route("/image/edit/{id}, name="image_edit")
+     */
+
+
 }
