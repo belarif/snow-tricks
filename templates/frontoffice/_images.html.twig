@@ -8,15 +8,15 @@
             <div class="d-flex justify-content-end">
                 <div class="btn-group m-3 me-3" role="group"
                      aria-label="Basic outlined example">
-                    <div class="editImageTrick">
-                        <form method="post" action="">
-                            <div class="input-group">
-                                <input type="file" class="form-control" id="editImage" aria-describedby="editImage"
-                                       aria-label="Upload">
-                                <button class="btn btn-outline-secondary" type="submit" id="editImage">Envoyer</button>
-                            </div>
-                        </form>
-                    </div>
+                    <form class="editImageTrick" method="post"
+                          action="{{ path('media_image_edit', {'id' : trick.id }) }}">
+                        <div class="input-group">
+                            <input type="file" name="src" value="{{ image.src }}" class="form-control" id="editImage"
+                                   aria-describedby="editImage"
+                                   aria-label="Upload">
+                            <button class="btn btn-outline-secondary" type="submit" id="editImage">Envoyer</button>
+                        </div>
+                    </form>
                     <button type="button" class="btn btn-light"
                             id="show">
                         <i class="bi bi-pencil-fill"></i>
