@@ -8,6 +8,15 @@
             <div class="d-flex justify-content-end">
                 <div class="btn-group m-3 me-3" role="group"
                      aria-label="Basic outlined example">
+                    <form class="editVideoTrick" method="post"
+                          action="{{ path('media_video_edit', {'id' : video.id }) }}">
+                        <div class="input-group">
+                            <input type="text" name="src" value="{{ video.src }}" class="form-control" id="editVideo"
+                                   aria-describedby="editVideo"
+                                   aria-label="Upload">
+                            <button class="btn btn-outline-secondary" type="submit" id="editVideo">Envoyer</button>
+                        </div>
+                    </form>
                     <button type="button" class="btn btn-light"
                             id="show"><i
                                 class="bi bi-pencil-fill"></i>
