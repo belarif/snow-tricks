@@ -66,8 +66,24 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("/image/edit/{id}, name="image_edit")
+     * @Route("/image/edit/{id}", name="image_edit")
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function editImage(int $int): RedirectResponse
+    {
+
+    }
+
+    /**
+     * @Route("/video/edit/{id}", name="video_edit")
+     * @param int $id
+     * @return RedirectResponse
      */
 
+    public function editVideo(int $id): RedirectResponse
+    {
+
+    }
 
 }
