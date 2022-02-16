@@ -1,0 +1,24 @@
+{% for image in trick.images %}
+    <div class="{% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
+        <div class="card">
+            <div class="img-wrapper">
+                <img src="{{ asset('build/images/'~image.src) }}"
+                     alt="">
+            </div>
+            <div class="d-flex justify-content-end">
+                <div class="btn-group m-3 me-3" role="group"
+                     aria-label="Basic outlined example">
+                    <button type="button" class="btn btn-light"
+                            id="show"><a href="#">
+                            <i class="bi bi-pencil-fill"></i></a>
+                    </button>
+                    <button type="button" class="btn btn-light"><a
+                                href="javascript:void(0)"
+                                onclick="deleteImage({{ image.id }})">
+                            <i class="bi bi-trash-fill"></i></a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
