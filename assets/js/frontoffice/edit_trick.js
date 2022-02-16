@@ -4,6 +4,12 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $('#show').click(function () {
+        $(".editVideoTrick").show();
+    });
+});
+
 function deleteImage(id) {
     if (confirm("Êtes vous sûr de vouloir supprimer l'image ?")) {
         window.location.href = "/snow-tricks/medias/image/delete/" + id;
