@@ -1,4 +1,4 @@
-import('../../styles/frontoffice/create_trick.css');
+import '../../styles/frontoffice/create_trick.css';
 
 jQuery(document).ready(function () {
     jQuery('.add-another-collection-widget').click(function (e) {
