@@ -31,9 +31,28 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
 
+    /**** Front office ****/
     .addEntry('home', './assets/js/frontoffice/home.js')
     .addEntry('template', './assets/js/frontoffice/template.js')
     .addEntry('create_trick', './assets/js/frontoffice/create_trick.js')
+    .addEntry('delete_trick', './assets/js/frontoffice/delete_trick.js')
+    .addEntry('edit_trick', './assets/js/frontoffice/edit_trick.js')
+    .addEntry('trick_details', './assets/js/frontoffice/trick_details.js')
+
+    .addEntry('login', './assets/styles/frontoffice/login.css')
+    .addEntry('forgot_password', './assets/styles/frontoffice/forgot_password.css')
+    .addEntry('profile', './assets/styles/frontoffice/profile.css')
+    .addEntry('register', './assets/styles/frontoffice/register.css')
+    .addEntry('reset_password', './assets/styles/frontoffice/reset_password.css')
+    /**** Front office ****/
+
+    /**** Back office ****/
+    .addEntry('layout', './assets/js/backoffice/layout.js')
+    .addEntry('messages', './assets/js/backoffice/messages.js')
+    .addEntry('tricks', './assets/js/backoffice/tricks.js')
+    .addEntry('users', './assets/js/backoffice/users.js')
+    /**** Back office ****/
+
 
 
 
