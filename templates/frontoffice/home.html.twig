@@ -1,10 +1,15 @@
 {% extends 'frontoffice/template.html.twig' %}
 
-{% block title %} Accueil {% endblock title %}
+{% block head %}
 
-{% block stylesheet %}
-    {{ encore_entry_link_tags('frontoffice') }}
-{% endblock stylesheet %}
+    {% block title %} Accueil {% endblock title %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        {{ encore_entry_link_tags('home') }}
+    {% endblock stylesheets %}
+
+{% endblock head %}
 
 {% block content %}
     <section class="masthead bg-primary text-white min-vw-100 min-vh-100" id="header">
@@ -21,7 +26,6 @@
             </a>
         </div>
     </section>
-
     <section class="page-section" id="tricks">
         <div class="container">
             {% for message in app.flashes('successDeleteTrick') %}
@@ -104,4 +108,7 @@
     </section>
 {% endblock content %}
 
-
+{% block javascript %}
+{{ parent() }}
+{{ encore_entry_script_tags('home') }}
+{% endblock javascript %}

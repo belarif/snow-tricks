@@ -1,3 +1,5 @@
+import '../../styles/frontoffice/trick_details.css';
+
 /** medias carousel **/
 var multipleCardCarousel = document.querySelector(
     "#carouselExampleControls"

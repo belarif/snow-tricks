@@ -1,3 +1,5 @@
+import '../../styles/frontoffice/home.css';
+
 $(document).ready(function () {
     $(".card-trick").slice(0, 15).show();
     $("#loadMore").on("click", function (e) {
@@ -8,3 +10,4 @@ $(document).ready(function () {
         }
     });
 })
+

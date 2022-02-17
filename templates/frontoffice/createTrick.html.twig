@@ -1,10 +1,15 @@
 {% extends 'frontoffice/template.html.twig' %}
 
-{% block title %} Ajouter un trick{% endblock title %}
+{% block head %}
 
-{% block stylesheet %}
-    {{ encore_entry_link_tags('frontoffice') }}
-{% endblock stylesheet %}
+    {% block title %} Ajouter un trick{% endblock title %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        {{ encore_entry_link_tags('create_trick') }}
+    {% endblock stylesheets %}
+
+{% endblock head %}
 
 {% block content %}
     <div class="container">
@@ -45,5 +50,6 @@
 {% endblock content %}
 
 {% block javascript %}
-{{ encore_entry_script_tags('frontoffice') }}
+{{ parent() }}
+{{ encore_entry_script_tags('create_trick') }}
 {% endblock javascript %}

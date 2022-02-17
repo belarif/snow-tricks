@@ -1,10 +1,15 @@
 {% extends 'frontoffice/template.html.twig' %}
 
-{% block title %} Détails {{ trick.name }} {% endblock title %}
+{% block head %}
 
-{% block stylesheet %}
-    {{ encore_entry_link_tags('frontoffice') }}
-{% endblock stylesheet %}
+    {% block title %} Détails {{ trick.name }} {% endblock title %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        {{ encore_entry_link_tags('trick_details') }}
+    {% endblock stylesheets %}
+
+{% endblock head %}
 
 {% block content %}
     <section class="min-vw-100 min-vh-100">
@@ -225,6 +230,8 @@
 {% endblock content %}
 
 {% block javascript %}
-{{ encore_entry_script_tags('frontoffice') }}
+{{ parent() }}
+{{ encore_entry_script_tags('trick_details') }}
 {% endblock javascript %}
+
 
