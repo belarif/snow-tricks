@@ -1,10 +1,12 @@
 {% extends 'backoffice/layout.html.twig' %}
 
-{% block title %} Liste des utilisateurs {% endblock title %}
+{% block head %}
+    {% block title %} Liste des utilisateurs {% endblock title %}
+    {% block stylesheets %}
+        {{ parent() }}
+    {% endblock stylesheets %}
 
-{% block javascript %}
-{{ encore_entry_script_tags('backoffice') }}
-{% endblock javascript %}
+{% endblock head %}
 
 {% block content %}
     <div class="container-fluid px-4">
@@ -53,3 +55,8 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block javascript %}
+{{ parent() }}
+{{ encore_entry_script_tags('users') }}
+{% endblock javascript %}
