@@ -1,10 +1,15 @@
 {% extends 'frontoffice/template.html.twig' %}
 
-{% block title %} Mon profil {% endblock title %}
+{% block head %}
 
-{% block stylesheet %}
-    {{ encore_entry_link_tags('frontoffice') }}
-{% endblock stylesheet %}
+    {% block title %} Mon profil {% endblock title %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        {{ encore_entry_link_tags('profile') }}
+    {% endblock stylesheets %}
+
+{% endblock head %}
 
 {% block content %}
     <div class="container">
@@ -48,3 +53,7 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block javascript %}
+{{ parent() }}
+{% endblock javascript %}
