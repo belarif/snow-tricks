@@ -1,4 +1,4 @@
-import('../../styles/frontoffice/home.css');
+import '../../styles/frontoffice/home.css';
 
 $(document).ready(function () {
     $(".card").slice(0, 15).show();
@@ -10,3 +10,4 @@ $(document).ready(function () {
         }
     });
 })
+
