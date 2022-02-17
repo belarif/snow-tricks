@@ -1,0 +1,19 @@
+@media (max-width: 425px) {
+    #mainNav, .copyright {
+        display: none;
+    }
+}
+
+#mobileNav {
+    background-color: #4C5461;
+}
+
+@media (min-width: 425px) {
+    #mobileNav {
+        display: none;
+    }
+}
+
+#mobileNav .nav li.nav-item a.nav-link {
+    color: #fff;
+}

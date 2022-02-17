@@ -1,0 +1,120 @@
+.carousel-inner {
+    padding: 1em;
+}
+
+.card {
+    margin: 0 0.5em;
+    box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+    border: none;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: #e1e1e1;
+    width: 6vh;
+    height: 6vh;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media (min-width: 768px) {
+    .carousel-item {
+        margin-right: 0;
+        flex: 0 0 33.333333%;
+        display: block;
+    }
+
+    .carousel-inner {
+        display: flex;
+    }
+}
+
+.card .img-wrapper {
+    max-width: 100%;
+    height: 13em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card img {
+    max-height: 100%;
+}
+
+@media (max-width: 767px) {
+    .card .img-wrapper {
+        height: 17em;
+    }
+}
+
+.message {
+    border: 0.125rem solid;
+    border-color: #F8F9FA;
+    border-radius: 0.25rem;
+    background-color: #F8F9FA;
+}
+
+.img-wrapper, .btn-trick-details {
+    position: relative;
+}
+
+.img-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+}
+
+.img-overlay:before, .btn-overlay:before {
+    content: ' ';
+    display: block;
+    /* adjust 'height' to position overlay content vertically */
+    height: 50%;
+}
+
+.btn-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+#content-desktop {
+    display: block;
+}
+
+#content-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+
+    #content-desktop {
+        display: none;
+    }
+
+    #content-mobile {
+        display: block;
+    }
+}
+
+.image-trick {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #2575C2;
+}
+
+.card-message {
+    display: none;
+}
