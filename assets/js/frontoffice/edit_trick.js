@@ -1,11 +1,11 @@
 $(document).ready(function () {
-    $('#show').click(function () {
+    $('#showFormImage').click(function () {
         $(".editImageTrick").show();
     });
 });
 
 $(document).ready(function () {
-    $('#show').click(function () {
+    $('#showFormVideo').click(function () {
         $(".editVideoTrick").show();
     });
 });
