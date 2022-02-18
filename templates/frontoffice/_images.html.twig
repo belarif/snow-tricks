@@ -14,16 +14,15 @@
                     <button type="button" class="btn btn-light"><a
                                 href="javascript:void(0)"
                                 onclick="deleteImage({{ image.id }})">
-                                <i class="bi bi-trash-fill"></i></a></button>
+                            <i class="bi bi-trash-fill"></i></a></button>
                 </div>
                 <div class="editImageTrick">
-                    <form method="post" action="{{ path('media_image_edit', {'id' : trick.id }) }}">
+                    <form method="post" action="{{ path('media_image_edit', {'id' : image.id }) }}">
                         <div class="input-group">
-                            <input type="file" name="src" class="form-control form-control-sm" id="editImage"
+                            <input type="file" name="src" class="form-control form-control-sm"
                                    aria-describedby="editImage"
-                                   aria-label="Upload">
-                            <button class="btn btn-sm btn-outline-secondary" type="submit" id="editImage">envoyer
-                            </button>
+                                   aria-label="Upload" required>
+                            <button class="btn btn-sm btn-outline-secondary" type="submit">envoyer</button>
                         </div>
                     </form>
                 </div>
