@@ -156,7 +156,7 @@ class TrickController extends AbstractController
 
             $this->em->flush();
             $this->addFlash('trickEditSuccess', 'Le trick a été modifié avec succès');
-            $this->redirectToRoute('trick_edit', ['id' => $id, 'slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('trick_edit', ['id' => $id, 'slug' => $trick->getSlug()]);
         }
 
         return $this->renderForm('/frontoffice/editTrick.html.twig', [
