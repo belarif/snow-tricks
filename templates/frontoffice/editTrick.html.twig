@@ -36,7 +36,7 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="container-fluid">
-                            {{ form_start(form) }}
+
                             <div class="row">
                                 <div class="col-12">
                                     <div class="image-trick">
@@ -190,6 +190,7 @@
                                         </div>
                                     {% endfor %}
                                     <div class="offset-lg-2 col-lg-8 offset-lg-2 col-sm-12">
+                                        {{ form_start(form) }}
                                         {{ form_row(form.name, { 'attr': {'value': trick.name } }) }}
                                         {{ form_row(form.description, { 'value': trick.description }  ) }}
                                         {% for choice in form.group.vars.choices %}
