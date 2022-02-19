@@ -12,6 +12,11 @@ $(document).ready(function () {
     });
 });
 
+/** click modal button automatically when page loaded **/
+window.onload = function () {
+    $("#modal-btn").click();
+}
+
 function deleteImage(id) {
     if (confirm("Êtes vous sûr de vouloir supprimer l'image ?")) {
         window.location.href = "/snow-tricks/medias/image/delete/" + id;
