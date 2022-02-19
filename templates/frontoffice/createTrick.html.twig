@@ -1,15 +1,11 @@
 {% extends 'frontoffice/template.html.twig' %}
 
-{% block head %}
+{% block title %} Ajouter un trick{% endblock title %}
 
-    {% block title %} Ajouter un trick{% endblock title %}
-
-    {% block stylesheets %}
-        {{ parent() }}
-        {{ encore_entry_link_tags('create_trick') }}
-    {% endblock stylesheets %}
-
-{% endblock head %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('create_trick') }}
+{% endblock stylesheets %}
 
 {% block content %}
     <div class="container">

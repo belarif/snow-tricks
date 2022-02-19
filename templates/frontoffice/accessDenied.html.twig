@@ -1,14 +1,10 @@
 {% extends 'frontoffice/template.html.twig' %}
 
-{% block head %}
+{% block title %} Accès limité {% endblock title %}
 
-    {% block title %} Accès limité {% endblock title %}
-
-    {% block stylesheets %}
-        {{ parent() }}
-    {% endblock stylesheets %}
-
-{% endblock head %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock stylesheets %}
 
 {% block content %}
     <div class="container">

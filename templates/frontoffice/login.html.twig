@@ -1,12 +1,11 @@
 {% extends 'frontoffice/template.html.twig' %}
 
-{% block head %}
-    {% block title %} Se connecter {% endblock title %}
-    {% block stylesheets %}
-        {{ parent() }}
-        {{ encore_entry_link_tags('login') }}
-    {% endblock stylesheets %}
-{% endblock head %}
+{% block title %} Se connecter {% endblock title %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('login') }}
+{% endblock stylesheets %}
 
 {% block content %}
     <div class="container">
