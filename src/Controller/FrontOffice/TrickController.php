@@ -5,9 +5,12 @@ namespace App\Controller\FrontOffice;
 use App\Entity\Image;
 use App\Entity\Message;
 use App\Entity\Trick;
+use App\Entity\Video;
 use App\Form\CreateTrickType;
 use App\Form\EditTrickType;
+use App\Form\ImageType;
 use App\Form\MessageTrickType;
+use App\Form\VideoType;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
@@ -141,7 +144,15 @@ class TrickController extends AbstractController
         $form = $this->createForm(EditTrickType::class, $trick);
         $form->handleRequest($request);
 
-		if ($form->isSubmitted() && $form->isValid()) {
+        $video = new Video();
+        $video->setTrick($trick);
+        $formVideo = $this->createForm(VideoType::class, $video);
+
+        $image = new Image();
+        $image->setTrick($trick);
+        $formImage = $this->createForm(ImageType::class, $image);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData();
             foreach ($images as $img) {
                 $file = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $img->guessExtension();
@@ -161,7 +172,9 @@ class TrickController extends AbstractController
 
         return $this->renderForm('/frontoffice/editTrick.html.twig', [
             'trick' => $trick,
-            'form' => $form
+            'form' => $form,
+            'form_video' => $formVideo,
+            'form_image' => $formImage
         ]);
     }
 
