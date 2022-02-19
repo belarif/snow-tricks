@@ -20,15 +20,11 @@
                     </div>
                 </div>
                 <div class="editVideoTrick">
-                    <form method="post" action="{{ path('media_video_edit', {'id' : video.id }) }}">
-                        <div class="input-group">
-                            <input type="text" name="src" class="form-control form-control-sm" id="editVideo"
-                                   aria-describedby="editVideo"
-                                   aria-label="Upload" required>
-                            <button class="btn btn-sm btn-outline-secondary" type="submit" id="editVideo">envoyer
-                            </button>
-                        </div>
-                    </form>
+                    {{ form_start(form_video, {'method': 'POST', 'action' : path('media_video_edit', {'id' : video.id }) }) }}
+                    <div class="input-group">
+
+                    </div>
+                    {{ form_end(form_video) }}
                 </div>
             </div>
         </div>
