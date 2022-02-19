@@ -8,9 +8,10 @@
     background-color: #4C5461;
 }
 
-@media (min-width: 425px) {
+@media (min-width: 426px) {
     #mobileNav {
         display: none;
+        background-color: #4C5461;
     }
 }
 
