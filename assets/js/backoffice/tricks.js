@@ -5,3 +5,5 @@ function deleteTrick(id) {
         alert("Vous avez annulé la suppression");
     }
 }
+
+window.deleteTrick = deleteTrick;

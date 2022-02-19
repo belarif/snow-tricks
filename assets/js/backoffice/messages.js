@@ -5,3 +5,5 @@ function deleteMessage(id) {
         alert("Vous avez annulé la suppression");
     }
 }
+
+window.deleteMessage = deleteMessage;
