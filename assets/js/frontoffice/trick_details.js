@@ -38,6 +38,7 @@ window.onload = function () {
     $("#modal-btn").click();
 }
 
+/** load more messages **/
 $(document).ready(function () {
     $(".card-message").slice(0, 3).show();
     $("#loadMore").on("click", function (e) {
