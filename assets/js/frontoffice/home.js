@@ -1,5 +1,6 @@
 import '../../styles/frontoffice/home.css';
 
+/** load more tricks **/
 $(document).ready(function () {
     $(".card-trick").slice(0, 15).show();
     $("#loadMore").on("click", function (e) {
