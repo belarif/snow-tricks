@@ -1,8 +1,14 @@
 import '../../styles/frontoffice/edit_trick.css';
 
 $(document).ready(function () {
-    $('#show').click(function () {
-        $(".editImage").show();
+    $('#showFormImage').click(function () {
+        $(".editImageTrick").show();
+    });
+});
+
+$(document).ready(function () {
+    $('#showFormVideo').click(function () {
+        $(".editVideoTrick").show();
     });
 });
 
