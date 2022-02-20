@@ -174,7 +174,7 @@ class UserController extends AbstractController
             $user->setPassword($this->passwordHasher->hashPassword($user, $password));
 
             $this->em->flush();
-            $this->addFlash('resetPasswordSuccess', 'Votre mon de passe a été modifié avec succès');
+            $this->addFlash('resetPasswordSuccess', 'Votre mot de passe a été modifié avec succès');
             return $this->redirectToRoute('app_homepage');
         }
 
