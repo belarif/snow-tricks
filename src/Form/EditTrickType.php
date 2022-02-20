@@ -71,3 +71,4 @@ class EditTrickType extends AbstractType
 }
 
 
+
