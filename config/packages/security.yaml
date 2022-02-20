@@ -42,7 +42,6 @@ security:
         - { path: '^/snow-tricks/tricks/create', roles: ROLE_VISITOR }
         - { path: '^/snow-tricks/tricks/edit/*', roles: ROLE_VISITOR }
         - { path: '^/snow-tricks/tricks/delete/*', roles: ROLE_VISITOR }
-        - { path: '^/snow-tricks/reset_password/*', roles: ROLE_VISITOR }
 
 when@test:
     security:
