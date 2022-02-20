@@ -19,14 +19,18 @@
                             <div class="offset-8 col-4 mb-2">
                                 <div class="btn-group" role="group"
                                      aria-label="Basic outlined example">
-                                    <button type="button" class="btn btn-light">
-                                        <a href="#"><i
-                                                    class="bi bi-pencil-fill"></i></a>
+                                    <button type="button" class="btn btn-light"
+                                            id="showFormImage">
+                                        <i class="bi bi-pencil-fill"></i>
                                     </button>
-                                    <button type="button" class="btn btn-light">
-                                        <a href="#"><i
-                                                    class="bi bi-trash-fill"></i></a>
-                                    </button>
+                                    <button type="button" class="btn btn-light"><a
+                                                href="javascript:void(0)"
+                                                onclick="deleteImage({{ image.id }})">
+                                            <i class="bi bi-trash-fill"></i></a></button>
+                                </div>
+                                <div class="editImageTrick">
+                                    {{ form_start(form_image, {'method': 'POST', 'action' : path('media_image_edit', {'id' : image.id }) }) }}
+                                    {{ form_end(form_image) }}
                                 </div>
                             </div>
                         {% endfor %}
@@ -42,14 +46,19 @@
                             <div class="offset-8 col-4 mb-2">
                                 <div class="btn-group" role="group"
                                      aria-label="Basic outlined example">
-                                    <button type="button" class="btn btn-light">
-                                        <a href="#"><i
-                                                    class="bi bi-pencil-fill"></i></a>
+                                    <button type="button" class="btn btn-light"
+                                            id="showFormVideo"><i
+                                                class="bi bi-pencil-fill"></i>
                                     </button>
-                                    <button type="button" class="btn btn-light">
-                                        <a href="#"><i
+                                    <button type="button" class="btn btn-light"><a
+                                                href="javascript:void(0)"
+                                                onclick="deleteVideo({{ video.id }})"><i
                                                     class="bi bi-trash-fill"></i></a>
                                     </button>
+                                </div>
+                                <div class="editVideoTrick">
+                                    {{ form_start(form_video, {'method': 'POST', 'action' : path('media_video_edit', {'id' : video.id }) }) }}
+                                    {{ form_end(form_video) }}
                                 </div>
                             </div>
                         {% endfor %}
