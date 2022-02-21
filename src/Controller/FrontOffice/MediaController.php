@@ -90,7 +90,7 @@ class MediaController extends AbstractController
             $trick_id = $image->getTrick()->getId();
 
             $src = $formImage->get('src')->getData();
-            if ($src == null) {
+            if ($src === null) {
                 return $this->redirectToRoute('trick_edit', ['id' => $trick_id, 'slug' => $slug]);
             }
 
