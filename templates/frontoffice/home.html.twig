@@ -46,7 +46,7 @@
                 </div>
             {% endfor %}
             <div class="row row-cols-1 row-cols-sm-5">
-                {% for trick in listTricks %}
+                {% for trick in tricks %}
                     <div class="col mb-4">
                         <div class="card-trick">
                             <div class="card">
@@ -56,7 +56,7 @@
                                 {% else %}
                                     {% for image in trick.images %}
                                         {% if loop.first %}
-                                            <img src="{{ asset('build/images/'~image.src) }}" class="card-img-top"
+                                            <img src="{{ asset('uploads/images/'~image.src) }}" class="card-img-top"
                                                  alt=""
                                                  width="50" height="140">
                                         {% endif %}

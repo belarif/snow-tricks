@@ -31,7 +31,7 @@
                         <div class="carousel-inner">
                             {% for image in trick.images %}
                                 <div class="carousel-item {% if loop.first %} active {% endif %}">
-                                    <img src="{{ asset('/build/images/'~image.src) }}" alt="" width="300"
+                                    <img src="{{ asset('uploads/images/'~image.src) }}" alt="" width="300"
                                          height="200">
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages"
