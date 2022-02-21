@@ -1,4 +1,4 @@
-@media (min-width: 425px) {
+@media (min-width: 426px) {
     .registerForm {
         margin-top: 170px;
         margin-bottom: 140px;
@@ -8,5 +8,7 @@
 @media (max-width: 425px) {
     .registerForm {
         margin-bottom: 50px;
+        margin-top: 15px;
     }
 }
+
