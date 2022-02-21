@@ -56,7 +56,7 @@
                                 {% else %}
                                     {% for image in trick.images %}
                                         {% if loop.first %}
-                                            <img src="{{ asset('uploads/images/'~image.src) }}" class="card-img-top"
+                                            <img src="{{ asset('build/images/'~image.src) }}" class="card-img-top"
                                                  alt=""
                                                  width="50" height="140">
                                         {% endif %}

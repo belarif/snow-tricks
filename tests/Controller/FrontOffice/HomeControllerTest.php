@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  * Functional test case
  */
 final class HomeControllerTest extends WebTestCase {
-	public function test_it_display_home_page(): void {
+	public function test_it_should_display_home_page(): void {
 		$client = $this->createClient();
 		$crawler = $client->request('GET', '/snow-tricks/accueil');
 
@@ -25,7 +25,7 @@ final class HomeControllerTest extends WebTestCase {
 		$client = $this->createClient();
 		$crawler = $client->request('GET', '/snow-tricks/accueil');
 
-		self::assertGreaterThanOrEqual(
+		self::assertLessThanOrEqual(
 			count(TrickFixtures::$tricks),
 			$crawler->filter('.card-trick')->count()
 		);

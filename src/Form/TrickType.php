@@ -6,7 +6,6 @@ use App\Entity\Group;
 use App\Entity\Trick;
 use App\Service\EventListener\MediaListener;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -17,14 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TrickType extends AbstractType
 {
-	/**
-	 * @var ParameterBagInterface
-	 */
-	private $parameterBag;
-
-	public function __construct(ParameterBagInterface $parameterBag) {
-		$this->parameterBag = $parameterBag;
-	}
 
 	/**
      * @param FormBuilderInterface $builder
@@ -75,7 +66,6 @@ class TrickType extends AbstractType
                     'required' => false
                 ],
             ])
-	        // ->addEventSubscriber(new MediaListener($this->parameterBag))
         ;
     }
 
