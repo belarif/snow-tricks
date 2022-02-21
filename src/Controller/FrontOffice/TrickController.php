@@ -180,7 +180,10 @@ class TrickController extends AbstractController
 	{
 		$images = $form->get('images')->getData();
 		foreach ($images as $image) {
-			$trick->addImage((new Image())->setSrc($uploader->upload($image)));
+			$fileName = $uploader->upload($image);
+			$image = new Image();
+			$image->setSrc($fileName);
+			$trick->addImage($image);
 		}
 
 		$trick->addVideosFromArray($form->get('videos')->getData());
