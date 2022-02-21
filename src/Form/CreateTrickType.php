@@ -34,7 +34,7 @@ class CreateTrickType extends AbstractType
                 'placeholder' => 'Choisir un groupe',
                 'choice_label' => function (Group $Group) {
                     return $Group->getName();
-                }, 'choice_value' => function ($Group) {
+                }, 'choice_value' => function (?Group $Group) {
                     return $Group ? $Group->getId() : '';
                 }])
             ->add('images', FileType::class, [
