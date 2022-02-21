@@ -265,7 +265,7 @@ class Trick
 		$urls = array_filter(
 			$urls,
 			function ($url) {
-				return $url != null;
+				return $url !== null;
 			}
 		);
 
