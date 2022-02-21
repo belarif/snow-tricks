@@ -9,22 +9,20 @@ suivante : https://github.com/belarif/snowTricks.git copiez cette url à utilise
    WampServer64, positionnez vous sur le chemin qui permettra l'exécution du site.
 
 3. Sur le même chemin, tapez la commande suivante pour cloner le projet : git
-   clone https://github.com/belarif/snowTricks.git Après exécution de la commande, le projet sera copié sur votre
-   ordinateur
+   clone https://github.com/belarif/snowTricks.git Après exécution de la commande, le projet sera copié dans le répertoire `www`
 
 ### Installation des dépendances
 Toujours depuis votre terminal, exécutez la commande suivant : `composer install`
 
 ### Création de la base de données
 1. Modifier le fichier `.env` pour adapater les accès de votre SGBD
-2. Création de la BD: `php bin/console doctrine:schema:create --force`
-3. Création du schéma de la BD: `php bin/console doctrine:migrations:migrate`
-4. Création des fixtures
+2. Création du schéma de la BD: `php bin/console doctrine:migrations:migrate`
+3. Création des fixtures
 
 ### Installation des resources publiques
 1. Installer yarn: `npm install --global yarn`
 2. Installer encore: `yarn install`
-3. Charger les fichiers public: `yarn run encore dev --watch`
+3. Charger les fichiers public: `yarn build`
 
 ### Loader les fixtures
 `php bin/console doctrine:fixtures:load`
