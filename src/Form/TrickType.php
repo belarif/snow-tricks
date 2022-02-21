@@ -4,7 +4,9 @@ namespace App\Form;
 
 use App\Entity\Group;
 use App\Entity\Trick;
+use App\Service\EventListener\MediaListener;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -13,18 +15,37 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateTrickType extends AbstractType
+class TrickType extends AbstractType
 {
-    /**
+	/**
+	 * @var ParameterBagInterface
+	 */
+	private $parameterBag;
+
+	public function __construct(ParameterBagInterface $parameterBag) {
+		$this->parameterBag = $parameterBag;
+	}
+
+	/**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+	    /** @var Trick $trick */
+	    $trick = $options['data'];
+		$nameFieldOptions = [];
+
+		if ($trick->getId()) {
+			$nameFieldOptions = [
+				'mapped' => false,
+                'disabled' => true
+			];
+		}
+		$nameFieldOptions['label'] = 'Nom: ';
+
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Nom :'
-            ])
+            ->add('name', TextType::class, $nameFieldOptions)
             ->add('description', TextareaType::class, [
                 'label' => 'Description :'
             ])
@@ -53,7 +74,9 @@ class CreateTrickType extends AbstractType
                     'attr' => ['class' => 'text-box'],
                     'required' => false
                 ],
-            ]);
+            ])
+	        // ->addEventSubscriber(new MediaListener($this->parameterBag))
+        ;
     }
 
     /**

@@ -10,16 +10,18 @@ use App\Form\CreateTrickType;
 use App\Form\EditTrickType;
 use App\Form\ImageType;
 use App\Form\MessageTrickType;
+use App\Form\TrickType;
 use App\Form\VideoType;
 use App\Repository\TrickRepository;
+use App\Service\MediaUploader;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/tricks", name="trick_")
@@ -33,8 +35,7 @@ class TrickController extends AbstractController
     public function __construct(
         EntityManagerInterface $em,
         TrickRepository $trickRepository
-    )
-    {
+    ) {
 		$this->em = $em;
         $this->trickRepository = $trickRepository;
     }
@@ -45,66 +46,48 @@ class TrickController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, MediaUploader $uploader, SluggerInterface $slugger): Response
     {
         $trick = new Trick();
-        $form = $this->createForm(CreateTrickType::class, $trick);
+        $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->createTrickProcess($form, $trick);
+            $this->_createTrickProcess($form, $trick, $uploader);
+
+	        $trick->setSlug($slugger->slug($trick->getName()));
+	        $trick->setUser($this->getUser());
+
+	        $this->em->persist($trick);
+	        $this->em->flush();
+
             $this->addFlash('successCreateTrick', 'Le trick a été créé avec succès');
             return $this->redirectToRoute('app_homepage');
         }
 
-        return $this->renderForm('/frontoffice/createTrick.html.twig', ['form' => $form, 'trick' => $trick]);
+        return $this->renderForm('/frontoffice/createTrick.html.twig', [
+			'form' => $form,
+	        'trick' => $trick
+        ]);
     }
+
 
 	/**
-	 * @param FormInterface $form
+	 * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"})
+	 *
+	 * @param Request $request
 	 * @param Trick $trick
+	 * @return Response
 	 */
-    private function createTrickProcess(FormInterface $form, Trick $trick)
+    public function show(Request $request, Trick $trick): Response
     {
-        $images = $form->get('images')->getData();
-
-        foreach ($images as $img) {
-            $file = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $img->guessExtension();
-            $img->move($this->getParameter('app.images_directory'), $file);
-
-            $image = new Image();
-            $image->setSrc($file);
-            $trick->addImage($image);
-        }
-
-		$trick->addVideosFromArray($form->get('videos')->getData());
-        $trick->setSlug(preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($form->get('name')->getData()))));
-        $trick->setUser($this->getUser());
-
-        $this->em->persist($trick);
-        $this->em->flush();
-    }
-
-    /**
-     * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"})
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     * @throws EntityNotFoundException
-     */
-    public function show(Request $request, int $id): Response
-    {
-        $trick = $this->trickRepository->getTrick($id);
-
         $message = new Message();
         $form = $this->createForm(MessageTrickType::class, $message);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->messageTrick($id, $form, $message);
+            $this->addTrickMessage($trick, $form, $message);
             $this->addFlash('messageSentSuccess', 'Votre message a été envoyé avec succès');
-            return $this->redirectToRoute('trick_details', ['id' => $id, 'slug' => $trick->getSlug()]);
         }
 
         return $this->renderForm('/frontoffice/detailsTrick.html.twig', [
@@ -113,14 +96,14 @@ class TrickController extends AbstractController
         ]);
     }
 
-    /**
-     * @param int|string $id
-     * @param FormInterface $form
-     * @param Message $message
-     */
-    private function messageTrick($id, FormInterface $form, Message $message): void
+	/**
+	 * @param Trick $trick
+	 * @param FormInterface $form
+	 * @param Message $message
+	 */
+    private function addTrickMessage(Trick $trick, FormInterface $form, Message $message): void
     {
-	    $trick = $this->trickRepository->findOneBy(['id' => $id]);
+	    $trick = $this->trickRepository->findOneBy(['id' => $trick->getId()]);
         $message->setUser($this->getUser());
         $message->setTrick($trick);
         $message->setContent($form->get('content')->getData());
@@ -129,19 +112,16 @@ class TrickController extends AbstractController
         $this->em->flush();
     }
 
-    /**
-     * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"})
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     * @throws EntityNotFoundException
-     */
-    public function edit(Request $request, int $id): Response
+	/**
+	 * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"})
+	 *
+	 * @param Request $request
+	 * @param Trick $trick
+	 * @return Response
+	 */
+    public function edit(Request $request, Trick $trick, MediaUploader $uploader, SluggerInterface $slugger): Response
     {
-        $trick = $this->trickRepository->getTrick($id);
-
-        $form = $this->createForm(EditTrickType::class, $trick);
+        $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         $video = new Video();
@@ -153,21 +133,14 @@ class TrickController extends AbstractController
         $formImage = $this->createForm(ImageType::class, $image);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $images = $form->get('images')->getData();
-            foreach ($images as $img) {
-                $file = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $img->guessExtension();
-                $img->move($this->getParameter('app.images_directory'), $file);
-
-                $image = new Image();
-                $image->setSrc($file);
-                $trick->addImage($image);
-            }
-
-            $trick->addVideosFromArray($form->get('videos')->getData());
+			$this->_createTrickProcess($form, $trick, $uploader);
 
             $this->em->flush();
             $this->addFlash('trickEditSuccess', 'Le trick a été modifié avec succès');
-            return $this->redirectToRoute('trick_edit', ['id' => $id, 'slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('trick_edit', [
+				'id' => $trick->getId(),
+	            'slug' => $trick->getSlug()
+            ]);
         }
 
         return $this->renderForm('/frontoffice/editTrick.html.twig', [
@@ -184,14 +157,34 @@ class TrickController extends AbstractController
 	 * @param int $id
 	 * @return RedirectResponse
 	 */
-    public function delete(int $id): redirectResponse
+    public function delete(int $id, MediaUploader $uploader): redirectResponse
     {
-        $this->em->remove($this->trickRepository->find($id));
+	    $trick = $this->trickRepository->find($id);
+	    foreach ($trick->getImages() as $image) {
+			$uploader->removeImage($image);
+		}
+
+	    $this->em->remove($trick);
         $this->em->flush();
 
         $this->addFlash('successDeleteTrick', 'Le trick a été supprimé avec succès');
         return $this->redirectToRoute('app_homepage');
     }
+
+	/**
+	 * @param FormInterface $form
+	 * @param Trick $trick
+	 * @param MediaUploader $uploader
+	 */
+	private function _createTrickProcess(FormInterface $form, Trick $trick, MediaUploader $uploader): void
+	{
+		$images = $form->get('images')->getData();
+		foreach ($images as $image) {
+			$trick->addImage((new Image())->setSrc($uploader->upload($image)));
+		}
+
+		$trick->addVideosFromArray($form->get('videos')->getData());
+	}
 }
 
 
