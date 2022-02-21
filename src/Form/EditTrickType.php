@@ -36,7 +36,7 @@ class EditTrickType extends AbstractType
                 'label' => 'Groupe :',
                 'choice_label' => function (Group $Group) {
                     return $Group->getName();
-                }, 'choice_value' => function ($Group) {
+                }, 'choice_value' => function (?Group $Group) {
                     return $Group ? $Group->getId() : '';
                 }
             ])
