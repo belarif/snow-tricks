@@ -29,4 +29,5 @@ symfony.lock
 composer.lock
 
 .idea
+/.idea
 
