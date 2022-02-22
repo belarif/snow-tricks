@@ -53,7 +53,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->_createTrickProcess($form, $trick, $uploader);
+            $this->createTrickProcess($form, $trick, $uploader);
 
 	        $trick->setSlug($slugger->slug($trick->getName()));
 	        $trick->setUser($this->getUser());
@@ -133,7 +133,7 @@ class TrickController extends AbstractController
         $formImage = $this->createForm(ImageType::class, $image);
 
         if ($form->isSubmitted() && $form->isValid()) {
-			$this->_createTrickProcess($form, $trick, $uploader);
+			$this->createTrickProcess($form, $trick, $uploader);
 
             $this->em->flush();
             $this->addFlash('trickEditSuccess', 'Le trick a été modifié avec succès');
@@ -176,7 +176,7 @@ class TrickController extends AbstractController
 	 * @param Trick $trick
 	 * @param MediaUploader $uploader
 	 */
-	private function _createTrickProcess(FormInterface $form, Trick $trick, MediaUploader $uploader): void
+	private function createTrickProcess(FormInterface $form, Trick $trick, MediaUploader $uploader): void
 	{
 		$images = $form->get('images')->getData();
 		foreach ($images as $image) {
