@@ -8,6 +8,7 @@ use App\Form\ImageType;
 use App\Form\VideoType;
 use App\Repository\ImageRepository;
 use App\Repository\VideoRepository;
+use App\Service\MediaUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -42,15 +43,20 @@ class MediaController extends AbstractController
      * @param int $id
      * @return RedirectResponse
      */
-    public function deleteImage(int $id): redirectResponse
+    public function deleteImage(int $id, MediaUploader $uploader): redirectResponse
     {
         $image = $this->imageRepository->find($id);
+
+        $uploader->removeImage($image);
 
         $this->em->remove($image);
         $this->em->flush();
 
         $this->addFlash('successDeleteImage', 'L\'image a été supprimé avec succès');
-        return $this->redirectToRoute('trick_edit', ['id' => $image->getTrick()->getId(), 'slug' => $image->getTrick()->getSlug()]);
+        return $this->redirectToRoute('trick_edit', [
+            'id' => $image->getTrick()->getId(),
+            'slug' => $image->getTrick()->getSlug()
+        ]);
     }
 
     /**
