@@ -52,7 +52,9 @@ class ProfileController extends AbstractController
             $this->redirectToRoute('app_profile');
         }
 
-        return $this->renderForm('/frontoffice/profile.html.twig', ['form' => $form]);
+        return $this->renderForm('/frontoffice/profile.html.twig', [
+            'form' => $form
+        ]);
     }
 
     /**
