@@ -22,7 +22,10 @@ class ImageType extends AbstractType
                     'id' => 'editImage'
                 ]
             ])
-            ->add('envoyer', SubmitType::class, [
+            ->add(
+                'envoyer',
+                SubmitType::class,
+                [
                     'attr' => [
                         'class' => 'btn btn-sm btn-outline-secondary',
                         'id' => 'editImage'

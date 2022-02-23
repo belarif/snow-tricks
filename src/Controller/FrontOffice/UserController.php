@@ -34,8 +34,7 @@ class UserController extends AbstractController
         TokenGeneratorInterface     $tokenGenerator,
         UserPasswordHasherInterface $passwordHasher,
         Mailer                      $mailer
-    )
-    {
+    ) {
         $this->em = $em;
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
@@ -83,7 +82,6 @@ class UserController extends AbstractController
                     'Votre compte a été créé avec succès, un mail d\'activation vous a été envoyé à l\'adresse : ' . $email
                 );
                 return $this->redirectToRoute('app_login');
-
             } else {
                 $this->addFlash('existingUser', 'Un compte existe déjà avec cette adresse email !!');
                 return $this->redirectToRoute('app_registration');
@@ -188,5 +186,3 @@ class UserController extends AbstractController
         ]);
     }
 }
-
-

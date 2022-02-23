@@ -22,8 +22,7 @@ class MessageController extends AbstractController
     public function __construct(
         MessageRepository      $messageRepository,
         EntityManagerInterface $em
-    )
-    {
+    ) {
         $this->messageRepository = $messageRepository;
         $this->em = $em;
     }
@@ -68,9 +67,3 @@ class MessageController extends AbstractController
         return $this->redirectToRoute('admin_messages_list');
     }
 }
-
-
-
-
-
-

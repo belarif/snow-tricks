@@ -50,6 +50,3 @@ class SecurityController extends AbstractController
         ]);
     }
 }
-
-
-

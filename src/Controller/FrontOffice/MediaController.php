@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpInconsistentReturnPointsInspection */
+<?php
+
+/** @noinspection PhpInconsistentReturnPointsInspection */
 
 namespace App\Controller\FrontOffice;
 
@@ -30,8 +32,7 @@ class MediaController extends AbstractController
         EntityManagerInterface $em,
         ImageRepository        $imageRepository,
         VideoRepository        $videoRepository
-    )
-    {
+    ) {
         $this->em = $em;
         $this->imageRepository = $imageRepository;
         $this->videoRepository = $videoRepository;
@@ -94,7 +95,6 @@ class MediaController extends AbstractController
         $formImage->handleRequest($request);
 
         if ($formImage->isSubmitted() && $formImage->isValid()) {
-
             $image = $this->imageRepository->findOneBy(['id' => $id]);
             $slug = $image->getTrick()->getSlug();
             $trick_id = $image->getTrick()->getId();
@@ -133,7 +133,6 @@ class MediaController extends AbstractController
         $formVideo->handleRequest($request);
 
         if ($formVideo->isSubmitted() && $formVideo->isValid()) {
-
             $video = $this->videoRepository->findOneBy(['id' => $id]);
             $slug = $video->getTrick()->getSlug();
             $trick_id = $video->getTrick()->getId();

@@ -46,6 +46,3 @@ class MessageRepository extends ServiceEntityRepository
         return $message[0];
     }
 }
-
-
-

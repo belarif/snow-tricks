@@ -20,5 +20,3 @@ class DashboardController extends AbstractController
         return $this->render('backoffice/dashboard.html.twig');
     }
 }
-
-

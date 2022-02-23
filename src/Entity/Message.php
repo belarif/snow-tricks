@@ -98,7 +98,3 @@ class Message
         return $this;
     }
 }
-
-
-
-

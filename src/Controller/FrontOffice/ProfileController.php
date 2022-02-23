@@ -19,8 +19,7 @@ class ProfileController extends AbstractController
     public function __construct(
         UserRepository         $userRepository,
         EntityManagerInterface $em
-    )
-    {
+    ) {
         $this->userRepository = $userRepository;
         $this->em = $em;
     }
@@ -74,4 +73,3 @@ class ProfileController extends AbstractController
         $this->em->flush();
     }
 }
-
