@@ -89,7 +89,8 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"})
+     * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"},
+     *     requirements={"id"="\d+", "slug"="[-a-z0-9]+"})
      *
      * @param Request $request
      * @param int $id
@@ -136,7 +137,8 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"})
+     * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"},
+     *     requirements={"id"="\d+", "slug"="[-a-z0-9]+"})
      *
      * @param Request $request
      * @param int $id
@@ -184,12 +186,13 @@ class TrickController extends AbstractController
         ]);
     }
 
-	/**
-	 * @Route("/delete/{id}", name="delete")
-	 *
-	 * @param int $id
-	 * @return RedirectResponse
-	 */
+    /**
+     * @Route("/delete/{id}", name="delete",
+     *     requirements={"id"="\d+"})
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
     public function delete(int $id): redirectResponse
     {
         $this->em->remove($this->trickRepository->find($id));
