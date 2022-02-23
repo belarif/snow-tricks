@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Service;
 
@@ -7,8 +9,8 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-final class AvatarUploader {
-
+final class AvatarUploader
+{
     /**
      * @var string
      */
@@ -23,7 +25,8 @@ final class AvatarUploader {
      */
     private $filesystem;
 
-    public function __construct(string $avatarTargetDirectory, SluggerInterface $slugger, Filesystem $filesystem) {
+    public function __construct(string $avatarTargetDirectory, SluggerInterface $slugger, Filesystem $filesystem)
+    {
         $this->avatarTargetDirectory = $avatarTargetDirectory;
         $this->slugger = $slugger;
         $this->filesystem = $filesystem;
@@ -33,7 +36,8 @@ final class AvatarUploader {
      * @param UploadedFile $file
      * @return string
      */
-    public function upload(UploadedFile $file): string {
+    public function upload(UploadedFile $file): string
+    {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
         $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
@@ -47,8 +51,8 @@ final class AvatarUploader {
      * @param String $avatar
      * @return void
      */
-    public function removeAvatar(string $avatar): void {
+    public function removeAvatar(string $avatar): void
+    {
         $this->filesystem->remove($this->avatarTargetDirectory . '/' . $avatar);
     }
-
 }

@@ -26,7 +26,10 @@ class CreateUserType extends AbstractType
             ->add('password', PasswordType::class, [
                 'attr' => ['class' => 'form-control'],
             ])
-            ->add('role', EntityType::class, [
+            ->add(
+                'role',
+                EntityType::class,
+                [
                     'class' => Role::class,
                     'multiple' => true,
                     'choice_label' => function (Role $Role) {

@@ -28,7 +28,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  */
 class TrickController extends AbstractController
 {
-	private $em;
+    private $em;
 
     private $trickRepository;
 
@@ -36,7 +36,7 @@ class TrickController extends AbstractController
         EntityManagerInterface $em,
         TrickRepository $trickRepository
     ) {
-		$this->em = $em;
+        $this->em = $em;
         $this->trickRepository = $trickRepository;
     }
 
@@ -55,31 +55,31 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->createTrickProcess($form, $trick, $uploader);
 
-	        $trick->setSlug($slugger->slug($trick->getName()));
-	        $trick->setUser($this->getUser());
+            $trick->setSlug($slugger->slug($trick->getName()));
+            $trick->setUser($this->getUser());
 
-	        $this->em->persist($trick);
-	        $this->em->flush();
+            $this->em->persist($trick);
+            $this->em->flush();
 
             $this->addFlash('successCreateTrick', 'Le trick a été créé avec succès');
             return $this->redirectToRoute('app_homepage');
         }
 
         return $this->renderForm('/frontoffice/createTrick.html.twig', [
-			'form' => $form,
-	        'trick' => $trick
+            'form' => $form,
+            'trick' => $trick
         ]);
     }
 
 
-	/**
-	 * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"},
-	 *     requirements={"id"="\d+", "slug"="[-a-z0-9]+"})
+    /**
+     * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"},
+     *     requirements={"id"="\d+", "slug"="[-a-z0-9]+"})
      *
-	 * @param Request $request
-	 * @param Trick $trick
-	 * @return Response
-	 */
+     * @param Request $request
+     * @param Trick $trick
+     * @return Response
+     */
     public function show(Request $request, Trick $trick): Response
     {
         $message = new Message();
@@ -101,14 +101,14 @@ class TrickController extends AbstractController
         ]);
     }
 
-	/**
-	 * @param Trick $trick
-	 * @param FormInterface $form
-	 * @param Message $message
-	 */
+    /**
+     * @param Trick $trick
+     * @param FormInterface $form
+     * @param Message $message
+     */
     private function addTrickMessage(Trick $trick, FormInterface $form, Message $message): void
     {
-	    $trick = $this->trickRepository->findOneBy(['id' => $trick->getId()]);
+        $trick = $this->trickRepository->findOneBy(['id' => $trick->getId()]);
         $message->setUser($this->getUser());
         $message->setTrick($trick);
         $message->setContent($form->get('content')->getData());
@@ -117,14 +117,14 @@ class TrickController extends AbstractController
         $this->em->flush();
     }
 
-	/**
-	 * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"},
-	 *     requirements={"id"="\d+", "slug"="[-a-z0-9]+"})
+    /**
+     * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"},
+     *     requirements={"id"="\d+", "slug"="[-a-z0-9]+"})
      *
-	 * @param Request $request
-	 * @param Trick $trick
-	 * @return Response
-	 */
+     * @param Request $request
+     * @param Trick $trick
+     * @return Response
+     */
     public function edit(Request $request, Trick $trick, MediaUploader $uploader, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
@@ -139,13 +139,13 @@ class TrickController extends AbstractController
         $formImage = $this->createForm(ImageType::class, $image);
 
         if ($form->isSubmitted() && $form->isValid()) {
-			$this->createTrickProcess($form, $trick, $uploader);
+            $this->createTrickProcess($form, $trick, $uploader);
 
             $this->em->flush();
             $this->addFlash('trickEditSuccess', 'Le trick a été modifié avec succès');
             return $this->redirectToRoute('trick_edit', [
-				'id' => $trick->getId(),
-	            'slug' => $trick->getSlug()
+                'id' => $trick->getId(),
+                'slug' => $trick->getSlug()
             ]);
         }
 
@@ -166,35 +166,33 @@ class TrickController extends AbstractController
      */
     public function delete(int $id, MediaUploader $uploader): redirectResponse
     {
-	    $trick = $this->trickRepository->find($id);
-	    foreach ($trick->getImages() as $image) {
-			$uploader->removeImage($image);
-		}
+        $trick = $this->trickRepository->find($id);
+        foreach ($trick->getImages() as $image) {
+            $uploader->removeImage($image);
+        }
 
-	    $this->em->remove($trick);
+        $this->em->remove($trick);
         $this->em->flush();
 
         $this->addFlash('successDeleteTrick', 'Le trick a été supprimé avec succès');
         return $this->redirectToRoute('app_homepage');
     }
 
-	/**
-	 * @param FormInterface $form
-	 * @param Trick $trick
-	 * @param MediaUploader $uploader
-	 */
-	private function createTrickProcess(FormInterface $form, Trick $trick, MediaUploader $uploader): void
-	{
-		$images = $form->get('images')->getData();
-		foreach ($images as $image) {
-			$fileName = $uploader->upload($image);
-			$image = new Image();
-			$image->setSrc($fileName);
-			$trick->addImage($image);
-		}
+    /**
+     * @param FormInterface $form
+     * @param Trick $trick
+     * @param MediaUploader $uploader
+     */
+    private function createTrickProcess(FormInterface $form, Trick $trick, MediaUploader $uploader): void
+    {
+        $images = $form->get('images')->getData();
+        foreach ($images as $image) {
+            $fileName = $uploader->upload($image);
+            $image = new Image();
+            $image->setSrc($fileName);
+            $trick->addImage($image);
+        }
 
-		$trick->addVideosFromArray($form->get('videos')->getData());
-	}
+        $trick->addVideosFromArray($form->get('videos')->getData());
+    }
 }
-
-

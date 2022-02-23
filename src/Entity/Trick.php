@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
  * @ORM\Table(name="st_trick")
@@ -183,7 +182,6 @@ class Trick
 
     public function setSlug(string $name): self
     {
-
         $this->slug = $name;
 
         return $this;
@@ -261,20 +259,21 @@ class Trick
         return $this;
     }
 
-	public function addVideosFromArray(array $urls): self {
-		$urls = array_filter(
-			$urls,
-			function ($url) {
-				return $url !== null;
-			}
-		);
+    public function addVideosFromArray(array $urls): self
+    {
+        $urls = array_filter(
+            $urls,
+            function ($url) {
+                return $url !== null;
+            }
+        );
 
-		foreach ($urls as $src) {
-			$video = new Video();
-			$video->setSrc($src);
-			$this->addVideo($video);
-		}
+        foreach ($urls as $src) {
+            $video = new Video();
+            $video->setSrc($src);
+            $this->addVideo($video);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 }

@@ -54,5 +54,3 @@ class Group
         return $this;
     }
 }
-
-

@@ -8,8 +8,8 @@ use Doctrine\Persistence\ObjectManager;
 
 class RoleFixtures extends Fixture
 {
-	public const ROLE_ADMIN = 'ROLE_ADMIN';
-	public const ROLE_VISITOR = 'ROLE_VISITOR';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_VISITOR = 'ROLE_VISITOR';
 
     /**
      * @inheritDoc
@@ -17,14 +17,14 @@ class RoleFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $roles = [
-			[
-				'role' => 'visitor',
-				'roleName' => self::ROLE_VISITOR
-			],
-	        [
-				'role' => 'admin',
-		        'roleName' => self::ROLE_ADMIN
-	        ]
+            [
+                'role' => 'visitor',
+                'roleName' => self::ROLE_VISITOR
+            ],
+            [
+                'role' => 'admin',
+                'roleName' => self::ROLE_ADMIN
+            ]
         ];
 
         foreach ($roles as $role) {
@@ -35,7 +35,7 @@ class RoleFixtures extends Fixture
             $manager->persist($newRole);
             $manager->flush();
 
-			$this->addReference($role['roleName'], $newRole);
+            $this->addReference($role['roleName'], $newRole);
         }
     }
 }

@@ -11,7 +11,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class MediaFixtures extends Fixture implements DependentFixtureInterface
 {
-
     /**
      * @inheritDoc
      */
@@ -22,10 +21,10 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
         $trick = $trickRepository->find($trick_id);
 
         $videos = [
-			'https://www.youtube.com/embed/hih9jIzOoRg',
-	        'https://www.youtube.com/embed/CA5bURVJ5zk',
+            'https://www.youtube.com/embed/hih9jIzOoRg',
+            'https://www.youtube.com/embed/CA5bURVJ5zk',
             'https://www.youtube.com/embed/mfNA0UEJo1Y',
-	        'https://www.youtube.com/embed/qsd8uaex-Is',
+            'https://www.youtube.com/embed/qsd8uaex-Is',
             'https://www.youtube.com/embed/V9xuy-rVj9w'
         ];
 
@@ -55,10 +54,10 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
         }
     }
 
-	public function getDependencies(): array
-	{
-		return [
-			TrickFixtures::class
-		];
-	}
+    public function getDependencies(): array
+    {
+        return [
+            TrickFixtures::class
+        ];
+    }
 }

@@ -22,7 +22,10 @@ class VideoType extends AbstractType
                     'id' => 'editVideo'
                 ]
             ])
-            ->add('envoyer', SubmitType::class, [
+            ->add(
+                'envoyer',
+                SubmitType::class,
+                [
                     'attr' => [
                         'class' => 'btn btn-sm btn-outline-secondary',
                         'id' => 'editVideo'

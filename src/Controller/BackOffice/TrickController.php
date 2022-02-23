@@ -66,8 +66,3 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('admin_tricks_list');
     }
 }
-
-
-
-
-

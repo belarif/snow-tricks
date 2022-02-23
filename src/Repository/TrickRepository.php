@@ -32,11 +32,11 @@ class TrickRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-	/**
-	 * @param $id
-	 * @return Trick
-	 * @throws EntityNotFoundException
-	 */
+    /**
+     * @param $id
+     * @return Trick
+     * @throws EntityNotFoundException
+     */
     public function getTrick($id): Trick
     {
         $trick = $this->createQueryBuilder('t')
@@ -45,12 +45,10 @@ class TrickRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
-		if (!$trick) {
-			throw new EntityNotFoundException('Trick with id ' . $id . ' is not found');
-		}
+        if (!$trick) {
+            throw new EntityNotFoundException('Trick with id ' . $id . ' is not found');
+        }
 
-		return $trick[0];
+        return $trick[0];
     }
 }
-
-

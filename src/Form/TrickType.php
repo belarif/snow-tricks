@@ -16,24 +16,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TrickType extends AbstractType
 {
-
-	/**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-	    /** @var Trick $trick */
-	    $trick = $options['data'];
-		$nameFieldOptions = [];
+        /** @var Trick $trick */
+        $trick = $options['data'];
+        $nameFieldOptions = [];
 
-		if ($trick->getId()) {
-			$nameFieldOptions = [
-				'mapped' => false,
+        if ($trick->getId()) {
+            $nameFieldOptions = [
+                'mapped' => false,
                 'disabled' => true
-			];
-		}
-		$nameFieldOptions['label'] = 'Nom: ';
+            ];
+        }
+        $nameFieldOptions['label'] = 'Nom: ';
 
         $builder
             ->add('name', TextType::class, $nameFieldOptions)
@@ -79,5 +78,3 @@ class TrickType extends AbstractType
         ]);
     }
 }
-
-

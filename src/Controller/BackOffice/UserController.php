@@ -39,8 +39,7 @@ class UserController extends AbstractController
         UserPasswordHasherInterface $passwordHasher,
         TokenGeneratorInterface     $tokenGenerator,
         Mailer                      $mailer
-    )
-    {
+    ) {
         $this->userRepository = $userRepository;
         $this->em = $em;
         $this->passwordHasher = $passwordHasher;
@@ -55,7 +54,9 @@ class UserController extends AbstractController
      */
     public function usersList(): Response
     {
-        return $this->render('/backoffice/usersList.html.twig', [
+        return $this->render(
+            '/backoffice/usersList.html.twig',
+            [
                 'users' => $this->userRepository->getUsers()]
         );
     }
@@ -84,7 +85,8 @@ class UserController extends AbstractController
      */
     public function delete(int $id, AvatarUploader $uploader): redirectResponse
     {
-        $user = $this->userRepository->find($id);;
+        $user = $this->userRepository->find($id);
+        ;
         $uploader->removeAvatar($user->getAvatar());
 
         $this->em->remove($user);
@@ -119,7 +121,6 @@ class UserController extends AbstractController
                 $htmlTemplate = '/emails/activation.html.twig';
                 $this->mailer->sendEmail($email, $username, $token, $subject, $htmlTemplate);
                 return $this->redirectToRoute('admin_users_list');
-
             } else {
                 $this->addFlash('existingUser', 'Un compte existe déjà avec cette adresse email !!');
                 return $this->redirectToRoute('admin_user_create');
@@ -172,4 +173,3 @@ class UserController extends AbstractController
         ]);
     }
 }
-
