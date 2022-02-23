@@ -57,7 +57,10 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('app_homepage');
         }
 
-        return $this->renderForm('/frontoffice/createTrick.html.twig', ['form' => $form, 'trick' => $trick]);
+        return $this->renderForm('/frontoffice/createTrick.html.twig', [
+            'form' => $form,
+            'trick' => $trick
+        ]);
     }
 
 	/**
@@ -104,7 +107,10 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->messageTrick($id, $form, $message);
             $this->addFlash('messageSentSuccess', 'Votre message a été envoyé avec succès');
-            return $this->redirectToRoute('trick_details', ['id' => $id, 'slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('trick_details', [
+                'id' => $id,
+                'slug' => $trick->getSlug()
+            ]);
         }
 
         return $this->renderForm('/frontoffice/detailsTrick.html.twig', [
