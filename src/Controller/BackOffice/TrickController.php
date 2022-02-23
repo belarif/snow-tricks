@@ -32,11 +32,14 @@ class TrickController extends AbstractController
      */
     public function tricksList(): Response
     {
-        return $this->render('/backoffice/tricksList.html.twig', ['tricks' => $this->trickRepository->getTricks()]);
+        return $this->render('/backoffice/tricksList.html.twig', [
+            'tricks' => $this->trickRepository->getTricks()
+        ]);
     }
 
     /**
-     * @Route("/details/{id}/{slug}", name="trick_details", methods={"GET"})
+     * @Route("/details/{id}/{slug}", name="trick_details", methods={"GET"},
+     *     requirements={"id"="\d+","slug"="[-a-z0-9]+"})
      *
      * @param int $id
      * @return Response
@@ -44,11 +47,13 @@ class TrickController extends AbstractController
      */
     public function show(int $id): Response
     {
-        return $this->render('/backoffice/trickDetails.html.twig', ['trick' => $this->trickRepository->getTrick($id)]);
+        return $this->render('/backoffice/trickDetails.html.twig', [
+            'trick' => $this->trickRepository->getTrick($id)
+        ]);
     }
 
     /**
-     * @Route("/delete/{id}", name="trick_delete")
+     * @Route("/delete/{id}", name="trick_delete", requirements={"id"="\d+"})
      *
      * @param int $id
      * @return RedirectResponse

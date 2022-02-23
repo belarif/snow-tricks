@@ -31,7 +31,7 @@
                     <p>Prénom : {{ app.user.firstName | capitalize }}</p>
                 </div>
                 {% if app.user.profileStatus == false %}
-                    <div class="mt-sm-5">
+                    <div class="profileForm">
                         <h4>Veuillez finir votre inscription en complétant votre profil</h4>
                         {{ form_start(form) }}
                         {{ form_row(form.lastName, {'label': 'Nom :'}) }}

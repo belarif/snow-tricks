@@ -81,9 +81,18 @@
             </li>
             {% if app.user %}
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ path('trick_create') }}"><i class="bi bi-plus-circle-fill"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('admin_dashboard') }}"><i class="bi bi-terminal"></i></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i></a>
                 </li>
             {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_registration') }}"><i class="bi bi-pencil-square"></i></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_login') }}"><i class="bi bi-box-arrow-in-right"></i></a>
                 </li>

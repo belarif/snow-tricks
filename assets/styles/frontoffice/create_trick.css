@@ -1,4 +1,13 @@
-.createForm {
-    margin-top: 170px;
-    margin-bottom: 140px;
+@media (min-width: 425px) {
+    .createForm {
+        margin-top: 170px;
+        margin-bottom: 110px;
+    }
+}
+
+@media (max-width: 426px) {
+    .createForm {
+        margin-top: 15px;
+        margin-bottom: 50px;
+    }
 }

@@ -38,7 +38,7 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("/image/delete/{id}", name="image_delete")
+     * @Route("/image/delete/{id}", name="image_delete", requirements={"id"="\d+"})
      *
      * @param int $id
      * @return RedirectResponse
@@ -60,7 +60,8 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("/video/delete/{id}", name="video_delete")
+     * @Route("/video/delete/{id}", name="video_delete",
+     *     requirements={"id"="\d+"})
      *
      * @param int $id
      * @return RedirectResponse
@@ -73,11 +74,14 @@ class MediaController extends AbstractController
         $this->em->flush();
 
         $this->addFlash('successDeleteVideo', 'La vidéo a été supprimé avec succès');
-        return $this->redirectToRoute('trick_edit', ['id' => $video->getTrick()->getId(), 'slug' => $video->getTrick()->getSlug()]);
+        return $this->redirectToRoute('trick_edit', [
+            'id' => $video->getTrick()->getId(),
+            'slug' => $video->getTrick()->getSlug()
+        ]);
     }
 
     /**
-     * @Route("/image/edit/{id}", name="image_edit")
+     * @Route("/image/edit/{id}", name="image_edit", requirements={"id"="\d+"})
      *
      * @param Request $request
      * @param int $id
@@ -97,7 +101,9 @@ class MediaController extends AbstractController
 
             $src = $formImage->get('src')->getData();
             if ($src === null) {
-                return $this->redirectToRoute('trick_edit', ['id' => $trick_id, 'slug' => $slug]);
+                return $this->redirectToRoute('trick_edit', [
+                    'id' => $trick_id, 'slug' => $slug
+                ]);
             }
 
             $file = pathinfo($src->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $src->guessExtension();
@@ -106,12 +112,15 @@ class MediaController extends AbstractController
             $image->setSrc($file);
             $this->em->flush();
 
-            return $this->redirectToRoute('trick_edit', ['id' => $trick_id, 'slug' => $slug]);
+            return $this->redirectToRoute('trick_edit', [
+                'id' => $trick_id,
+                'slug' => $slug
+            ]);
         }
     }
 
     /**
-     * @Route("/video/edit/{id}", name="video_edit")
+     * @Route("/video/edit/{id}", name="video_edit", requirements={"id"="\d+"})
      *
      * @param Request $request
      * @param int $id
@@ -131,13 +140,19 @@ class MediaController extends AbstractController
 
             $src = $formVideo->get('src')->getData();
             if ($src === null) {
-                return $this->redirectToRoute('trick_edit', ['id' => $trick_id, 'slug' => $slug]);
+                return $this->redirectToRoute('trick_edit', [
+                    'id' => $trick_id,
+                    'slug' => $slug
+                ]);
             }
 
             $video->setSrc($src);
             $this->em->flush();
 
-            return $this->redirectToRoute('trick_edit', ['id' => $trick_id, 'slug' => $slug]);
+            return $this->redirectToRoute('trick_edit', [
+                'id' => $trick_id,
+                'slug' => $slug
+            ]);
         }
     }
 }

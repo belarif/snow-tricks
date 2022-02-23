@@ -1,4 +1,18 @@
-.profile {
-    margin-top: 170px;
-    margin-bottom: 140px;
+@media (min-width: 425px) {
+    .profile {
+        margin-top: 170px;
+        margin-bottom: 140px;
+    }
+}
+
+@media (max-width: 426px) {
+    .profile {
+        margin-top: 15px;
+    }
+    .profileForm {
+        margin-top: 30px;
+    }
+    h4 {
+        text-align: center;
+    }
 }

@@ -35,11 +35,13 @@ class MessageController extends AbstractController
      */
     public function messagesList(): Response
     {
-        return $this->render('backoffice/messagesList.html.twig', ['messages' => $this->messageRepository->getMessages()]);
+        return $this->render('backoffice/messagesList.html.twig', [
+            'messages' => $this->messageRepository->getMessages()
+        ]);
     }
 
     /**
-     * @Route("/details/{id}", name="message_details", methods={"GET"})
+     * @Route("/details/{id}", name="message_details", methods={"GET"}, requirements={"id"="\d+"})
      *
      * @param int $id
      * @return Response
@@ -47,11 +49,13 @@ class MessageController extends AbstractController
      */
     public function show(int $id): Response
     {
-        return $this->render('/backoffice/messageDetails.html.twig', ['message' => $this->messageRepository->getMessage($id)]);
+        return $this->render('/backoffice/messageDetails.html.twig', [
+            'message' => $this->messageRepository->getMessage($id)
+        ]);
     }
 
     /**
-     * @Route("/delete/{id}", name="message_delete")
+     * @Route("/delete/{id}", name="message_delete", requirements={"id"="\d+"})
      *
      * @param int $id
      * @return RedirectResponse

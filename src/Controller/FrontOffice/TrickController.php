@@ -73,8 +73,9 @@ class TrickController extends AbstractController
 
 
 	/**
-	 * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"})
-	 *
+	 * @Route("/details/{id}/{slug}", name="details", methods={"GET","POST"},
+	 *     requirements={"id"="\d+", "slug"="[-a-z0-9]+"})
+     *
 	 * @param Request $request
 	 * @param Trick $trick
 	 * @return Response
@@ -88,6 +89,10 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addTrickMessage($trick, $form, $message);
             $this->addFlash('messageSentSuccess', 'Votre message a été envoyé avec succès');
+            return $this->redirectToRoute('trick_details', [
+                'id' => $id,
+                'slug' => $trick->getSlug()
+            ]);
         }
 
         return $this->renderForm('/frontoffice/detailsTrick.html.twig', [
@@ -113,8 +118,9 @@ class TrickController extends AbstractController
     }
 
 	/**
-	 * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"})
-	 *
+	 * @Route("/edit/{id}/{slug}", name="edit", methods={"GET","POST"},
+	 *     requirements={"id"="\d+", "slug"="[-a-z0-9]+"})
+     *
 	 * @param Request $request
 	 * @param Trick $trick
 	 * @return Response
@@ -151,12 +157,13 @@ class TrickController extends AbstractController
         ]);
     }
 
-	/**
-	 * @Route("/delete/{id}", name="delete")
-	 *
-	 * @param int $id
-	 * @return RedirectResponse
-	 */
+    /**
+     * @Route("/delete/{id}", name="delete",
+     *     requirements={"id"="\d+"})
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
     public function delete(int $id, MediaUploader $uploader): redirectResponse
     {
 	    $trick = $this->trickRepository->find($id);

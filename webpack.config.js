@@ -38,6 +38,7 @@ Encore
     .addEntry('delete_trick', './assets/js/frontoffice/delete_trick.js')
     .addEntry('edit_trick', './assets/js/frontoffice/edit_trick.js')
     .addEntry('trick_details', './assets/js/frontoffice/trick_details.js')
+    .addEntry('carousel', './assets/js/frontoffice/carousel.js')
 
     .addEntry('login', './assets/styles/frontoffice/login.css')
     .addEntry('forgot_password', './assets/styles/frontoffice/forgot_password.css')

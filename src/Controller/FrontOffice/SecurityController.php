@@ -45,7 +45,9 @@ class SecurityController extends AbstractController
     public function accessDeniedHandler(): Response
     {
         $response = 'L\'accès à la page demandée est limité !!';
-        return $this->render('/frontoffice/accessDenied.html.twig', ['response' => $response]);
+        return $this->render('/frontoffice/accessDenied.html.twig', [
+            'response' => $response
+        ]);
     }
 }
 
