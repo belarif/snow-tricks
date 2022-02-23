@@ -54,7 +54,9 @@ class UserController extends AbstractController
      */
     public function usersList(): Response
     {
-        return $this->render('/backoffice/usersList.html.twig', ['users' => $this->userRepository->getUsers()]);
+        return $this->render('/backoffice/usersList.html.twig', [
+                'users' => $this->userRepository->getUsers()]
+        );
     }
 
     /**
@@ -66,7 +68,9 @@ class UserController extends AbstractController
      */
     public function show(int $id): Response
     {
-        return $this->render('/backoffice/userDetails.html.twig', ['user' => $this->userRepository->getUser($id)]);
+        return $this->render('/backoffice/userDetails.html.twig', [
+            'user' => $this->userRepository->getUser($id)
+        ]);
     }
 
     /**
@@ -116,7 +120,9 @@ class UserController extends AbstractController
             }
         }
 
-        return $this->renderForm('/backoffice/userCreate.html.twig', ['form' => $form]);
+        return $this->renderForm('/backoffice/userCreate.html.twig', [
+            'form' => $form
+        ]);
     }
 
     /**
@@ -153,7 +159,10 @@ class UserController extends AbstractController
             return $this->redirectToRoute('admin_users_list');
         }
 
-        return $this->renderForm('/backoffice/userEdit.html.twig', ['form' => $form, 'user' => $user]);
+        return $this->renderForm('/backoffice/userEdit.html.twig', [
+            'form' => $form,
+            'user' => $user
+        ]);
     }
 }
 
