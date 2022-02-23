@@ -37,7 +37,7 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("/image/delete/{id}", name="image_delete")
+     * @Route("/image/delete/{id}", name="image_delete", requirements={"id"="\d+"})
      *
      * @param int $id
      * @return RedirectResponse
@@ -57,7 +57,8 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("/video/delete/{id}", name="video_delete")
+     * @Route("/video/delete/{id}", name="video_delete",
+     *     requirements={"id"="\d+"})
      *
      * @param int $id
      * @return RedirectResponse
@@ -77,7 +78,7 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("/image/edit/{id}", name="image_edit")
+     * @Route("/image/edit/{id}", name="image_edit", ,requirements={"id"="\d+"})
      *
      * @param Request $request
      * @param int $id
@@ -116,7 +117,7 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("/video/edit/{id}", name="video_edit")
+     * @Route("/video/edit/{id}", name="video_edit", requirements={"id"="\d+"})
      *
      * @param Request $request
      * @param int $id
