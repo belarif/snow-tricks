@@ -17,7 +17,9 @@ class HomeController extends AbstractController
      */
     public function home(TrickRepository $trickRepository): Response
     {
-        return $this->render('/frontoffice/home.html.twig', ['listTricks' => $trickRepository->getTricks()]);
+        return $this->render('/frontoffice/home.html.twig', [
+            'listTricks' => $trickRepository->getTricks()
+        ]);
     }
 }
 
