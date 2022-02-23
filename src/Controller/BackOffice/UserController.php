@@ -60,7 +60,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}/{slug?}", name="user_details", methods={"GET"})
+     * @Route("/details/{id}/{slug?}", name="user_details", methods={"GET"},
+     *     requirements={"id"="\d+","slug"="[-a-z0-9]+"})
      *
      * @param int $id
      * @return Response
@@ -74,7 +75,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="user_delete")
+     * @Route("/delete/{id}", name="user_delete",
+     *     requirements={"id"="\d+"})
      *
      * @param int $id
      * @return RedirectResponse
@@ -141,7 +143,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}/{slug?}", name="user_edit", methods={"GET","POST"})
+     * @Route("/edit/{id}/{slug?}", name="user_edit", methods={"GET","POST"}
+     *     ,requirements={"id"="\d+","slug"="[-a-z0-9]+"})
      *
      * @param Request $request
      * @param int $id
