@@ -50,7 +50,10 @@ class MediaController extends AbstractController
         $this->em->flush();
 
         $this->addFlash('successDeleteImage', 'L\'image a été supprimé avec succès');
-        return $this->redirectToRoute('trick_edit', ['id' => $image->getTrick()->getId(), 'slug' => $image->getTrick()->getSlug()]);
+        return $this->redirectToRoute('trick_edit', [
+            'id' => $image->getTrick()->getId(),
+            'slug' => $image->getTrick()->getSlug()
+        ]);
     }
 
     /**
@@ -67,7 +70,10 @@ class MediaController extends AbstractController
         $this->em->flush();
 
         $this->addFlash('successDeleteVideo', 'La vidéo a été supprimé avec succès');
-        return $this->redirectToRoute('trick_edit', ['id' => $video->getTrick()->getId(), 'slug' => $video->getTrick()->getSlug()]);
+        return $this->redirectToRoute('trick_edit', [
+            'id' => $video->getTrick()->getId(),
+            'slug' => $video->getTrick()->getSlug()
+        ]);
     }
 
     /**
@@ -91,7 +97,9 @@ class MediaController extends AbstractController
 
             $src = $formImage->get('src')->getData();
             if ($src === null) {
-                return $this->redirectToRoute('trick_edit', ['id' => $trick_id, 'slug' => $slug]);
+                return $this->redirectToRoute('trick_edit', [
+                    'id' => $trick_id, 'slug' => $slug
+                ]);
             }
 
             $file = pathinfo($src->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $src->guessExtension();
@@ -100,7 +108,10 @@ class MediaController extends AbstractController
             $image->setSrc($file);
             $this->em->flush();
 
-            return $this->redirectToRoute('trick_edit', ['id' => $trick_id, 'slug' => $slug]);
+            return $this->redirectToRoute('trick_edit', [
+                'id' => $trick_id,
+                'slug' => $slug
+            ]);
         }
     }
 
@@ -125,13 +136,19 @@ class MediaController extends AbstractController
 
             $src = $formVideo->get('src')->getData();
             if ($src === null) {
-                return $this->redirectToRoute('trick_edit', ['id' => $trick_id, 'slug' => $slug]);
+                return $this->redirectToRoute('trick_edit', [
+                    'id' => $trick_id,
+                    'slug' => $slug
+                ]);
             }
 
             $video->setSrc($src);
             $this->em->flush();
 
-            return $this->redirectToRoute('trick_edit', ['id' => $trick_id, 'slug' => $slug]);
+            return $this->redirectToRoute('trick_edit', [
+                'id' => $trick_id,
+                'slug' => $slug
+            ]);
         }
     }
 }
