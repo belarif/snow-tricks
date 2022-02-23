@@ -7,6 +7,7 @@ use App\Form\CreateUserType;
 use App\Form\EditUserType;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
+use App\Service\AvatarUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -82,9 +83,13 @@ class UserController extends AbstractController
      * @param int $id
      * @return RedirectResponse
      */
-    public function delete(int $id): redirectResponse
+    public function delete(int $id, AvatarUploader $uploader): redirectResponse
     {
-        $this->em->remove($this->userRepository->find($id));
+        $user = $this->userRepository->find($id);
+        ;
+        $uploader->removeAvatar($user->getAvatar());
+
+        $this->em->remove($user);
         $this->em->flush();
 
         return $this->redirectToRoute('admin_users_list');

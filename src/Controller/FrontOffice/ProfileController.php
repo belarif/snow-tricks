@@ -4,6 +4,7 @@ namespace App\Controller\FrontOffice;
 
 use App\Form\EditProfileType;
 use App\Repository\UserRepository;
+use App\Service\AvatarUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ class ProfileController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function profile(Request $request): Response
+    public function profile(Request $request, AvatarUploader $uploader): Response
     {
         $loggedUser = $this->getUser();
 
@@ -45,7 +46,7 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->update($form, $user);
+            $this->update($form, $user, $uploader);
 
             $this->addFlash('success', 'Votre inscription a été complété avec succès');
             $this->redirectToRoute('app_profile');
@@ -60,13 +61,14 @@ class ProfileController extends AbstractController
      * @param $form
      * @param $user
      */
-    private function update($form, $user): void
+    private function update($form, $user, $uploader): void
     {
-        $avatar = $form->get('avatar')->getData();
+        /*$avatar = $form->get('avatar')->getData();
         $file = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $avatar->guessExtension();
-        $avatar->move($this->getParameter('app.avatars_directory'), $file);
-
-        $user->setAvatar($file);
+        $avatar->move($this->getParameter('app.avatars_directory'), $file);*/
+        $avatar = $form->get('avatar')->getData();
+        $fileName = $uploader->upload($avatar);
+        $user->setAvatar($fileName);
         $user->setProfileStatus(true);
         $user->setSlug(preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($form->get('lastName')->getData()))));
 

@@ -7,6 +7,7 @@ parameters:
     app.images_directory: '%kernel.project_dir%/assets/images'
     app.images_trick_directory: '%kernel.project_dir%/public/build/images'
     app.avatars_directory: '%kernel.project_dir%/assets/images/avatars'
+    app.avatars_target_directory: '%kernel.project_dir%/public/build/images/avatars/'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -29,3 +30,7 @@ services:
     App\Service\MediaUploader:
         arguments:
             '$targetDirectory': '%app.images_trick_directory%'
+
+    App\Service\AvatarUploader:
+        arguments:
+            '$avatarTargetDirectory': '%app.avatars_target_directory%'
