@@ -90,7 +90,9 @@ class UserController extends AbstractController
             }
         }
 
-        return $this->renderForm('/frontoffice/registration.html.twig', ['form' => $form]);
+        return $this->renderForm('/frontoffice/registration.html.twig', [
+            'form' => $form
+        ]);
     }
 
     /**
@@ -147,7 +149,9 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_forgot_password');
         }
 
-        return $this->renderForm('frontoffice/forgotPassword.html.twig', ['form' => $form]);
+        return $this->renderForm('frontoffice/forgotPassword.html.twig', [
+            'form' => $form
+        ]);
     }
 
     /**
@@ -178,7 +182,10 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_homepage');
         }
 
-        return $this->renderForm('frontoffice/resetPassword.html.twig', ['form' => $form, 'username' => $username]);
+        return $this->renderForm('frontoffice/resetPassword.html.twig', [
+            'form' => $form,
+            'username' => $username
+        ]);
     }
 }
 
