@@ -63,11 +63,9 @@ class ProfileController extends AbstractController
      */
     private function update($form, $user, $uploader): void
     {
-        /*$avatar = $form->get('avatar')->getData();
-        $file = pathinfo($avatar->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $avatar->guessExtension();
-        $avatar->move($this->getParameter('app.avatars_directory'), $file);*/
         $avatar = $form->get('avatar')->getData();
         $fileName = $uploader->upload($avatar);
+
         $user->setAvatar($fileName);
         $user->setProfileStatus(true);
         $user->setSlug(preg_replace('/[^a-zA-Z0-9]+/i', '-', trim(strtolower($form->get('lastName')->getData()))));
