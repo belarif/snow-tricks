@@ -9,13 +9,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserChecker implements UserCheckerInterface
 {
-
     /**
      * @inheritDoc
      */
     public function checkPreAuth(UserInterface $user)
     {
-        if(!$user instanceof AppUser) {
+        if (!$user instanceof AppUser) {
             return;
         }
 
