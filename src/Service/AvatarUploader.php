@@ -47,7 +47,7 @@ final class AvatarUploader {
      * @param String $avatar
      * @return void
      */
-    public function removeImage(string $avatar): void {
+    public function removeAvatar(string $avatar): void {
         $this->filesystem->remove($this->avatarTargetDirectory . '/' . $avatar);
     }
 
