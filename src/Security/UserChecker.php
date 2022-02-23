@@ -26,5 +26,7 @@ class UserChecker implements UserCheckerInterface
     /**
      * @inheritDoc
      */
-    public function checkPostAuth(UserInterface $user){}
+    public function checkPostAuth(UserInterface $user)
+    {
+    }
 }
