@@ -78,7 +78,7 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("/image/edit/{id}", name="image_edit", ,requirements={"id"="\d+"})
+     * @Route("/image/edit/{id}", name="image_edit", requirements={"id"="\d+"})
      *
      * @param Request $request
      * @param int $id
