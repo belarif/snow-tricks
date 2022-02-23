@@ -32,7 +32,9 @@ class TrickController extends AbstractController
      */
     public function tricksList(): Response
     {
-        return $this->render('/backoffice/tricksList.html.twig', ['tricks' => $this->trickRepository->getTricks()]);
+        return $this->render('/backoffice/tricksList.html.twig', [
+            'tricks' => $this->trickRepository->getTricks()
+        ]);
     }
 
     /**
@@ -44,7 +46,9 @@ class TrickController extends AbstractController
      */
     public function show(int $id): Response
     {
-        return $this->render('/backoffice/trickDetails.html.twig', ['trick' => $this->trickRepository->getTrick($id)]);
+        return $this->render('/backoffice/trickDetails.html.twig', [
+            'trick' => $this->trickRepository->getTrick($id)
+        ]);
     }
 
     /**
