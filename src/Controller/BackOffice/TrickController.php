@@ -38,7 +38,8 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}/{slug}", name="trick_details", methods={"GET"})
+     * @Route("/details/{id}/{slug}", name="trick_details", methods={"GET"},
+     *     requirements={"id"="\d+","slug"="[-a-z0-9]+"})
      *
      * @param int $id
      * @return Response
@@ -52,7 +53,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="trick_delete")
+     * @Route("/delete/{id}", name="trick_delete", requirements={"id"="\d+"})
      *
      * @param int $id
      * @return RedirectResponse
