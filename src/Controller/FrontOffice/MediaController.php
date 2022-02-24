@@ -88,7 +88,7 @@ class MediaController extends AbstractController
      * @param int $id
      * @return RedirectResponse
      */
-    public function editImage(Request $request, int $id): RedirectResponse
+    public function editImage(Request $request, int $id, MediaUploader $uploader): RedirectResponse
     {
         $image = new Image();
         $formImage = $this->createForm(ImageType::class, $image);
@@ -99,17 +99,17 @@ class MediaController extends AbstractController
             $slug = $image->getTrick()->getSlug();
             $trick_id = $image->getTrick()->getId();
 
-            $src = $formImage->get('src')->getData();
-            if ($src === null) {
+            $file = $formImage->get('src')->getData();
+            if ($file === null) {
                 return $this->redirectToRoute('trick_edit', [
                     'id' => $trick_id, 'slug' => $slug
                 ]);
             }
 
-            $file = pathinfo($src->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $src->guessExtension();
-            $src->move($this->getParameter('app.images_directory'), $file);
+            $uploader->removeImage($image);
+            $fileName = $uploader->upload($file);
 
-            $image->setSrc($file);
+            $image->setSrc($fileName);
             $this->em->flush();
 
             return $this->redirectToRoute('trick_edit', [
