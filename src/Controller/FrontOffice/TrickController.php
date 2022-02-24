@@ -125,7 +125,7 @@ class TrickController extends AbstractController
      * @param Trick $trick
      * @return Response
      */
-    public function edit(Request $request, Trick $trick, MediaUploader $uploader, SluggerInterface $slugger): Response
+    public function edit(Request $request, Trick $trick, MediaUploader $uploader): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
