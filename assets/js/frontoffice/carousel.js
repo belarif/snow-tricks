@@ -1,3 +1,5 @@
+import '../../styles/frontoffice/carousel.css';
+
 /** medias carousel **/
 var multipleCardCarousel = document.querySelector(
     "#carouselExampleControls"
