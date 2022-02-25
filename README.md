@@ -15,17 +15,18 @@ suivante : https://github.com/belarif/snowTricks.git copiez cette url à utilise
 Toujours depuis votre terminal, exécutez la commande suivant : `composer install`
 
 ### Création de la base de données
-1. Modifier le fichier `.env` pour adapater les accès de votre SGBD
-2. Création du schéma de la BD: `php bin/console doctrine:migrations:migrate`
-3. Création des fixtures
+1. Créer votre base de données en local
+2. Modifier le fichier `.env` pour adapater les accès de votre SGBD
+3. Création du schéma de la BD: `php bin/console doctrine:migrations:migrate`
+4. Création des fixtures
+
+### Loader les fixtures
+`php bin/console doctrine:fixtures:load`
 
 ### Installation des resources publiques
 1. Installer yarn: `npm install --global yarn`
 2. Installer encore: `yarn install`
 3. Charger les fichiers public: `yarn build`
-
-### Loader les fixtures
-`php bin/console doctrine:fixtures:load`
 
 ### Lancement de l'app
 `php -S localhost:8000 -t public/` pour lancer le site.
