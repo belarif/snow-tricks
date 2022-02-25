@@ -28,6 +28,10 @@ yarn-error.log
 symfony.lock
 composer.lock
 
+.idea
+/.idea
+
+
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
