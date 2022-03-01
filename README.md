@@ -17,7 +17,7 @@ Toujours depuis votre terminal, exécutez la commande suivant : `composer instal
 ### Création de la base de données
 1. Créer votre base de données en local
 2. Modifier le fichier `.env` pour adapater les accès de votre SGBD
-3. Création du schéma de la BD: `php bin/console doctrine:migrations:migrate`
+3. Création du schéma de la BD: `php bin/console doctrine:migrations:migrate -n` 
 4. Création des fixtures
 
 ### Loader les fixtures
