@@ -86,6 +86,8 @@ class TrickController extends AbstractController
         $form = $this->createForm(MessageTrickType::class, $message);
         $form->handleRequest($request);
 
+        $id = $trick->getId('id');
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addTrickMessage($trick, $form, $message);
             $this->addFlash('messageSentSuccess', 'Votre message a été envoyé avec succès');
