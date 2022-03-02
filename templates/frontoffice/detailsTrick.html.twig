@@ -61,6 +61,7 @@
                                                 <div class="img-overlay">
                                                     <div class="btn-group m-3 me-3" role="group"
                                                          aria-label="Basic outlined example">
+                                                        {% if trick.user.username == app.user.username %}
                                                         <button type="button" class="btn btn-light"><a
                                                                     href="{{ path('trick_edit', { 'id' : trick.id, 'slug' : trick.slug }) }}"><i
                                                                         class="bi bi-pencil-fill"></i></a>
@@ -70,6 +71,7 @@
                                                                     onclick="deleteTrick({{ trick.id }})"><i
                                                                         class="bi bi-trash-fill"></i></a>
                                                         </button>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             {% endif %}
