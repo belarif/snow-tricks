@@ -86,8 +86,11 @@ class UserController extends AbstractController
     public function delete(int $id, AvatarUploader $uploader): redirectResponse
     {
         $user = $this->userRepository->find($id);
-        ;
-        $uploader->removeAvatar($user->getAvatar());
+        $avatar = $user->getAvatar();
+
+        if(!is_null($avatar)) {
+            $uploader->removeAvatar($avatar);
+        }
 
         $this->em->remove($user);
         $this->em->flush();
