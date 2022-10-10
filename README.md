@@ -34,3 +34,8 @@ Toujours depuis votre terminal, exécutez la commande suivant : `composer instal
 Page d'accueil : http://localhost:8000/snow-tricks/accueil
 
 Espace administration du site : http://localhost:8000/snow-tricks/admin/dashboard
+
+Identifiants back-office:
+
+         - username : admin2
+         - password : admin2
