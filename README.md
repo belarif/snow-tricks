@@ -41,7 +41,7 @@ Page d'accueil : http://localhost:8000/snow-tricks/accueil
 
 Espace administration du site : http://localhost:8000/snow-tricks/admin/dashboard
 
-Identifiants back-office:
+Identifiants admin:
 
-         - username : admin2
-         - password : admin2
+         - username : belarif
+         - password : admin
