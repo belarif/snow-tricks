@@ -1,12 +1,12 @@
 @media (min-width: 426px) {
-    .loginForm {
-        margin-top: 170px;
-        margin-bottom: 140px;
-    }
+  .loginForm {
+    margin-top: 170px;
+    margin-bottom: 140px;
+  }
 }
 
 @media (max-width: 425px) {
-    .loginForm {
-        margin-top: 15px;
-    }
+  .loginForm {
+    margin-top: 15px;
+  }
 }

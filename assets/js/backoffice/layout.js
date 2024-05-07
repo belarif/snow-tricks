@@ -1,3 +1,3 @@
-import '../../styles/backoffice/styles.css';
-import './scripts';
-import './datatables-simple-demo';
+import "../../styles/backoffice/styles.css";
+import "./datatables-simple-demo";
+import "./scripts";

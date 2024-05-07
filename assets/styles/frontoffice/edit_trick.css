@@ -1,59 +1,60 @@
 .img-overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    text-align: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
 }
 
-.img-overlay:before, .btn-overlay:before {
-    content: ' ';
-    display: block;
-    /* adjust 'height' to position overlay content vertically */
-    height: 50%;
+.img-overlay:before,
+.btn-overlay:before {
+  content: " ";
+  display: block;
+  /* adjust 'height' to position overlay content vertically */
+  height: 50%;
 }
 
 .btn-overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 
 #content-desktop {
-    display: block;
+  display: block;
 }
 
 #content-mobile {
-    display: none;
+  display: none;
 }
 
 @media screen and (max-width: 768px) {
+  #content-desktop {
+    display: none;
+  }
 
-    #content-desktop {
-        display: none;
-    }
-
-    #content-mobile {
-        display: block;
-    }
+  #content-mobile {
+    display: block;
+  }
 }
 
 .image-trick {
-    position: relative;
-    text-align: center;
-    color: white;
+  position: relative;
+  text-align: center;
+  color: white;
 }
 
 .centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #2575C2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #2575c2;
 }
 
-.editImageTrick, .editVideoTrick {
-    display: none;
+.editImageTrick,
+.editVideoTrick {
+  display: none;
 }

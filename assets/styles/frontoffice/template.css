@@ -1,20 +1,21 @@
 @media (max-width: 425px) {
-    #mainNav, .copyright {
-        display: none;
-    }
+  #mainNav,
+  .copyright {
+    display: none;
+  }
 }
 
 #mobileNav {
-    background-color: #4C5461;
+  background-color: #4c5461;
 }
 
 @media (min-width: 426px) {
-    #mobileNav {
-        display: none;
-        background-color: #4C5461;
-    }
+  #mobileNav {
+    display: none;
+    background-color: #4c5461;
+  }
 }
 
 #mobileNav .nav li.nav-item a.nav-link {
-    color: #fff;
+  color: #fff;
 }

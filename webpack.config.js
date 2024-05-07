@@ -1,110 +1,108 @@
-const Encore = require('@symfony/webpack-encore');
+const Encore = require("@symfony/webpack-encore");
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
-    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
+  Encore.configureRuntimeEnvironment(process.env.NODE_ENV || "dev");
 }
 
 Encore
-    // directory where compiled assets will be stored
-    .setOutputPath('public/build/')
-    // public path used by the web server to access the output path
-    .setPublicPath('/build')
-    // only needed for CDN's or sub-directory deploy
-    //.setManifestKeyPrefix('build/')
+  // directory where compiled assets will be stored
+  .setOutputPath("public/build/")
+  // public path used by the web server to access the output path
+  .setPublicPath("/build")
+  // only needed for CDN's or sub-directory deploy
+  //.setManifestKeyPrefix('build/')
 
-    .copyFiles({
-        from: './assets/images',
-        // optional target path, relative to the output dir
-        to: 'images/[path][name].[ext]',
-        // if versioning is enabled, add the file hash too
-        //to: 'images/[path][name].[hash:8].[ext]',
-        // only copy files matching this pattern
-        pattern: /\.(png|jpg|jpeg)$/
-    })
+  .copyFiles({
+    from: "./assets/images",
+    // optional target path, relative to the output dir
+    to: "images/[path][name].[ext]",
+    // if versioning is enabled, add the file hash too
+    //to: 'images/[path][name].[hash:8].[ext]',
+    // only copy files matching this pattern
+    pattern: /\.(png|jpg|jpeg)$/,
+  })
 
-    /*
-     * ENTRY CONFIG
-     *
-     * Each entry will result in one JavaScript file (e.g. app.js)
-     * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
-     */
+  /*
+   * ENTRY CONFIG
+   *
+   * Each entry will result in one JavaScript file (e.g. app.js)
+   * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
+   */
 
-    /**** Front office ****/
-    .addEntry('home', './assets/js/frontoffice/home.js')
-    .addEntry('template', './assets/js/frontoffice/template.js')
-    .addEntry('create_trick', './assets/js/frontoffice/create_trick.js')
-    .addEntry('delete_trick', './assets/js/frontoffice/delete_trick.js')
-    .addEntry('edit_trick', './assets/js/frontoffice/edit_trick.js')
-    .addEntry('trick_details', './assets/js/frontoffice/trick_details.js')
-    .addEntry('carousel', './assets/js/frontoffice/carousel.js')
+  /**** Front office ****/
+  .addEntry("home", "./assets/js/frontoffice/home.js")
+  .addEntry("template", "./assets/js/frontoffice/template.js")
+  .addEntry("create_trick", "./assets/js/frontoffice/create_trick.js")
+  .addEntry("delete_trick", "./assets/js/frontoffice/delete_trick.js")
+  .addEntry("edit_trick", "./assets/js/frontoffice/edit_trick.js")
+  .addEntry("trick_details", "./assets/js/frontoffice/trick_details.js")
+  .addEntry("carousel", "./assets/js/frontoffice/carousel.js")
 
-    .addEntry('login', './assets/styles/frontoffice/login.css')
-    .addEntry('forgot_password', './assets/styles/frontoffice/forgot_password.css')
-    .addEntry('profile', './assets/styles/frontoffice/profile.css')
-    .addEntry('register', './assets/styles/frontoffice/register.css')
-    .addEntry('reset_password', './assets/styles/frontoffice/reset_password.css')
-    /**** Front office ****/
+  .addEntry("login", "./assets/styles/frontoffice/login.css")
+  .addEntry(
+    "forgot_password",
+    "./assets/styles/frontoffice/forgot_password.css"
+  )
+  .addEntry("profile", "./assets/styles/frontoffice/profile.css")
+  .addEntry("register", "./assets/styles/frontoffice/register.css")
+  .addEntry("reset_password", "./assets/styles/frontoffice/reset_password.css")
+  /**** Front office ****/
 
-    /**** Back office ****/
-    .addEntry('layout', './assets/js/backoffice/layout.js')
-    .addEntry('messages', './assets/js/backoffice/messages.js')
-    .addEntry('tricks', './assets/js/backoffice/tricks.js')
-    .addEntry('users', './assets/js/backoffice/users.js')
-    /**** Back office ****/
+  /**** Back office ****/
+  .addEntry("layout", "./assets/js/backoffice/layout.js")
+  .addEntry("messages", "./assets/js/backoffice/messages.js")
+  .addEntry("tricks", "./assets/js/backoffice/tricks.js")
+  .addEntry("users", "./assets/js/backoffice/users.js")
 
+  // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
+  .enableStimulusBridge("./assets/controllers.json")
 
+  // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
+  .splitEntryChunks()
 
+  // will require an extra script tag for runtime.js
+  // but, you probably want this, unless you're building a single-page app
+  .enableSingleRuntimeChunk()
 
-    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
-    .enableStimulusBridge('./assets/controllers.json')
+  /*
+   * FEATURE CONFIG
+   *
+   * Enable & configure other features below. For a full
+   * list of features, see:
+   * https://symfony.com/doc/current/frontend.html#adding-more-features
+   */
+  .cleanupOutputBeforeBuild()
+  .enableBuildNotifications()
+  .enableSourceMaps(!Encore.isProduction())
+  // enables hashed filenames (e.g. app.abc123.css)
+  .enableVersioning(Encore.isProduction())
 
-    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
-    .splitEntryChunks()
+  // .configureBabel((config) => {
+  //     config.plugins.push('@babel/plugin-proposal-class-properties');
+  // })
 
-    // will require an extra script tag for runtime.js
-    // but, you probably want this, unless you're building a single-page app
-    .enableSingleRuntimeChunk()
+  // enables @babel/preset-env polyfills
+  .configureBabelPresetEnv((config) => {
+    config.useBuiltIns = "usage";
+    config.corejs = 3;
+  })
 
-    /*
-     * FEATURE CONFIG
-     *
-     * Enable & configure other features below. For a full
-     * list of features, see:
-     * https://symfony.com/doc/current/frontend.html#adding-more-features
-     */
-    .cleanupOutputBeforeBuild()
-    .enableBuildNotifications()
-    .enableSourceMaps(!Encore.isProduction())
-    // enables hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(Encore.isProduction())
+  // enables Sass/SCSS support
+  //.enableSassLoader()
 
-    .configureBabel((config) => {
-        config.plugins.push('@babel/plugin-proposal-class-properties');
-    })
+  // uncomment if you use TypeScript
+  //.enableTypeScriptLoader()
 
-    // enables @babel/preset-env polyfills
-    .configureBabelPresetEnv((config) => {
-        config.useBuiltIns = 'usage';
-        config.corejs = 3;
-    })
+  // uncomment if you use React
+  //.enableReactPreset()
 
-    // enables Sass/SCSS support
-    //.enableSassLoader()
+  // uncomment to get integrity="..." attributes on your script & link tags
+  // requires WebpackEncoreBundle 1.4 or higher
+  //.enableIntegrityHashes(Encore.isProduction())
 
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
-
-    // uncomment if you use React
-    //.enableReactPreset()
-
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
-
-    // uncomment if you're having problems with a jQuery plugin
-    .autoProvidejQuery()
-;
+  // uncomment if you're having problems with a jQuery plugin
+  .autoProvidejQuery();
 
 module.exports = Encore.getWebpackConfig();
